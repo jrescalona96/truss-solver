@@ -1,35 +1,35 @@
-import React, { useState, useRef } from "react";
-import "./trussSolver.scss";
+import React, { useState } from "react";
+import * as controller from "../../controller/controller";
 import CoordinatePlane from "../common/coordinatePlane/index";
 import NodeForm from "../nodeForm/index";
 // import BarForm from "../barForm/index";
+import "./trussSolver.scss";
 
 const TrussSolver = () => {
-  const [nodes, setNodes] = useState([]);
-  let currentNodes = useRef([]);
+  const [displayNodes, setDisplayNodes] = useState([]);
 
-  const handleSetCurrentNodes = (val) => {
-    let nodes = [...currentNodes.current];
-    nodes.push(val);
-    setNodes(nodes);
+  const handleSetNode = (val) => {
+    const nodes = controller.appendNode(val);
+    setDisplayNodes(nodes);
   };
 
   const handleConfirmNode = (val) => {
     const node = { ...val };
-    currentNodes.current.push(node);
-    setNodes(currentNodes.current);
+    controller.updateNodes(node);
+    setDisplayNodes(controller.getNodes());
   };
 
   return (
     <div id="trussSolver">
       <div>
         <NodeForm
+          controller={controller}
           onConfirmNode={(val) => handleConfirmNode(val)}
-          onSetCurrentNodes={(val) => handleSetCurrentNodes(val)}
-          nodes={currentNodes.current}
+          onSetNode={(val) => handleSetNode(val)}
+          nodes={controller.getNodes()}
         />
       </div>
-      <CoordinatePlane data={nodes} />
+      <CoordinatePlane data={displayNodes} />
     </div>
   );
 };

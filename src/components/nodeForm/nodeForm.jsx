@@ -1,7 +1,5 @@
 import React from "react";
 import Form from "../common/form/index";
-import Node from "../../models/Node";
-import * as controller from "../../controllers/NodeController";
 import "./nodeForm.scss";
 
 class NodeForm extends Form {
@@ -15,26 +13,28 @@ class NodeForm extends Form {
   }
 
   _initializeForm() {
-    const data = new Node("", "", "");
+    const { controller } = this.props;
+    const data = controller.createNode();
     this.setState({ data });
   }
 
   doSubmit = () => {
     const { nodes, onConfirmNode } = this.props;
-    const { data } = this.state;
-    data._id = `n${nodes.length}`;
-    onConfirmNode(data);
+    const { data: node } = this.state;
+    node.name = `n${nodes.length}`;
+    onConfirmNode(node);
     this._initializeForm();
   };
 
   doUpdate = () => {
+    const { controller } = this.props;
     const data = controller.createNode(this.state.data);
     this.setState({ data });
-    this.props.onSetCurrentNodes(data);
+    this.props.onSetNode(data);
   };
 
   render() {
-    const { _id, x, y } = this.state.data;
+    const { x, y } = this.state.data;
     return (
       <div id="nodeForm">
         <h3>Nodes</h3>
