@@ -26,14 +26,23 @@ export const createNode = (data) => {
     const { x, y } = data;
     const id = _generateId();
     const name = `n${nodes.length}`;
-    const xCoor = x === "" || !x ? 0 : Number(x);
-    const yCoor = y === "" || !y ? 0 : Number(y);
-    return new Node(id, name, xCoor, yCoor);
+    const xCoord = x === "" || !x ? 0 : Number(x);
+    const yCoord = y === "" || !y ? 0 : Number(y);
+    return new Node(id, name, xCoord, yCoord);
   } else {
     return new Node("", "", 0, 0);
   }
 };
 
+const COORD_PLANE_SIZE = 600;
+const ORIGIN = { x: 25, y: 25 };
+
+export const calcRelativeCoord = (data) => {
+  const { x, y } = data;
+  const relX = ORIGIN.x + x;
+  const relY = COORD_PLANE_SIZE - ORIGIN.y - y;
+  return { relX, relY };
+};
 // Nodes //
 
 // Bars //

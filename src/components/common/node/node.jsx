@@ -1,22 +1,16 @@
 import React from "react";
+import * as controller from "../../../controller/controller";
 import "./node.scss";
 
 function Node({ data }) {
   const { name, x, y } = data;
-  const origin = { x: 25, y: 25 };
-  const planeSize = 600;
+  const { relX, relY } = controller.calcRelativeCoord(data);
   return (
     <g>
-      <text
-        x={origin.x + x}
-        y={planeSize - origin.y - y - 10}
-        stroke="black"
-        fill="black"
-        dy=".3em"
-      >
+      <text x={relX - 5} y={relY - 10} stroke="black" fill="black" dy=".3em">
         {name} ({x},{y})
       </text>
-      <circle cx={origin.x + x} cy={planeSize - origin.y - y} r={3}></circle>
+      <circle cx={relX} cy={relY} r={4}></circle>
     </g>
   );
 }

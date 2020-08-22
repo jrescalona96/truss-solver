@@ -15,6 +15,7 @@ class BarForm extends Form {
   };
 
   doUpdate = () => {
+    const { controller } = this.props;
     console.log(this.state.data);
   };
 

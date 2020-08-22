@@ -1,16 +1,17 @@
 import React from "react";
+import * as controller from "../../../controller/controller";
 import "./bar.scss";
 
 const Bar = ({ data }) => {
   const { x1, y1, x2, y2 } = data;
-  const origin = { x: 25, y: 25 };
-  const planeSize = 600;
+  const start = controller.calcRelativeCoord({ x: x1, y: y1 });
+  const end = controller.calcRelativeCoord({ x: x2, y: y2 });
   return (
     <line
-      x1={origin.x + x1}
-      y1={planeSize - origin.y - y1}
-      x2={origin.x + x2}
-      y2={planeSize - origin.y - y2}
+      x1={start.relX}
+      y1={start.relY}
+      x2={end.relX}
+      y2={end.relY}
       stroke="black"
       strokeWidth={4}
     ></line>
