@@ -6,7 +6,7 @@ import "./nodeForm.scss";
 
 class NodeForm extends Form {
   state = {
-    data: { _id: "", x: 0, y: 0 },
+    data: { _id: "", x: "", y: "" },
     errors: {},
   };
 
@@ -15,7 +15,7 @@ class NodeForm extends Form {
   }
 
   _initializeForm() {
-    const data = new Node("", 0, 0);
+    const data = new Node("", "", "");
     this.setState({ data });
   }
 
