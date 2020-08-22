@@ -2,39 +2,34 @@ import React, { useState, useRef } from "react";
 import "./trussSolver.scss";
 import CoordinatePlane from "../common/coordinatePlane/index";
 import NodeForm from "../nodeForm/index";
-import BarForm from "../barForm/index";
+// import BarForm from "../barForm/index";
 
 const TrussSolver = () => {
-  const [addedNodes, setAddedNodes] = useState([]);
-  let nodes = useRef([]);
+  const [nodes, setNodes] = useState([]);
+  let currentNodes = useRef([]);
 
-  const handleSetNodes = (val) => {
-    let currentNodes = [...nodes.current];
-    currentNodes.push(val);
-    setAddedNodes(currentNodes);
+  const handleSetCurrentNodes = (val) => {
+    let nodes = [...currentNodes.current];
+    nodes.push(val);
+    setNodes(nodes);
   };
 
-  const handleAddNode = (val) => {
+  const handleConfirmNode = (val) => {
     const node = { ...val };
-    nodes.current.push(node);
-    setAddedNodes(nodes.current);
-  };
-
-  const handleSetBars = (val) => {
-    console.log(val);
+    currentNodes.current.push(node);
+    setNodes(currentNodes.current);
   };
 
   return (
     <div id="trussSolver">
       <div>
         <NodeForm
-          onAddNode={(val) => handleAddNode(val)}
-          onSetNodes={(val) => handleSetNodes(val)}
-          nodes={addedNodes}
+          onConfirmNode={(val) => handleConfirmNode(val)}
+          onSetCurrentNodes={(val) => handleSetCurrentNodes(val)}
+          nodes={currentNodes.current}
         />
-        <BarForm onSetBars={(val) => handleSetBars(val)} />
       </div>
-      <CoordinatePlane data={addedNodes} />
+      <CoordinatePlane data={nodes} />
     </div>
   );
 };

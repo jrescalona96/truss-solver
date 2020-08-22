@@ -1,5 +1,7 @@
 import React from "react";
 import Form from "../common/form/index";
+import Node from "../../models/Node";
+import * as controller from "../../controllers/NodeController";
 import "./nodeForm.scss";
 
 class NodeForm extends Form {
@@ -8,34 +10,27 @@ class NodeForm extends Form {
     errors: {},
   };
 
-  _initializeNode() {
-    const data = { _id: "", x: 0, y: 0 };
+  componentDidMount() {
+    this._initializeForm();
+  }
+
+  _initializeForm() {
+    const data = new Node("", 0, 0);
     this.setState({ data });
   }
 
   doSubmit = () => {
-    let data = this.parseInput();
-    data._id = `N${this.props.nodes.length}`;
-    this.setState({ data });
-    this.props.onAddNode(data);
-    this._initializeNode();
+    const { nodes, onConfirmNode } = this.props;
+    const { data } = this.state;
+    data._id = `n${nodes.length}`;
+    onConfirmNode(data);
+    this._initializeForm();
   };
 
   doUpdate = () => {
-    let data = this.parseInput();
-    data._id = "";
+    const data = controller.createNode(this.state.data);
     this.setState({ data });
-    this.props.onSetNodes(data);
-  };
-
-  parseInput = () => {
-    const { x, y } = this.state.data;
-    const xCoor = x === "" ? 0 : Number(x);
-    const yCoor = y === "" ? 0 : Number(y);
-    const data = { ...this.state.data };
-    data.x = xCoor;
-    data.y = yCoor;
-    return data;
+    this.props.onSetCurrentNodes(data);
   };
 
   render() {
@@ -43,7 +38,6 @@ class NodeForm extends Form {
     return (
       <div id="nodeForm">
         <h3>Nodes</h3>
-        <p>Node {_id}</p>
         <form onSubmit={this.handleSubmit}>
           {this.renderInput({
             name: "x",
