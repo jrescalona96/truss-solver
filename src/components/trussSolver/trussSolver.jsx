@@ -1,32 +1,25 @@
 import React, { useState } from "react";
-import _ from "lodash";
 import "./trussSolver.scss";
 import CoordinatePlane from "../common/coordinatePlane/coordinatePlane";
-import Form from "../common/form/index";
+import NodeForm from "../nodeForm/index";
 
-const size = 600;
-const numberOfPoints = 50;
-
-function TrussSolver() {
+const TrussSolver = () => {
   const [data, setData] = useState([]);
 
-  const generateData = () => {
-    const nums = _.range(1, numberOfPoints);
-    let _id = 0;
-    return nums.map(() => {
-      const x = Math.floor(Math.random() * Math.floor(size));
-      const y = Math.floor(Math.random() * Math.floor(size));
-      return { _id: _id++, x: x, y: y };
-    });
+  const handleSetData = (val) => {
+    const point = { ...val };
+    const nodes = [...data];
+    point._id = nodes.length;
+    nodes.push(point);
+    setData(nodes);
   };
 
   return (
     <div id="trussSolver">
-      <Form />
-      <button onClick={() => setData(generateData())}>Generate</button>
+      <NodeForm onSetData={(val) => handleSetData(val)} />
       <CoordinatePlane data={data} />
     </div>
   );
-}
+};
 
 export default TrussSolver;

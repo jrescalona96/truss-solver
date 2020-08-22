@@ -3,12 +3,20 @@ import "./node.scss";
 
 function Node({ data }) {
   const { x, y } = data;
+  const origin = { x: 25, y: 25 };
+  const planeSize = 600;
   return (
     <g>
-      <text x={x - 25} y={590 - y} stroke="white" fill="white" dy=".3em">
+      <text
+        x={origin.x + x}
+        y={planeSize - origin.y - y - 10}
+        stroke="black"
+        fill="black"
+        dy=".3em"
+      >
         {x},{y}
       </text>
-      <circle cx={x} cy={600 - y} r={2.5}></circle>
+      <circle cx={origin.x + x} cy={planeSize - origin.y - y} r={3}></circle>
     </g>
   );
 }
