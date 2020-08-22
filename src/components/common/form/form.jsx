@@ -5,14 +5,17 @@ import Input from "../input/index";
 class Form extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
-    this.onSubmit();
+    this.doSubmit();
   };
 
   handleChange = ({ currentTarget: input }) => {
     const { value, name } = input;
     const { data } = { ...this.state };
     data[name] = value;
-    this.setState(data);
+    this.setState({ data });
+    if (value) {
+      this.doUpdate();
+    }
   };
 
   renderInput = ({ name, label, type, value, onChange }) => {

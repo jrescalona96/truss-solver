@@ -1,23 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./trussSolver.scss";
-import CoordinatePlane from "../common/coordinatePlane/coordinatePlane";
+import CoordinatePlane from "../common/coordinatePlane/index";
 import NodeForm from "../nodeForm/index";
+import BarForm from "../barForm/index";
 
 const TrussSolver = () => {
-  const [data, setData] = useState([]);
+  const [addedNodes, setAddedNodes] = useState([]);
+  let nodes = useRef([]);
 
-  const handleSetData = (val) => {
-    const point = { ...val };
-    const nodes = [...data];
-    point._id = nodes.length;
-    nodes.push(point);
-    setData(nodes);
+  const handleSetNodes = (val) => {
+    let currentNodes = [...nodes.current];
+    currentNodes.push(val);
+    setAddedNodes(currentNodes);
+  };
+
+  const handleAddNode = (val) => {
+    const node = { ...val };
+    nodes.current.push(node);
+    setAddedNodes(nodes.current);
+  };
+
+  const handleSetBars = (val) => {
+    console.log(val);
   };
 
   return (
     <div id="trussSolver">
-      <NodeForm onSetData={(val) => handleSetData(val)} />
-      <CoordinatePlane data={data} />
+      <div>
+        <NodeForm
+          onAddNode={(val) => handleAddNode(val)}
+          onSetNodes={(val) => handleSetNodes(val)}
+          nodes={addedNodes}
+        />
+        <BarForm onSetBars={(val) => handleSetBars(val)} />
+      </div>
+      <CoordinatePlane data={addedNodes} />
     </div>
   );
 };
