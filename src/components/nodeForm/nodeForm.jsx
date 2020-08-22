@@ -19,9 +19,8 @@ class NodeForm extends Form {
   }
 
   doSubmit = () => {
-    const { nodes, onConfirmNode } = this.props;
+    const { onConfirmNode } = this.props;
     const { data: node } = this.state;
-    node.name = `n${nodes.length}`;
     onConfirmNode(node);
     this._initializeForm();
   };

@@ -8,7 +8,13 @@ class BarForm extends Form {
     errors: {},
   };
 
-  onSubmit = () => {
+  doSubmit = () => {
+    const { onConfirmBar } = this.props;
+    const { data: bar } = this.state;
+    onConfirmBar(bar);
+  };
+
+  doUpdate = () => {
     console.log(this.state.data);
   };
 
