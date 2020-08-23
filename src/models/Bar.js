@@ -6,7 +6,11 @@ class Bar {
     this.length = this.calcLength();
   }
 
-  // TODO: implement
-  calcLength = () => {};
+  calcLength = () => {
+    const a = Math.abs(this.node1.x - this.node2.x);
+    const b = Math.abs(this.node1.y - this.node2.y);
+    const c = Math.sqrt(Math.pow(a, 2), Math.pow(b, 2));
+    return c;
+  };
 }
 export default Bar;
