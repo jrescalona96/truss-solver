@@ -1,10 +1,12 @@
 class Bar {
-  constructor(_id, x1, y1, x2, y2) {
+  constructor(_id, node1, node2) {
     this._id = _id;
-    this.x1 = x1;
-    this.y1 = y1;
-    this.x2 = x2;
-    this.y2 = y2;
+    this.node1 = node1;
+    this.node2 = node2;
+    this.length = this.calcLength();
   }
+
+  // TODO: implement
+  calcLength = () => {};
 }
 export default Bar;

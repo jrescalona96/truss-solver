@@ -36,6 +36,8 @@ export const createNode = (data) => {
   }
 };
 
+// Nodes //
+
 const COORD_PLANE_SIZE = 600;
 const ORIGIN = { x: 25, y: 25 };
 
@@ -45,22 +47,18 @@ export const calcRelativeCoord = (data) => {
   const relY = COORD_PLANE_SIZE - ORIGIN.y - y;
   return { relX, relY };
 };
-// Nodes //
 
 // Bars //
-
 export const getBars = () => bars;
 
-export const getBarCoordinates = (data) => {
-  const { startNode, endNode } = data;
-  const startCoord = nodes.find((item) => item.name === startNode);
-  const endCoord = nodes.find((item) => item.name === endNode);
-  if (startCoord && endCoord) {
+export const getBarNodes = (data) => {
+  const { name1, name2 } = data;
+  const node1 = nodes.find((item) => item.name === name1);
+  const node2 = nodes.find((item) => item.name === name2);
+  if (node1 && node2) {
     return {
-      x1: startCoord.x,
-      y1: startCoord.y,
-      x2: endCoord.x,
-      y2: endCoord.y,
+      node1,
+      node2,
     };
   } else {
     return null;
@@ -68,18 +66,19 @@ export const getBarCoordinates = (data) => {
 };
 
 export const createBar = (data) => {
+  const _id = _generateId();
   if (data) {
-    const _id = _generateId();
-    const coords = getBarCoordinates(data);
-    if (coords) {
-      const { x1, y1, x2, y2 } = coords;
-      return new Bar(_id, x1, y1, x2, y2);
+    const nodes = getBarNodes(data);
+    if (nodes) {
+      const { node1, node2 } = nodes;
+      return new Bar(_id, node1, node2);
     } else {
       return null;
     }
   } else {
-    const _id = _generateId();
-    return new Bar(_id, 0, 0, 0, 0);
+    const node1 = createNode();
+    const node2 = createNode();
+    return new Bar(_id, node1, node2);
   }
 };
 
@@ -91,7 +90,6 @@ export const appendBar = (data) => {
 };
 
 export const updateBars = (data) => {
-  console.log(data);
   const bar = { ...data };
   bars.push(bar);
   return bars;

@@ -4,44 +4,62 @@ import "./barForm.scss";
 
 class BarForm extends Form {
   state = {
-    data: { startNode: "", endNode: "" },
+    data: {
+      _id: "",
+      name1: "",
+      name2: "",
+    },
     errors: {},
   };
 
-  doSubmit = () => {
-    const { onConfirmBar } = this.props;
-    const { data: bar } = this.state;
-    onConfirmBar(bar);
-  };
+  componentDidMount() {
+    this._initializeForm();
+  }
+
+  _initializeForm() {
+    this.setState({
+      _id: "",
+      name1: "",
+      name2: "",
+    });
+  }
 
   doUpdate = () => {
     const { controller, onAppendBar } = this.props;
+    const bar = controller.createBar(this.state.data);
+    if (bar) {
+      onAppendBar(bar);
+    }
+  };
+
+  doSubmit = () => {
+    const { controller, onConfirmBar } = this.props;
     const data = controller.createBar(this.state.data);
     if (data) {
-      onAppendBar(data);
+      onConfirmBar(data);
       this.setState(data);
     }
   };
 
   render() {
-    const { startNode, endNode } = this.state.data;
+    const { name1, name2 } = this.state.data;
     return (
       <div id="barForm">
         <h3>Bars Input</h3>
         <form onSubmit={this.handleSubmit}>
           <div className="row">
             {this.renderInput({
-              name: "startNode",
-              label: "Start",
+              name: "name1",
+              label: "Node 1",
               type: "text",
-              value: startNode,
+              value: name1,
               onChange: this.handleChange,
             })}
             {this.renderInput({
-              name: "endNode",
-              label: "End",
+              name: "name2",
+              label: "Node 2",
               type: "text",
-              value: endNode,
+              value: name2,
               onChange: this.handleChange,
             })}
           </div>

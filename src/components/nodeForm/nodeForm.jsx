@@ -4,7 +4,7 @@ import "./nodeForm.scss";
 
 class NodeForm extends Form {
   state = {
-    data: { _id: "", x: "", y: "" },
+    data: { _id: "", name: "", x: "", y: "" },
     errors: {},
   };
 
