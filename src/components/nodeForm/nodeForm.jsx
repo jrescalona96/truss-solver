@@ -4,7 +4,7 @@ import "./nodeForm.scss";
 
 class NodeForm extends Form {
   state = {
-    data: { _id: "", x: "", y: "" },
+    data: { _id: "", name: "", x: "", y: "" },
     errors: {},
   };
 
@@ -19,9 +19,9 @@ class NodeForm extends Form {
   }
 
   doSubmit = () => {
-    const { onConfirmNode } = this.props;
-    const { data: node } = this.state;
-    onConfirmNode(node);
+    const { controller, onConfirmNode } = this.props;
+    const data = controller.createNode(this.state.data);
+    onConfirmNode(data);
     this._initializeForm();
   };
 
