@@ -26,10 +26,10 @@ class NodeForm extends Form {
   };
 
   doUpdate = () => {
-    const { controller } = this.props;
+    const { controller, onAppendNode } = this.props;
     const data = controller.createNode(this.state.data);
+    onAppendNode(data);
     this.setState({ data });
-    this.props.onSetNode(data);
   };
 
   render() {

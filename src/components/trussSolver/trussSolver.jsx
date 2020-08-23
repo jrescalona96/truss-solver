@@ -9,7 +9,7 @@ const TrussSolver = () => {
   const [displayNodes, setDisplayNodes] = useState([]);
   const [displayBars, setDisplayBars] = useState([]);
 
-  const handleSetNode = (data) => {
+  const handleAppendNode = (data) => {
     const nodes = controller.appendNode(data);
     setDisplayNodes(nodes);
   };
@@ -19,12 +19,13 @@ const TrussSolver = () => {
     setDisplayNodes(nodes);
   };
 
-  const handleSetBar = (data) => {};
+  const handleAppendBar = (data) => {
+    const bars = controller.appendBar(data);
+    setDisplayBars(bars);
+  };
 
   const handleConfirmBar = (data) => {
-    let bars = [...displayBars];
-    const bar = controller.getBarCoordinates(data);
-    bars.push(bar);
+    const bars = controller.updateBars(data);
     setDisplayBars(bars);
   };
 
@@ -34,13 +35,13 @@ const TrussSolver = () => {
         <NodeForm
           controller={controller}
           onConfirmNode={(data) => handleConfirmNode(data)}
-          onSetNode={(data) => handleSetNode(data)}
+          onAppendNode={(data) => handleAppendNode(data)}
         />
         <BarForm
           controller={controller}
           data={displayBars}
           onConfirmBar={(data) => handleConfirmBar(data)}
-          onSetBar={(data) => handleSetBar(data)}
+          onAppendBar={(data) => handleAppendBar(data)}
         />
       </div>
       <CoordinatePlane data={{ nodes: displayNodes, bars: displayBars }} />

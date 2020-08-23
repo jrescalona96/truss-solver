@@ -15,8 +15,12 @@ class BarForm extends Form {
   };
 
   doUpdate = () => {
-    const { controller } = this.props;
-    console.log(this.state.data);
+    const { controller, onAppendBar } = this.props;
+    const data = controller.createBar(this.state.data);
+    if (data) {
+      onAppendBar(data);
+      this.setState(data);
+    }
   };
 
   render() {
