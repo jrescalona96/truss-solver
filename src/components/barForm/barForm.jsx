@@ -17,11 +17,12 @@ class BarForm extends Form {
   }
 
   _initializeForm() {
-    this.setState({
+    const data = {
       _id: "",
       name1: "",
       name2: "",
-    });
+    };
+    this.setState({ data });
   }
 
   doUpdate = () => {
@@ -38,6 +39,7 @@ class BarForm extends Form {
     if (data) {
       onConfirmBar(data);
       this.setState(data);
+      this._initializeForm();
     }
   };
 
