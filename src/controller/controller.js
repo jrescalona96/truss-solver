@@ -11,6 +11,10 @@ const _generateId = () => {
 // Nodes //
 export const getNodes = () => nodes;
 
+export const getNode = (name) => {
+  return nodes.find((item) => item.name === name);
+};
+
 export const updateNodes = (data) => {
   const node = { ...data };
   nodes.push(node);
@@ -53,8 +57,8 @@ export const getBars = () => bars;
 
 export const getBarNodes = (data) => {
   const { name1, name2 } = data;
-  const node1 = nodes.find((item) => item.name === name1);
-  const node2 = nodes.find((item) => item.name === name2);
+  const node1 = getNode(name1);
+  const node2 = getNode(name2);
   if (node1 && node2) {
     return {
       node1,
