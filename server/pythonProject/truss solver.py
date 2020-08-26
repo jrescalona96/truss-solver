@@ -244,3 +244,4 @@ K_f=reducecol(K_global, node_fi)
 #print(nodes[bars[ii-1][2]-1][1])                        #node_j x-values
 #print(nodes[bars[ii - 1][1] - 1][2])                    #node_i y-values
 #print(nodes[bars[ii - 1][2] - 1][2])                    #node_j y-values
+#noprint
