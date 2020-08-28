@@ -160,21 +160,21 @@ def K_matrix(nodes,node_i,node_j,k_glob): #this holds individual global stiffnes
     y[node_i*2-2:node_i*2,node_i*2-2:node_i*2]=k_glob[0][0:2],k_glob[1][0:2]
     y[node_i*2-2:node_i*2,node_j*2-2:node_j*2]=k_glob[0][2:4],k_glob[1][2:4]
     y[node_j*2-2:node_j*2,node_i*2-2:node_i*2]=k_glob[2][0:2],k_glob[3][0:2]
-    y[node_j*2-2:node_j*2,node_j*2-2:node_j*2]=k_glob[2][0:2],k_glob[3][2:4]
+    y[node_j*2-2:node_j*2,node_j*2-2:node_j*2]=k_glob[2][2:4],k_glob[3][2:4]
 
     return[y]
 K_mat=[]
 for ii in range(1,bar+1):
     K_mat1=K_matrix(node, bars[ii-1][1], bars[ii-1][2], k_g[ii-1] )
     K_mat=K_mat+K_mat1
-#print(K_mat)
+#print(K_mat[0])
 
 
 K_global=np.zeros((2*node,2*node)) #this sums all individual global stiffness matrix into (1) GLOBAL STIFFNESS MATRIX
 for ii in range(1,bar+1):
     K_global1=np.array([K_mat[ii-1]])
     K_global=K_global+K_global1
-    print(K_global)
+#print(K_global)
 
 f_x=nodes[0:node+1,5]   #takes all x-forces
 f_y=nodes[0:node+1,6]   #takes all y-forces
@@ -197,13 +197,20 @@ node_fi=node_f[::-1] #reverses order of node_f
 #print(len(node_fi+1))
 #print(K_global)
 
-def reducecol(x,y):
+def reducerow(x,y):
     xi=np.delete(x,y,axis=1)
     return(xi)
 
-K_f=reducecol(K_global, node_fi)
+K_frow=reducerow(K_global, node_f) #this reduces rows of global stiffness matrix ie restraints
+#print(K_frow)
 
-#print(K_f)
+def reducecol(x,y):
+    xi=np.delete(x,y,1)
+    return(xi)
+
+K_f=reducecol(K_frow[0] , node_f) #this reduces cols of global stiffness matrix ie restraints
+
+print(K_f)
 
 
 
@@ -244,4 +251,3 @@ K_f=reducecol(K_global, node_fi)
 #print(nodes[bars[ii-1][2]-1][1])                        #node_j x-values
 #print(nodes[bars[ii - 1][1] - 1][2])                    #node_i y-values
 #print(nodes[bars[ii - 1][2] - 1][2])                    #node_j y-values
-#noprint
