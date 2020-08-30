@@ -195,22 +195,27 @@ node_f=node_f[0:,0] #all nodes with restraints
 node_fi=node_f[::-1] #reverses order of node_f
 #print(node_fi)
 #print(len(node_fi+1))
-#print(K_global)
+#print(np.size((K_global),0))
+#print(np.size((K_global),1))
 
 def reducerow(x,y):
-    xi=np.delete(x,y,axis=1)
+    xi=np.delete(x,y,0)
     return(xi)
 
-K_frow=reducerow(K_global, node_f) #this reduces rows of global stiffness matrix ie restraints
+K_frow=reducerow(K_global[0], node_f) #this reduces rows of global stiffness matrix ie restraints
+
 #print(K_frow)
 
 def reducecol(x,y):
     xi=np.delete(x,y,1)
     return(xi)
 
-K_f=reducecol(K_frow[0] , node_f) #this reduces cols of global stiffness matrix ie restraints
+K_f=reducecol(K_frow , node_f) #this reduces cols of global stiffness matrix ie restraints
 
 print(K_f)
+
+#f_f=reducerow(f_nodes[0], node_f)
+#print(f_f)
 
 
 
