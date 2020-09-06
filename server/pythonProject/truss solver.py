@@ -1,6 +1,9 @@
+#copyright Carlo Banaban, created by carlo banaban 8/2020
+
 import numpy as np
 import math
 from matplotlib import pyplot as plt
+
 #          number E
 materials1 =[1,    29000]
 materials2 =[2,    30000]
@@ -103,7 +106,7 @@ for ii in range(1,bar+1): #solves for angles of bars
     theta1=angle(coord_mat[ii-1][0],coord_mat[ii-1][1],coord_mat[ii-1][2],coord_mat[ii-1][3])
     theta=np.concatenate((theta,theta1),axis=0) #collects output of the for loop
 theta=theta.reshape(bar,1)
-#print(theta[5])
+#print(theta[10])
 
 def dist(ix, jx, iy, jy):   #function for calculation distance between 2 points
     d=math.sqrt( (jx-ix)**2 + (jy-iy)**2     )
@@ -113,7 +116,7 @@ for ii in range(1,bar+1):
     length1=dist(coord_mat[ii-1][0],coord_mat[ii-1][1],coord_mat[ii-1][2],coord_mat[ii-1][3])
     Length=np.concatenate((Length,length1),axis=0)
 Length=Length.reshape(bar,1) #this is the array for the lengths of bars
-#print(Length)
+#print(Length[2])
 
 def t_matrix(theta): #this function solves for the Transformation matrix of a bar
     d=[[math.cos(math.radians(theta)), math.sin(math.radians(theta)), 0, 0],
@@ -182,7 +185,7 @@ f_nodes=np.concatenate([f_x,f_y]) #x-force row + y-force row one line
 f_nodes=np.reshape(f_nodes,(2,node)) #1st line x-force 2nd line y-force
 f_nodes=f_nodes.transpose() #x-force col y-force col
 f_nodes=np.reshape(f_nodes,(2*node,1)) #reshape into 1 col, alternating (x1 y1 x2 y2...
-#print(f_nodes)
+#print(np.size((f_nodes),1))
 
 restr=nodes[0:node+1,3:5] #extracts restraints from nodes matrix
 #print(restr)
@@ -210,49 +213,49 @@ def reducecol(x,y):
     xi=np.delete(x,y,1)
     return(xi)
 
-K_f=reducecol(K_frow , node_f) #this reduces cols of global stiffness matrix ie restraints
+K_f=reducecol(K_frow, node_f) #this reduces cols of global stiffness matrix ie restraints
+#print(np.size((K_f),0))
+#print(np.size((K_f),1))
+#print(K_f)
 
-print(K_f)
-
-#f_f=reducerow(f_nodes[0], node_f)
+f_f=reducerow(f_nodes, node_f) #this reduces the rows of the forces applied ie restraints
 #print(f_f)
 
+from numpy.linalg import inv #free displacement vector
+d_f=np.matmul(inv(K_f),f_f)
+#print(d_f)
+
+d=np.zeros((2*node,1))
+d_c=np.where(c==0)[0]
+#print(d_c)
+
+d[d_c]=d_f #vector of displacements <<<<<<----------------------------- deflections
+print(d)
+
+FORCES=np.matmul(K_global,d) #vector of forces
+print(FORCES)
+#print(np.size((FORCES),1))
+
+#print(REACTIONS)
+REACTIONS=FORCES[0,[node_f]]
+#print(REACTIONS)
 
 
+def glob2local(x,angle, bars,d):     #this transforms global nodal displacements into local nodal displacements
+    T=np.array([[math.cos(math.radians(angle[x])), math.sin(math.radians(angle[x])), 0, 0],
+    [0, 0, math.cos(math.radians(angle[x])), math.sin(math.radians(angle[x]))] ])
+    y= np.array(   [d[bars[x][1]*2-2],d[bars[x][1]*2-1], d[bars[x][2]*2-2], d[bars[x][2]*2-1] ])
+    dxy=np.matmul(T,y)
+    return(dxy)
 
+f_int=[] #this solves for internal forces
+for ii in range(1,bar+1):
+    f_int1= bars[ii-1][4] * materials[bars[ii-1][3]-1][1]/ Length[ii-1] * np.matmul( [-1, 1], glob2local(ii-1, theta, bars , d))
+    f_int=np.concatenate((f_int,f_int1),0)
+print(f_int) #an array of internal forces <<<<<<<<<<<<<<<<<<<<<<<<<<<forces
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#print(transf_m1)
-
-
-
-#(coord_mat[ii-1][3]-coord_mat[ii-1][2]) / (coord_mat[ii-1][1]-coord_mat[ii-1][0])
-
-#print(nodes[bars[ii-1][1]-1][1])                        #node_i x-values
-#print(nodes[bars[ii-1][2]-1][1])                        #node_j x-values
-#print(nodes[bars[ii - 1][1] - 1][2])                    #node_i y-values
-#print(nodes[bars[ii - 1][2] - 1][2])                    #node_j y-values
+stress=[] #this solves for stresses
+for ii in range(1,bar+1):
+    stress1= materials[bars[ii-1][3]-1][1]/ Length[ii-1] * np.matmul( [-1, 1], glob2local(ii-1, theta, bars , d))
+    stress=np.concatenate((stress,stress1),0)
+print(stress) #an array of stresses <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<stresses
