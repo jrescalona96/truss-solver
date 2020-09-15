@@ -19,7 +19,7 @@ class Form extends Component {
     }
   };
 
-  renderInput = (name, label, type, value, onChange, placeholder) => {
+  renderInputFormGroup = (name, label, type, value, onChange, placeholder) => {
     return (
       <InputFormGroup
         name={name}

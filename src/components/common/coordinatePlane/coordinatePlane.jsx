@@ -6,15 +6,15 @@ import {
   COORD_PLANE_SIZE_Y,
 } from "../../../controllers/coordinatePlaneController";
 import "./coordinatePlane.scss";
-import { isCompositeComponent } from "react-dom/test-utils";
 
-function CoordinatePlane({ data }) {
+const CoordinatePlane = ({ data, onSetSelectedNode }) => {
   const { nodes, bars } = data;
+
   return (
     <div id="coordinatePlane">
       <svg width={COORD_PLANE_SIZE_X} height={COORD_PLANE_SIZE_Y}>
         {nodes.map((item) => (
-          <Node key={item._id} data={item} />
+          <Node key={item._id} data={item} onClick={onSetSelectedNode} />
         ))}
         {bars.map((item) => (
           <Bar key={item._id} data={item} />
@@ -22,6 +22,6 @@ function CoordinatePlane({ data }) {
       </svg>
     </div>
   );
-}
+};
 
 export default CoordinatePlane;

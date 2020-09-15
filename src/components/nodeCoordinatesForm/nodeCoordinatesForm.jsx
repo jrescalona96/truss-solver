@@ -5,7 +5,7 @@ import "./nodeCoordinatesForm.scss";
 
 class NodeCoordinatesForm extends Form {
   state = {
-    data: { _id: "", name: "", xCoord: "", yCoord: "" },
+    data: { xCoord: "", yCoord: "" },
     errors: {},
   };
 
@@ -13,13 +13,21 @@ class NodeCoordinatesForm extends Form {
     this._initializeForm();
   }
 
+  componentDidUpdate({ data }) {
+    if (data && data._id !== this.props.data._id) {
+      const { xCoord, yCoord } = this.props.data;
+      const data = {
+        xCoord,
+        yCoord,
+      };
+      this.setState({
+        data,
+      });
+    }
+  }
+
   _initializeForm() {
-    const data = {
-      _id: "",
-      name: "",
-      xCoord: "",
-      yCoord: "",
-    };
+    const data = { xCoord: "", yCoord: "" };
     this.setState({ data });
   }
 
@@ -35,7 +43,6 @@ class NodeCoordinatesForm extends Form {
     const data = controller.createNode(this.state.data);
     if (data) {
       onAppendNode(data);
-      this.setState({ data });
     }
   };
 
@@ -45,7 +52,7 @@ class NodeCoordinatesForm extends Form {
       <div id="nodeCoordinatesForm">
         <form onSubmit={this.handleSubmit}>
           <Label>Coordinates</Label>
-          {this.renderInput(
+          {this.renderInputFormGroup(
             "xCoord",
             null,
             "number",
@@ -53,7 +60,7 @@ class NodeCoordinatesForm extends Form {
             this.handleChange,
             "X-Coordinate"
           )}
-          {this.renderInput(
+          {this.renderInputFormGroup(
             "yCoord",
             null,
             "number",
@@ -61,7 +68,7 @@ class NodeCoordinatesForm extends Form {
             this.handleChange,
             "Y-Coordinate"
           )}
-          {this.renderSubmitBtn("Add")}
+          {this.renderSubmitBtn("Confirm")}
         </form>
       </div>
     );

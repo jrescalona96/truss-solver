@@ -35,3 +35,12 @@ export const createNode = (data) => {
     return !isNaN(xc) && !isNaN(yc) ? new Node(id, name, xc, yc) : null;
   }
 };
+
+export const removeNode = (_id) => {
+  nodes = nodes.filter((item) => item._id !== _id);
+  return nodes;
+};
+
+export const addForce = (data) => {
+  console.log(data);
+};
