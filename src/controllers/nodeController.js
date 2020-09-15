@@ -29,11 +29,11 @@ export const createNode = (data) => {
   if (data) {
     const { x, y } = data;
     const id = _generateId();
-    const name = `n${nodes.length}`;
-    const xCoord = x === "" || !x ? 0 : Number(x);
-    const yCoord = y === "" || !y ? 0 : Number(y);
-    return new Node(id, name, xCoord, yCoord);
-  } else {
-    return new Node("", "", 0, 0);
+    const name = `N${nodes.length}`;
+    const xCoord = parseFloat(x);
+    const yCoord = parseFloat(y);
+    return !isNaN(xCoord) && !isNaN(yCoord)
+      ? new Node(id, name, xCoord, yCoord)
+      : null;
   }
 };

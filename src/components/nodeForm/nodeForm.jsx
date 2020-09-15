@@ -13,23 +13,24 @@ class NodeForm extends Form {
   }
 
   _initializeForm() {
-    const { controller } = this.props;
-    const data = controller.createNode();
+    const data = { _id: "", name: "", x: "", y: "" };
     this.setState({ data });
   }
 
   doSubmit = () => {
     const { controller, onConfirmNode } = this.props;
     const data = controller.createNode(this.state.data);
-    onConfirmNode(data);
+    if (data) onConfirmNode(data);
     this._initializeForm();
   };
 
   doUpdate = () => {
     const { controller, onAppendNode } = this.props;
     const data = controller.createNode(this.state.data);
-    onAppendNode(data);
-    this.setState({ data });
+    if (data) {
+      onAppendNode(data);
+      this.setState({ data });
+    }
   };
 
   render() {
