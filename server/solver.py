@@ -5,7 +5,6 @@ from matplotlib import pyplot as plt
 
 
 def enclose(materials, nodes, bars):
-
     node = len(nodes)  # number of nodes
     bar = len(bars)  # number of bars
 
