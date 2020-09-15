@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import * as controller from "../../controller/controller";
+import * as nodeController from "../../controllers/nodeController";
+import * as barController from "../../controllers/barController";
 import CoordinatePlane from "../common/coordinatePlane/index";
 import NodeForm from "../nodeForm/index";
 import BarForm from "../barForm/index";
@@ -10,22 +11,22 @@ const TrussSolver = () => {
   const [displayBars, setDisplayBars] = useState([]);
 
   const handleAppendNode = (data) => {
-    const nodes = controller.appendNode(data);
+    const nodes = nodeController.appendNode(data);
     setDisplayNodes(nodes);
   };
 
   const handleConfirmNode = (data) => {
-    const nodes = controller.updateNodes(data);
+    const nodes = nodeController.updateNodes(data);
     setDisplayNodes(nodes);
   };
 
   const handleAppendBar = (data) => {
-    const bars = controller.appendBar(data);
+    const bars = barController.appendBar(data);
     setDisplayBars(bars);
   };
 
   const handleConfirmBar = (data) => {
-    const bars = controller.updateBars(data);
+    const bars = barController.updateBars(data);
     setDisplayBars(bars);
   };
 
@@ -34,14 +35,14 @@ const TrussSolver = () => {
       <div className="row">
         <div className="m-1">
           <NodeForm
-            controller={controller}
+            controller={nodeController}
             onConfirmNode={(data) => handleConfirmNode(data)}
             onAppendNode={(data) => handleAppendNode(data)}
           />
         </div>
         <div className="m-1">
           <BarForm
-            controller={controller}
+            controller={barController}
             onConfirmBar={(data) => handleConfirmBar(data)}
             onAppendBar={(data) => handleAppendBar(data)}
           />
