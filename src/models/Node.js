@@ -1,10 +1,10 @@
-class Node {
-  constructor(_id, name, x, y) {
+export default class Node {
+  constructor(_id, name, xCoord, yCoord, xForce, yForce) {
     this.name = name;
     this._id = _id;
-    this.x = x;
-    this.y = y;
+    this.xCoord = xCoord;
+    this.yCoord = yCoord;
+    this.xForce = xForce;
+    this.yForce = yForce;
   }
 }
-
-export default Node;

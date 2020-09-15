@@ -12,7 +12,7 @@ const InputFormGroup = ({
   return (
     <div className="inputFormGroup">
       <FormGroup>
-        <Label for={name}>{label}</Label>
+        {label && <Label for={name}>{label}</Label>}
         <Input
           bsSize="sm"
           type={type}

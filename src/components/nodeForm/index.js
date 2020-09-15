@@ -1,2 +1,2 @@
-import NodeForm from "./nodeForm";
-export default NodeForm;
+import nodeForm from './nodeForm';
+export default nodeForm;

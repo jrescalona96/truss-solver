@@ -6,6 +6,7 @@ import {
   COORD_PLANE_SIZE_Y,
 } from "../../../controllers/coordinatePlaneController";
 import "./coordinatePlane.scss";
+import { isCompositeComponent } from "react-dom/test-utils";
 
 function CoordinatePlane({ data }) {
   const { nodes, bars } = data;
