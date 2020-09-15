@@ -30,21 +30,24 @@ const TrussSolver = () => {
   };
 
   return (
-    <div id="trussSolver">
-      <div>
-        <NodeForm
-          controller={controller}
-          onConfirmNode={(data) => handleConfirmNode(data)}
-          onAppendNode={(data) => handleAppendNode(data)}
-        />
-        <BarForm
-          controller={controller}
-          data={displayBars}
-          onConfirmBar={(data) => handleConfirmBar(data)}
-          onAppendBar={(data) => handleAppendBar(data)}
-        />
+    <div id="trussSolver" className="container mx-auto">
+      <div className="row">
+        <div className="m-1">
+          <NodeForm
+            controller={controller}
+            onConfirmNode={(data) => handleConfirmNode(data)}
+            onAppendNode={(data) => handleAppendNode(data)}
+          />
+        </div>
+        <div className="m-1">
+          <BarForm
+            controller={controller}
+            onConfirmBar={(data) => handleConfirmBar(data)}
+            onAppendBar={(data) => handleAppendBar(data)}
+          />
+        </div>
+        <CoordinatePlane data={{ nodes: displayNodes, bars: displayBars }} />
       </div>
-      <CoordinatePlane data={{ nodes: displayNodes, bars: displayBars }} />
     </div>
   );
 };

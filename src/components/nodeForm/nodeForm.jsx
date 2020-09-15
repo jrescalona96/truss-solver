@@ -38,20 +38,22 @@ class NodeForm extends Form {
       <div id="nodeForm">
         <h3>Nodes</h3>
         <form onSubmit={this.handleSubmit}>
-          {this.renderInput({
-            name: "x",
-            label: "X Coordinate",
-            type: "number",
-            value: x,
-            onChange: this.handleChange,
-          })}
-          {this.renderInput({
-            name: "y",
-            label: "Y Coordinate",
-            type: "number",
-            value: y,
-            onChange: this.handleChange,
-          })}
+          {this.renderInput(
+            "x",
+            "X Coordinate",
+            "number",
+            x,
+            this.handleChange,
+            "X Coordinate"
+          )}
+          {this.renderInput(
+            "y",
+            "Y Coordinate",
+            "number",
+            y,
+            this.handleChange,
+            "Y Coordinate"
+          )}
           {this.renderSubmitBtn("Add")}
         </form>
       </div>

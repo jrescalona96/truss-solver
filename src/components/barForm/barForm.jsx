@@ -5,9 +5,10 @@ import "./barForm.scss";
 class BarForm extends Form {
   state = {
     data: {
-      _id: "",
-      name1: "",
-      name2: "",
+      nodeNameI: "",
+      nodeNameJ: "",
+      material: "",
+      area: "",
     },
     errors: {},
   };
@@ -18,9 +19,10 @@ class BarForm extends Form {
 
   _initializeForm() {
     const data = {
-      _id: "",
-      name1: "",
-      name2: "",
+      nodeNameI: "",
+      nodeNameJ: "",
+      material: "",
+      area: "",
     };
     this.setState({ data });
   }
@@ -38,33 +40,49 @@ class BarForm extends Form {
     const data = controller.createBar(this.state.data);
     if (data) {
       onConfirmBar(data);
-      this.setState(data);
       this._initializeForm();
     }
   };
 
   render() {
-    const { name1, name2 } = this.state.data;
+    const { nodeNameI, nodeNameJ, material, area } = this.state.data;
+
     return (
       <div id="barForm">
-        <h3>Bars Input</h3>
+        <h3>Bars</h3>
         <form onSubmit={this.handleSubmit}>
-          <div className="row">
-            {this.renderInput({
-              name: "name1",
-              label: "Node 1",
-              type: "text",
-              value: name1,
-              onChange: this.handleChange,
-            })}
-            {this.renderInput({
-              name: "name2",
-              label: "Node 2",
-              type: "text",
-              value: name2,
-              onChange: this.handleChange,
-            })}
-          </div>
+          {this.renderInput(
+            "nodeNameI",
+            "Node Name",
+            "text",
+            nodeNameI,
+            this.handleChange,
+            "Node I connection"
+          )}
+          {this.renderInput(
+            "nodeNameJ",
+            "Node Name",
+            "text",
+            nodeNameJ,
+            this.handleChange,
+            "Node J connection"
+          )}
+          {this.renderInput(
+            "material",
+            "Material",
+            "text",
+            material,
+            this.handleChange,
+            "Material Type"
+          )}
+          {this.renderInput(
+            "area",
+            "Area",
+            "text",
+            area,
+            this.handleChange,
+            "Area"
+          )}
           {this.renderSubmitBtn("Add")}
         </form>
       </div>

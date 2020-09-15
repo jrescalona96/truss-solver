@@ -3,9 +3,9 @@ import * as controller from "../../../controller/controller";
 import "./bar.scss";
 
 const Bar = ({ data }) => {
-  const { node1, node2 } = data;
-  const coord1 = controller.calcRelativeCoord({ x: node1.x, y: node1.y });
-  const coord2 = controller.calcRelativeCoord({ x: node2.x, y: node2.y });
+  const { nodeI, nodeJ } = data;
+  const coord1 = controller.calcRelativeCoord({ x: nodeI.x, y: nodeI.y });
+  const coord2 = controller.calcRelativeCoord({ x: nodeJ.x, y: nodeJ.y });
   return (
     <line
       x1={coord1.relX}

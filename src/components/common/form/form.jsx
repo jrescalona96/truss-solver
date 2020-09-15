@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./form.scss";
-import Input from "../input/index";
+import InputFormGroup from "../inputFormGroup/index";
+import { Button } from "reactstrap";
 
 class Form extends Component {
   handleSubmit = (event) => {
@@ -18,16 +19,24 @@ class Form extends Component {
     }
   };
 
-  renderInput = ({ name, label, type, value, onChange }) => {
-    const props = { name, label, type, value, onChange };
-    return <Input {...props} />;
+  renderInput = (name, label, type, value, onChange, placeholder) => {
+    return (
+      <InputFormGroup
+        name={name}
+        label={label}
+        type={type}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+      />
+    );
   };
 
   renderSubmitBtn = (label) => {
     return (
-      <button className="btn btn-primary btn-small mt-2" type="submit">
+      <Button color="primary" size="sm" type="submit">
         {label}
-      </button>
+      </Button>
     );
   };
 }

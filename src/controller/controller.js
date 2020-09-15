@@ -3,6 +3,7 @@ import Bar from "../models/Bar";
 
 let nodes = [];
 let bars = [];
+let forces = [];
 
 const _generateId = () => {
   return "_" + Math.random().toString(36).substr(2, 9);
@@ -56,13 +57,13 @@ export const calcRelativeCoord = (data) => {
 export const getBars = () => bars;
 
 export const getBarNodes = (data) => {
-  const { name1, name2 } = data;
-  const node1 = getNode(name1);
-  const node2 = getNode(name2);
-  if (node1 && node2) {
+  const { nodeNameI, nodeNameJ } = data;
+  const nodeI = getNode(nodeNameI);
+  const nodeJ = getNode(nodeNameJ);
+  if (nodeI && nodeJ) {
     return {
-      node1,
-      node2,
+      nodeI,
+      nodeJ,
     };
   } else {
     return null;
@@ -71,19 +72,13 @@ export const getBarNodes = (data) => {
 
 export const createBar = (data) => {
   const _id = _generateId();
-  if (data) {
-    const nodes = getBarNodes(data);
-    if (nodes) {
-      const { node1, node2 } = nodes;
-      return new Bar(_id, node1, node2);
-    } else {
-      return null;
-    }
-  } else {
-    const node1 = createNode();
-    const node2 = createNode();
-    return new Bar(_id, node1, node2);
+  const { material, area } = data;
+  const nodes = getBarNodes(data);
+  if (nodes) {
+    const { nodeI, nodeJ } = nodes;
+    return new Bar(_id, nodeI, nodeJ, material, area);
   }
+  return null;
 };
 
 export const appendBar = (data) => {

@@ -1,16 +1,21 @@
 class Bar {
-  constructor(_id, node1, node2) {
+  constructor(_id, nodeI, nodeJ, material, area) {
     this._id = _id;
-    this.node1 = node1;
-    this.node2 = node2;
+    this.nodeI = nodeI;
+    this.nodeJ = nodeJ;
+    this.material = material;
+    this.area = area;
     this.length = this.calcLength();
   }
 
   calcLength = () => {
-    const a = Math.abs(this.node1.x - this.node2.x);
-    const b = Math.abs(this.node1.y - this.node2.y);
-    const c = Math.sqrt(Math.pow(a, 2), Math.pow(b, 2));
-    return c;
+    if (this.nodeI && this.nodeJ) {
+      const a = Math.abs(this.nodeI.x - this.nodeJ.x);
+      const b = Math.abs(this.nodeI.y - this.nodeJ.y);
+      const c = Math.sqrt(Math.pow(a, 2), Math.pow(b, 2));
+      return c;
+    }
+    return null;
   };
 }
 export default Bar;
