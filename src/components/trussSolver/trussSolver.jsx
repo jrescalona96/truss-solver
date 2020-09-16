@@ -4,6 +4,7 @@ import * as barController from "../../controllers/barController";
 import CoordinatePlane from "../common/coordinatePlane/index";
 import NodeForm from "../nodeForm/index";
 import BarForm from "../barForm/index";
+import Node from "../../models/Node";
 import "./trussSolver.scss";
 
 const TrussSolver = () => {
@@ -19,7 +20,7 @@ const TrussSolver = () => {
   const handleConfirmNode = (data) => {
     const nodes = nodeController.updateNodes(data);
     setDisplayNodes(nodes);
-    setSelectedNode({});
+    setSelectedNode(new Node("", "", "", "", "", ""));
   };
 
   const handleAppendBar = (data) => {

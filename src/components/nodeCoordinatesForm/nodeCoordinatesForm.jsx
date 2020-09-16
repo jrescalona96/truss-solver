@@ -14,10 +14,10 @@ class NodeCoordinatesForm extends Form {
     this._initializeForm();
   }
 
-  componentDidUpdate({ data }) {
+  componentDidUpdate(prevProps) {
+    const { data } = prevProps;
     if (data && data._id !== this.props.data._id) {
       const data = { ...this.props.data };
-      console.log(data);
       this.setState({ data });
     }
   }
@@ -30,7 +30,9 @@ class NodeCoordinatesForm extends Form {
   doSubmit = () => {
     const { controller, onConfirmNode } = this.props;
     const data = controller.createNode(this.state.data);
-    if (data) onConfirmNode(data);
+    if (data) {
+      onConfirmNode(data);
+    }
     this._initializeForm();
   };
 

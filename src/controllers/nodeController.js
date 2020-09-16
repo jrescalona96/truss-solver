@@ -28,7 +28,9 @@ export const appendNode = (data) => {
 export const createNode = (data) => {
   if (data) {
     const { xCoord, yCoord } = data;
-    const id = _generateId();
+    let id;
+    if (!data._id) id = _generateId();
+    else id = data._id;
     const name = `N${nodes.length}`;
     const xc = parseFloat(xCoord);
     const yc = parseFloat(yCoord);
