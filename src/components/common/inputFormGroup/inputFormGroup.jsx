@@ -8,6 +8,7 @@ const InputFormGroup = ({
   value,
   onChange,
   placeholder,
+  disabled,
 }) => {
   return (
     <div className="inputFormGroup">
@@ -20,6 +21,7 @@ const InputFormGroup = ({
           value={value}
           onChange={onChange}
           placeholder={placeholder}
+          disabled={disabled}
         />
       </FormGroup>
     </div>

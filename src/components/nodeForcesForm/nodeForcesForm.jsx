@@ -13,6 +13,17 @@ class NodeForcesForm extends Form {
     this._initializeForm();
   }
 
+  componentDidUpdate(prevProps) {
+    const { data } = prevProps;
+    if (data && data._id !== this.props.data._id) {
+      const { data } = this.props;
+      const _id = String(data._id);
+      const xForce = String(data.xForce);
+      const yForce = String(data.yForce);
+      this.setState({ data: { _id, xForce, yForce } });
+    }
+  }
+
   _initializeForm() {
     const data = {
       _id: "",
@@ -32,7 +43,7 @@ class NodeForcesForm extends Form {
   };
 
   render() {
-    const { xForce, yForce } = this.state.data;
+    const { _id, xForce, yForce } = this.state.data;
     return (
       <div id="nodeForcesForm">
         <form onSubmit={this.handleSubmit}>
@@ -43,7 +54,8 @@ class NodeForcesForm extends Form {
             "number",
             xForce,
             this.handleChange,
-            "X-Component"
+            "X-Component",
+            _id ? false : true
           )}
           {this.renderInputFormGroup(
             "yForce",
@@ -51,9 +63,10 @@ class NodeForcesForm extends Form {
             "number",
             yForce,
             this.handleChange,
-            "Y-Component"
+            "Y-Component",
+            _id ? false : true
           )}
-          {this.renderSubmitBtn("Confirm")}
+          {this.renderSubmitBtn("Confirm", _id ? false : true)}
         </form>
       </div>
     );

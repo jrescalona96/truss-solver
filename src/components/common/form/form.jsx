@@ -19,7 +19,15 @@ class Form extends Component {
     }
   };
 
-  renderInputFormGroup = (name, label, type, value, onChange, placeholder) => {
+  renderInputFormGroup = (
+    name,
+    label,
+    type,
+    value,
+    onChange,
+    placeholder,
+    disabled
+  ) => {
     return (
       <InputFormGroup
         name={name}
@@ -28,13 +36,14 @@ class Form extends Component {
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        disabled={disabled}
       />
     );
   };
 
-  renderSubmitBtn = (label) => {
+  renderSubmitBtn = (label, disabled) => {
     return (
-      <Button color="primary" size="sm" type="submit">
+      <Button color="primary" size="sm" type="submit" disabled={disabled}>
         {label}
       </Button>
     );

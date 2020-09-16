@@ -27,14 +27,18 @@ export const appendNode = (data) => {
 
 export const createNode = (data) => {
   if (data) {
-    const { xCoord, yCoord } = data;
+    const { _id, xCoord, yCoord, xForce, yForce } = data;
     let id;
-    if (!data._id) id = _generateId();
+    if (!_id) id = _generateId();
     else id = data._id;
     const name = `N${nodes.length}`;
     const xc = parseFloat(xCoord);
     const yc = parseFloat(yCoord);
-    return !isNaN(xc) && !isNaN(yc) ? new Node(id, name, xc, yc) : null;
+    let xf = parseFloat(xForce);
+    let yf = parseFloat(yForce);
+    xf = isNaN(xf) ? 0 : xf;
+    yf = isNaN(yf) ? 0 : yf;
+    return !isNaN(xc) && !isNaN(yc) ? new Node(id, name, xc, yc, xf, yf) : null;
   }
 };
 
