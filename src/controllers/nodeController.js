@@ -9,8 +9,8 @@ const _generateId = () => {
 // Nodes //
 export const getNodes = () => nodes;
 
-export const getNode = (name) => {
-  return nodes.find((item) => item.name === name);
+export const getNode = (_id) => {
+  return nodes.find((item) => item._id === _id);
 };
 
 export const updateNodes = (data) => {

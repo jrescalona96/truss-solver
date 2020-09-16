@@ -1,11 +1,12 @@
 import React from "react";
 import Form from "../common/form/index";
 import { Label } from "reactstrap";
+import Node from "../../models/Node";
 import "./nodeCoordinatesForm.scss";
 
 class NodeCoordinatesForm extends Form {
   state = {
-    data: { xCoord: "", yCoord: "" },
+    data: new Node("", "", "", "", "", ""),
     errors: {},
   };
 
@@ -15,19 +16,14 @@ class NodeCoordinatesForm extends Form {
 
   componentDidUpdate({ data }) {
     if (data && data._id !== this.props.data._id) {
-      const { xCoord, yCoord } = this.props.data;
-      const data = {
-        xCoord,
-        yCoord,
-      };
-      this.setState({
-        data,
-      });
+      const data = { ...this.props.data };
+      console.log(data);
+      this.setState({ data });
     }
   }
 
   _initializeForm() {
-    const data = { xCoord: "", yCoord: "" };
+    const data = new Node("", "", "", "", "", "");
     this.setState({ data });
   }
 
