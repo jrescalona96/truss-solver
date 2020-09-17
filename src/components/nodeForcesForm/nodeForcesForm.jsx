@@ -38,7 +38,10 @@ class NodeForcesForm extends Form {
   };
 
   doSubmit = () => {
-    this.props.onAddForce(this.state.data);
+    const data = { ...this.props.data };
+    data.xForce = this.props.xForce;
+    data.yForce = this.props.yForce;
+    this.props.onAddForce(data);
     this._initializeForm();
   };
 

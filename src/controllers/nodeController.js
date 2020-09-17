@@ -46,7 +46,3 @@ export const removeNode = (_id) => {
   nodes = nodes.filter((item) => item._id !== _id);
   return nodes;
 };
-
-export const addForce = (data) => {
-  console.log(data);
-};

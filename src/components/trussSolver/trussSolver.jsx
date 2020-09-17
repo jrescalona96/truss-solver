@@ -34,7 +34,7 @@ const TrussSolver = () => {
   };
 
   const handleAddForce = (data) => {
-    nodeController.addForce(data);
+    handleConfirmNode(data);
   };
 
   const handleSetSelectedNode = (_id) => {
