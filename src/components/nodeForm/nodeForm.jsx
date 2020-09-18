@@ -4,7 +4,7 @@ import Form from "../common/form/form";
 import "./nodeForm.scss";
 class NodeForm extends Form {
   state = {
-    data: { _id: "", xCoord: "", yCoord: "", xForce: "", yForce: "" },
+    data: { _id: "", name: "", xCoord: 0, yCoord: 0, xForce: 0, yForce: 0 },
     errors: {},
   };
 
@@ -16,33 +16,21 @@ class NodeForm extends Form {
     let data = {
       _id: "",
       name: "",
-      xCoord: "",
-      yCoord: "",
-      xForce: "",
-      yForce: "",
+      xCoord: 0,
+      yCoord: 0,
+      xForce: 0,
+      yForce: 0,
     };
-    if (this.props.data._id) data = { ...this.props.data };
     this.setState({ data });
   }
 
-  // componentDidUpdate(prevProps) {
-  //   const { data: prevData } = prevProps;
-  //   if (prevData._id && prevData._id !== this.props.data._id) {
-  //     const {
-  //       _id,
-  //       xCoord: xc,
-  //       yCoord: yc,
-  //       xForce: xf,
-  //       yForce: yf,
-  //     } = this.props.data;
-  //     const xCoord = String(xc);
-  //     const yCoord = String(yc);
-  //     const xForce = String(xf);
-  //     const yForce = String(yf);
-  //     const data = { _id, xCoord, yCoord, xForce, yForce };
-  //     this.setState({ data });
-  //   }
-  // }
+  componentDidUpdate(prevProps) {
+    const { data: prevData } = prevProps;
+    if (this.props.data._id && prevData._id !== this.props.data._id) {
+      const data = this.props.data;
+      this.setState({ data });
+    }
+  }
 
   doUpdate() {
     const { controller, onAppendNode } = this.props;
@@ -56,6 +44,7 @@ class NodeForm extends Form {
     const { controller, onConfirmNode } = this.props;
     const node = controller.createNode(this.state.data);
     if (node) onConfirmNode(node);
+    this._initializeForm();
     // else add error for particular input
   }
 

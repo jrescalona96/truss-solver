@@ -5,22 +5,21 @@ import CoordinatePlane from "../common/coordinatePlane/index";
 import NodeForm from "../nodeForm/index";
 import BarForm from "../barForm/index";
 import "./trussSolver.scss";
-import { select } from "d3";
 
 const TrussSolver = () => {
   const [displayNodes, setDisplayNodes] = useState([]);
   const [displayBars, setDisplayBars] = useState([]);
-  const [selectedNode, setSelectedNode] = useState({});
+  const [selectedNode, setSelectedNode] = useState({ id: "" });
 
   const handleAppendNode = (data) => {
-    const nodes = nodeController.appendNode(data);
+    const nodes = nodeController.updateNode(data);
     setDisplayNodes(nodes);
   };
 
   const handleConfirmNode = (data) => {
-    const nodes = nodeController.updateNodes(data);
+    const nodes = nodeController.addNode(data);
+    setSelectedNode({ id: "" });
     setDisplayNodes(nodes);
-    setSelectedNode({});
   };
 
   const handleAppendBar = (data) => {
@@ -33,38 +32,9 @@ const TrussSolver = () => {
     setDisplayBars(bars);
   };
 
-  const handleAddForce = (data) => {
-    handleConfirmNode(data);
-  };
-
   const handleSetSelectedNode = (_id) => {
-    const prevNode = { ...selectedNode };
-    const newNode = _getSelectedNode(_id);
-    setSelectedNode(newNode);
-    if (!prevNode._id) {
-      _detachNode(newNode);
-    } else if (prevNode._id !== newNode._id) {
-      handleConfirmNode(newNode);
-      _detachNode(newNode);
-    } else return;
-  };
-
-  /**
-   * This function returns the currently selected node
-   * @param {string} id node id
-   * @returns {Node} new node if newNode exists in controller. selectedNode if not.
-   */
-  const _getSelectedNode = (id) => {
-    const prevNode = { ...selectedNode };
-    let newNode = nodeController.getNode(id);
-    if (!newNode) newNode = prevNode;
-    return newNode;
-  };
-
-  /** "Detaches" a node from the Coordniate plane making it editable*/
-  const _detachNode = (node) => {
-    const data = nodeController.removeNode(node._id);
-    setDisplayNodes(data);
+    const node = nodeController.getNode(_id);
+    setSelectedNode(node);
     handleAppendNode(node);
   };
 
@@ -76,7 +46,6 @@ const TrussSolver = () => {
             controller={nodeController}
             onConfirmNode={(data) => handleConfirmNode(data)}
             onAppendNode={(data) => handleAppendNode(data)}
-            onAddForce={(data) => handleAddForce(data)}
             data={selectedNode}
           />
         </div>
