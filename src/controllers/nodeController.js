@@ -28,18 +28,19 @@ export const appendNode = (data) => {
 export const createNode = (data) => {
   if (data) {
     const { _id, xCoord, yCoord, xForce, yForce } = data;
-    let id;
-    if (!_id) id = _generateId();
-    else id = data._id;
+    const id = _id ? _id : _generateId();
     const name = `N${nodes.length}`;
     const xc = parseFloat(xCoord);
     const yc = parseFloat(yCoord);
-    let xf = parseFloat(xForce);
-    let yf = parseFloat(yForce);
-    xf = isNaN(xf) ? 0 : xf;
-    yf = isNaN(yf) ? 0 : yf;
+    const xf = _parseNumberOrZero(xForce);
+    const yf = _parseNumberOrZero(yForce);
     return !isNaN(xc) && !isNaN(yc) ? new Node(id, name, xc, yc, xf, yf) : null;
   }
+};
+
+const _parseNumberOrZero = (input) => {
+  if (input && input.isNaN) return 0;
+  return parseFloat(input);
 };
 
 export const removeNode = (_id) => {
