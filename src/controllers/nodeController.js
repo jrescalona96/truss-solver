@@ -9,12 +9,15 @@ const _generateId = () => {
 // Nodes //
 export const getNodes = () => nodes;
 
-/**
- * returns specified node
- * @param {string} id - id of node
- */
-export const getNode = (_id) => {
-  return nodes.find((item) => item._id === _id);
+
+export const getNodeById = (_id) => {
+  const node = nodes.find((item) => item._id === _id);
+  return node;
+};
+
+export const getNodeByName = (name) => {
+  const node = nodes.find((item) => item.name === name);
+  return node;
 };
 
 export const addNode = (data) => {
@@ -29,7 +32,7 @@ export const removeNode = (_id) => {
   return nodes;
 };
 
-export const updateNode = (data) => {
+export const addTempNode = (data) => {
   let tempNodes = nodes.filter((item) => item._id !== data._id);
   tempNodes.push(data);
   return tempNodes;
@@ -39,7 +42,7 @@ export const createNode = (data) => {
   if (data) {
     const { _id, name, xCoord, yCoord, xForce, yForce } = data;
     const id = _id ? _id : _generateId();
-    const na = name ? name : `N${nodes.length}`;
+    const na = name ? name : `n${nodes.length}`;
     const xc = parseFloat(xCoord);
     const yc = parseFloat(yCoord);
     const xf = _parseNumberOrZero(xForce);

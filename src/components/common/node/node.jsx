@@ -3,15 +3,23 @@ import { calcRelativeCoord } from "../../../controllers/coordinatePlaneControlle
 import "./node.scss";
 
 const Node = ({ data, onClick }) => {
-  const { _id, name, xCoord, yCoord } = data;
-  const { relX, relY } = calcRelativeCoord(xCoord, yCoord);
+  const { _id, name, xCoord, yCoord, xForce, yForce } = data;
+  const { xRel, yRel } = calcRelativeCoord(xCoord, yCoord);
 
   return (
     <g className="clickable" onClick={() => onClick(_id)}>
-      <text x={relX - 5} y={relY - 10} stroke="black" fill="black" dy=".3em">
+      <text x={xRel + 10} y={yRel - 10} stroke="black" fill="black" dy=".25em">
         {name} ({xCoord},{yCoord})
       </text>
-      <circle cx={relX} cy={relY} r={4}></circle>
+      <circle cx={xRel} cy={yRel} r={5}></circle>
+      <rect x={xRel} y={yRel} height={yForce * 0.25} width={2}></rect>
+      <rect
+        x={xRel}
+        y={yRel}
+        height={2}
+        width={xForce * 0.25}
+        fill={"#FF0000"}
+      ></rect>
     </g>
   );
 };

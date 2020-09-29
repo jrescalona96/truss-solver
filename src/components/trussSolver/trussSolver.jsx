@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as nodeController from "../../controllers/nodeController";
 import * as barController from "../../controllers/barController";
 import CoordinatePlane from "../common/coordinatePlane/index";
@@ -11,9 +11,16 @@ const TrussSolver = () => {
   const [displayBars, setDisplayBars] = useState([]);
   const [selectedNode, setSelectedNode] = useState({ id: "" });
 
-  const handleAppendNode = (data) => {
-    const nodes = nodeController.updateNode(data);
+  useEffect(() => {
+    const nodes = nodeController.getNodes();
     setDisplayNodes(nodes);
+  }, [displayNodes]);
+
+  const handleAppendNode = (data) => {
+    const nodes = nodeController.addTempNode(data);
+    const bars = barController.updateBars(data);
+    setDisplayNodes(nodes);
+    setDisplayBars(bars);
   };
 
   const handleConfirmNode = (data) => {
@@ -23,17 +30,23 @@ const TrussSolver = () => {
   };
 
   const handleAppendBar = (data) => {
-    const bars = barController.appendBar(data);
-    setDisplayBars(bars);
+    const bar = barController.createBar(data);
+    if (bar) {
+      const bars = barController.addTempBar(bar);
+      setDisplayBars(bars);
+    }
   };
 
   const handleConfirmBar = (data) => {
-    const bars = barController.updateBars(data);
-    setDisplayBars(bars);
+    const bar = barController.createBar(data);
+    if (bar) {
+      const bars = barController.addBar(bar);
+      setDisplayBars(bars);
+    }
   };
 
   const handleSetSelectedNode = (_id) => {
-    const node = nodeController.getNode(_id);
+    const node = nodeController.getNodeById(_id);
     setSelectedNode(node);
     handleAppendNode(node);
   };

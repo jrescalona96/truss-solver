@@ -28,20 +28,14 @@ class BarForm extends Form {
   }
 
   doUpdate = () => {
-    const { controller, onAppendBar } = this.props;
-    const bar = controller.createBar(this.state.data);
-    if (bar) {
-      onAppendBar(bar);
-    }
+    const { onAppendBar } = this.props;
+    onAppendBar(this.state.data);
   };
 
   doSubmit = () => {
-    const { controller, onConfirmBar } = this.props;
-    const data = controller.createBar(this.state.data);
-    if (data) {
-      onConfirmBar(data);
-      this._initializeForm();
-    }
+    const { onConfirmBar } = this.props;
+    onConfirmBar(this.state.data);
+    this._initializeForm();
   };
 
   render() {

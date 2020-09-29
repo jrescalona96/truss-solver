@@ -11,8 +11,9 @@ export const getBars = () => bars;
 
 export const getBarNodes = (data) => {
   const { nodeNameI, nodeNameJ } = data;
-  const nodeI = nodeController.getNode(nodeNameI);
-  const nodeJ = nodeController.getNode(nodeNameJ);
+  const nodeI = nodeController.getNodeByName(nodeNameI);
+  const nodeJ = nodeController.getNodeByName(nodeNameJ);
+  console.log(nodeI, nodeJ);
   if (nodeI && nodeJ) {
     return {
       nodeI,
@@ -23,25 +24,45 @@ export const getBarNodes = (data) => {
   }
 };
 
+export const updateBars = (data) => {
+  bars = bars.map((item) => {
+    if (item.nodeI._id === data._id) {
+      item.nodeI = data;
+    }
+    if (item.nodeJ._id === data._id) {
+      item.nodeJ = data;
+    }
+    return item;
+  });
+
+  console.log("bars => ", bars);
+
+  return bars;
+};
+
 export const createBar = (data) => {
   const _id = _generateId();
   const { material, area } = data;
   const nodes = getBarNodes(data);
   if (nodes) {
     const { nodeI, nodeJ } = nodes;
-    return new Bar(_id, nodeI, nodeJ, material, area);
+    // TODO: updateBars(new Bar(_id, nodeI, nodeJ, material, area))
+    const bar = new Bar(_id, nodeI, nodeJ, material, area);
+    return bar;
+  } else {
+    // TODO: return bars
+    return null;
   }
-  return null;
 };
 
-export const appendBar = (data) => {
+export const addTempBar = (data) => {
   const bar = { ...data };
   let tempBars = [...bars];
   tempBars.push(bar);
   return tempBars;
 };
 
-export const updateBars = (data) => {
+export const addBar = (data) => {
   const bar = { ...data };
   bars.push(bar);
   return bars;

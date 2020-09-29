@@ -34,9 +34,9 @@ class NodeForm extends Form {
 
   doUpdate() {
     const { controller, onAppendNode } = this.props;
-    const data = controller.createNode(this.state.data);
-    if (data) {
-      onAppendNode(data);
+    const node = controller.createNode(this.state.data);
+    if (node) {
+      onAppendNode(node);
     }
   }
 
