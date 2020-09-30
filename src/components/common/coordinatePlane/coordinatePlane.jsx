@@ -15,6 +15,9 @@ const CoordinatePlane = ({ data, onSetSelectedNode }) => {
   return (
     <div id="coordinatePlane">
       <svg width={width} height={height}>
+        {bars.map((item) => (
+          <Bar key={item._id} data={item} />
+        ))}
         {nodes.map((item) => (
           <Node
             key={item._id}
@@ -22,9 +25,6 @@ const CoordinatePlane = ({ data, onSetSelectedNode }) => {
             onClick={onSetSelectedNode}
             scales={{ yScale, xScale }}
           />
-        ))}
-        {bars.map((item) => (
-          <Bar key={item._id} data={item} />
         ))}
       </svg>
     </div>

@@ -9,11 +9,12 @@ const Bar = ({ data }) => {
 
   return (
     <line
+      className="bar"
       x1={coord1.xRel}
       y1={coord1.yRel}
       x2={coord2.xRel}
       y2={coord2.yRel}
-      stroke="black"
+      stroke="#000000e0"
       strokeWidth={4}
     ></line>
   );

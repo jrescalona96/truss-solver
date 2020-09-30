@@ -8,7 +8,7 @@ const Node = ({ data, onClick }) => {
   const { xRel, yRel } = calcRelativeCoord(xCoord, yCoord);
 
   return (
-    <g className="clickable" onClick={() => onClick(_id)}>
+    <g className="clickable node" onClick={() => onClick(_id)}>
       {xForce && (
         <Force xRel={xRel} yRel={yRel} direction="x" magnitude={xForce} />
       )}

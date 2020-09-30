@@ -1,10 +1,13 @@
 import React from "react";
 
 const Force = ({ xRel, yRel, direction, magnitude }) => {
+  const lineWidth = 3;
+  const lineLength = 30;
+
   const calcAxis = () => {
     return direction === "x"
-      ? { height: 3, width: 25 }
-      : { height: 25, width: 3 };
+      ? { height: lineWidth, width: lineLength }
+      : { height: lineLength, width: lineWidth };
   };
 
   const calcDirection = () => {
@@ -13,10 +16,11 @@ const Force = ({ xRel, yRel, direction, magnitude }) => {
 
   return (
     <rect
-      x={xRel - 1.5}
-      y={yRel - 1.5}
+      className="force"
+      x={xRel - lineWidth / 2}
+      y={yRel - lineWidth / 2}
       {...calcAxis()}
-      fill={direction === "x" ? " red" : "blue"}
+      fill={direction === "x" ? "red" : "green"}
       transform={calcDirection()}
     ></rect>
   );
