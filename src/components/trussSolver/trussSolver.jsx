@@ -17,14 +17,16 @@ const TrussSolver = () => {
   }, [displayNodes]);
 
   const handleAppendNode = (data) => {
-    const nodes = nodeController.addTempNode(data);
+    const newNode = nodeController.createNode(data);
+    const nodes = nodeController.addTempNode(newNode);
     const bars = barController.updateBars(data);
     setDisplayNodes(nodes);
     setDisplayBars(bars);
   };
 
   const handleConfirmNode = (data) => {
-    const nodes = nodeController.addNode(data);
+    const newNode = nodeController.createNode(data);
+    const nodes = nodeController.addNode(newNode);
     setSelectedNode({ id: "" });
     setDisplayNodes(nodes);
   };

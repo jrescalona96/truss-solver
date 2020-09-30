@@ -9,7 +9,6 @@ const _generateId = () => {
 // Nodes //
 export const getNodes = () => nodes;
 
-
 export const getNodeById = (_id) => {
   const node = nodes.find((item) => item._id === _id);
   return node;

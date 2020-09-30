@@ -9,8 +9,12 @@ const Node = ({ data, onClick }) => {
 
   return (
     <g className="clickable" onClick={() => onClick(_id)}>
-      {xForce && <Force xRel={xRel} yRel={yRel} direction="x" />}
-      {yForce && <Force xRel={xRel} yRel={yRel} direction="y" />}
+      {xForce && (
+        <Force xRel={xRel} yRel={yRel} direction="x" magnitude={xForce} />
+      )}
+      {yForce && (
+        <Force xRel={xRel} yRel={yRel} direction="y" magnitude={yForce} />
+      )}
       <text x={xRel + 10} y={yRel - 10} stroke="black" fill="black" dy=".25em">
         {name} ({xCoord},{yCoord})
       </text>
