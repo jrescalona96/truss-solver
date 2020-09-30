@@ -1,8 +1,8 @@
 import React from "react";
 
 const Force = ({ xRel, yRel, direction, magnitude }) => {
-  const lineWidth = 3;
-  const lineLength = 30;
+  const lineWidth = 6;
+  const lineLength = 35;
 
   const calcAxis = () => {
     return direction === "x"
@@ -11,7 +11,7 @@ const Force = ({ xRel, yRel, direction, magnitude }) => {
   };
 
   const calcDirection = () => {
-    return magnitude < 0 && `rotate(180 ${xRel} ${yRel})`;
+    return magnitude < 0 && { transform: `rotate(180 ${xRel} ${yRel})` };
   };
 
   return (
@@ -20,8 +20,8 @@ const Force = ({ xRel, yRel, direction, magnitude }) => {
       x={xRel - lineWidth / 2}
       y={yRel - lineWidth / 2}
       {...calcAxis()}
+      {...calcDirection()}
       fill={direction === "x" ? "red" : "green"}
-      transform={calcDirection()}
     ></rect>
   );
 };

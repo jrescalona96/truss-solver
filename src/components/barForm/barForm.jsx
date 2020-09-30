@@ -1,6 +1,7 @@
 import React from "react";
-import Form from "../common/form/index";
 import "./barForm.scss";
+import { Label } from "reactstrap";
+import Form from "../common/form/index";
 
 class BarForm extends Form {
   state = {
@@ -44,10 +45,11 @@ class BarForm extends Form {
     return (
       <div id="barForm">
         <h3>Bars</h3>
+        <Label>Nodes</Label>
         <form onSubmit={this.handleSubmit}>
           {this.renderInputFormGroup(
             "nodeNameI",
-            "Node Name",
+            "",
             "text",
             nodeNameI,
             this.handleChange,
@@ -55,7 +57,7 @@ class BarForm extends Form {
           )}
           {this.renderInputFormGroup(
             "nodeNameJ",
-            "Node Name",
+            "",
             "text",
             nodeNameJ,
             this.handleChange,
@@ -67,11 +69,11 @@ class BarForm extends Form {
             "text",
             material,
             this.handleChange,
-            "Material Type"
+            "Material"
           )}
           {this.renderInputFormGroup(
             "area",
-            "Area",
+            "",
             "text",
             area,
             this.handleChange,
