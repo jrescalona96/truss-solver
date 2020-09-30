@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 
-const ORIGIN = { x: 25, y: 25 };
+const ORIGIN = { x: 50, y: 50 };
 let COORD_PLANE_SIZE_X = 1000;
 let COORD_PLANE_SIZE_Y = 600;
 

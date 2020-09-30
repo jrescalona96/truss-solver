@@ -1,5 +1,6 @@
 import React from "react";
 import { calcRelativeCoord } from "../../../controllers/coordinatePlaneController";
+import Force from "../force/index";
 import "./node.scss";
 
 const Node = ({ data, onClick }) => {
@@ -8,18 +9,12 @@ const Node = ({ data, onClick }) => {
 
   return (
     <g className="clickable" onClick={() => onClick(_id)}>
+      {xForce && <Force xRel={xRel} yRel={yRel} direction="x" />}
+      {yForce && <Force xRel={xRel} yRel={yRel} direction="y" />}
       <text x={xRel + 10} y={yRel - 10} stroke="black" fill="black" dy=".25em">
         {name} ({xCoord},{yCoord})
       </text>
-      <circle cx={xRel} cy={yRel} r={5}></circle>
-      <rect x={xRel} y={yRel} height={yForce * 0.25} width={2}></rect>
-      <rect
-        x={xRel}
-        y={yRel}
-        height={2}
-        width={xForce * 0.25}
-        fill={"#FF0000"}
-      ></rect>
+      <circle cx={xRel} cy={yRel} r={5} stroke="black" fill="green"></circle>
     </g>
   );
 };

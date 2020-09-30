@@ -35,8 +35,6 @@ export const updateBars = (data) => {
     return item;
   });
 
-  console.log("bars => ", bars);
-
   return bars;
 };
 
