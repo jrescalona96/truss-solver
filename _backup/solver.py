@@ -3,12 +3,7 @@ import math
 from numpy.linalg import inv  # free displacement vector
 
 
-def enclose(nodes, bars):
-    materials = [
-        [1,    29000],
-        [1,    29000],
-        [3,    4200]
-    ],
+def enclose(materials, nodes, bars):
     node = len(nodes)  # number of nodes
     bar = len(bars)  # number of bars
 
@@ -230,3 +225,61 @@ def enclose(nodes, bars):
     stress_list = stress.tolist()
 
     return d_list, FORCES_list, f_int_list, stress_list
+
+
+if __name__ == "__main__":
+
+    #          number E
+    materials1 = [1,    29000]
+    materials2 = [2,    30000]
+    materials3 = [3,    4200]
+    materials = [materials1,    # establish materials matrix
+                 materials2,
+                 materials3,
+                 ]
+    # print(materials)
+    #     number   x      y   bound_x   bound_y   force_x   force_y
+    nodes1 = [1,   -180,    0,  1,        1,        0,         0]
+    nodes2 = [2,   -60,     0,  0,        0,        0,        -20]
+    nodes3 = [3,    60,     0,  0,        0,        0,        -10]
+    nodes4 = [4,    180,    0,  0,        1,        0,         0]
+    nodes5 = [5,   -120,   90,  0,        0,        0,        -20]
+    nodes6 = [6,     0,    90,  0,        0,        10,        0]
+    nodes7 = [7,    120,   90,  0,        0,        10,        0]
+    # establish nodes matrix
+
+    nodes = [nodes1,
+             nodes2,
+             nodes3,
+             nodes4,
+             nodes5,
+             nodes6,
+             nodes7]
+
+    # truss element data
+    #     number  node_i   node_j   material   Area
+    bars1 = [1,   1,       2,       1,         math.pi]
+    bars2 = [2,   2,       3,       1,         math.pi]
+    bars3 = [3,   3,       4,       1,         math.pi]
+    bars4 = [4,   5,       6,       1,         math.pi]
+    bars5 = [5,   6,       7,       1,         math.pi]
+    bars6 = [6,   1,       5,       1,         math.pi]
+    bars7 = [7,   2,       6,       1,         math.pi]
+    bars8 = [8,   3,       7,       1,         math.pi]
+    bars9 = [9,   2,       5,       1,         math.pi]
+    bars10 = [10,  3,       6,       1,         math.pi]
+    bars11 = [11,  4,       7,       1,         math.pi]
+    # establish bars matrix
+    bars = [bars1,
+            bars2,
+            bars3,
+            bars4,
+            bars5,
+            bars6,
+            bars7,
+            bars8,
+            bars9,
+            bars10,
+            bars11]
+
+    enclose(materials, nodes, bars)

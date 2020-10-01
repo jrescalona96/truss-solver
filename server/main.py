@@ -6,7 +6,6 @@ app = Flask(__name__)
 
 def dict_converter(input_list):
     output_list = []
-    counter = 0
 
     for index, value in enumerate(input_list):
         if index % 2 == 0:
@@ -21,7 +20,6 @@ def dict_converter(input_list):
 
 @app.route('/', methods=['POST'])
 def truss_input():
-    json_input = request.get_json()
     materials = request.json['materials']
     nodes = request.json['nodes']
     bars = request.json['bars']
