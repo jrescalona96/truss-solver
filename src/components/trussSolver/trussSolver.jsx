@@ -12,9 +12,9 @@ const TrussSolver = () => {
   const [selectedNode, setSelectedNode] = useState({ id: "" });
 
   const handleAddTempNode = (data) => {
-    const nodes = nodeController.addTempNode(data);
+    const { nodes, newNode } = nodeController.addTempNode(data);
     setDisplayNodes(nodes);
-    const bars = barController.updateBars(data);
+    const bars = barController.updateBars(newNode);
     setDisplayBars(bars);
   };
 

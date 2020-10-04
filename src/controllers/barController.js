@@ -24,7 +24,9 @@ export const getBarNodes = (data) => {
 };
 
 export const updateBars = (data) => {
-  const node = nodeController.getNodeById(data._id);
+  // updated node related to bar being updated
+  const node = data;
+  // return a list of bars with updated node
   return bars.map((item) => {
     if (item.nodeI._id === node._id) {
       item.nodeI = node;

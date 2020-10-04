@@ -41,7 +41,7 @@ export const addTempNode = (data) => {
   let tempNodes = nodes.filter((item) => item._id !== data._id);
   const newNode = createNode(data);
   tempNodes.push(newNode);
-  return tempNodes;
+  return { newNode, nodes: tempNodes };
 };
 
 export const removeNode = (_id) => {
@@ -56,9 +56,7 @@ export const getSupportValues = (data) => {
   };
   const name = data;
   if (name === "") return { xSupport: 0, ySupport: 0 };
-
   const values = supportTable[name];
-  console.log(values);
   return values;
 };
 

@@ -38,7 +38,7 @@ class NodeForm extends Form {
   componentDidUpdate(prevProps) {
     const { data: prevData } = prevProps;
     if (this.props.data._id && prevData._id !== this.props.data._id) {
-      const data = this.props.data;
+      const data = { ...this.props.data };
       const support = nodeController.getSupportType(data);
       this.setState({ support });
       this.setState({ data });
