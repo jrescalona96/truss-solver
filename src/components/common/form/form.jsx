@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import "./form.scss";
 import InputFormGroup from "../inputFormGroup/index";
+import Menu from "../menu/index";
 import { Button } from "reactstrap";
+import "./form.scss";
 
 class Form extends Component {
   handleSubmit = (event) => {
@@ -10,8 +11,8 @@ class Form extends Component {
   };
 
   handleChange = ({ currentTarget: input }) => {
-    const { value, name } = input;
     const { data } = { ...this.state };
+    const { value, name } = input;
     data[name] = value;
     this.setState({ data });
     if (value) {
@@ -46,6 +47,19 @@ class Form extends Component {
       <Button color="primary" size="sm" type="submit" disabled={disabled}>
         {label}
       </Button>
+    );
+  };
+
+  renderDropdownMenu = (options, name, label, selected, onChange, disabled) => {
+    return (
+      <Menu
+        options={options}
+        name={name}
+        label={label}
+        selected={selected}
+        onChange={onChange}
+        disabled={disabled}
+      />
     );
   };
 }

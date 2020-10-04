@@ -6,7 +6,17 @@ const _generateId = () => {
   return "_" + Math.random().toString(36).substr(2, 9);
 };
 
-// Nodes //
+const _generateName = () => {
+  const lastNode = nodes[nodes.length - 1];
+  if (lastNode) return String(Number(lastNode.name) + 1);
+  else return "0";
+};
+
+const _parseNumberOrZero = (input) => {
+  if (!input || isNaN(input)) return 0;
+  return Number(input);
+};
+
 export const getNodes = () => nodes;
 
 export const getNodeById = (_id) => {
@@ -27,11 +37,6 @@ export const addNode = (data) => {
   return nodes;
 };
 
-export const removeNode = (_id) => {
-  nodes = nodes.filter((item) => item._id !== _id);
-  return nodes;
-};
-
 export const addTempNode = (data) => {
   let tempNodes = nodes.filter((item) => item._id !== data._id);
   const newNode = createNode(data);
@@ -39,21 +44,59 @@ export const addTempNode = (data) => {
   return tempNodes;
 };
 
+export const removeNode = (_id) => {
+  nodes = nodes.filter((item) => item._id !== _id);
+  return nodes;
+};
+
+export const getSupportValues = (data) => {
+  const supportTable = {
+    Pin: { xSupport: 1, ySupport: 1 },
+    Roller: { xSupport: 0, ySupport: 1 },
+  };
+  const name = data;
+  if (name === "") return { xSupport: 0, ySupport: 0 };
+
+  const values = supportTable[name];
+  console.log(values);
+  return values;
+};
+
+export const getSupportType = ({ xSupport, ySupport }) => {
+  let support = "";
+  if (xSupport > 0 && ySupport > 0) {
+    support = "Pin";
+  } else if (xSupport === 0 && ySupport > 0) {
+    support = "Roller";
+  } else {
+    support = "";
+  }
+  return support;
+};
+
 export const createNode = (data) => {
   if (data) {
-    const { _id, name, xCoord, yCoord, xForce, yForce } = data;
+    const {
+      _id,
+      name,
+      xCoord,
+      yCoord,
+      xForce,
+      yForce,
+      xSupport,
+      ySupport,
+    } = data;
     const id = _id ? _id : _generateId();
-    const na = name ? name : `n${nodes.length}`;
+    const na = name ? name : _generateName();
     const xc = Number(xCoord);
     const yc = Number(yCoord);
     const xf = _parseNumberOrZero(xForce);
     const yf = _parseNumberOrZero(yForce);
-    const node = new Node(id, na, xc, yc, xf, yf);
+    const xs = xSupport;
+    const ys = ySupport;
+    const node = new Node(id, na, xc, yc, xf, yf, xs, ys);
     return !isNaN(xc) && !isNaN(yc) ? node : null;
   }
 };
 
-const _parseNumberOrZero = (input) => {
-  if (!input || isNaN(input)) return 0;
-  return Number(input);
-};
+// TODO: create separate function to update nodes
