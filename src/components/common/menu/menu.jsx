@@ -18,7 +18,12 @@ const Menu = ({ options, name, label, selected, onChange, disabled }) => {
       toggle={toggle}
       size="sm"
     >
-      <DropdownToggle color="primary" size="sm" caret>
+      <DropdownToggle
+        color={disabled ? "secondary" : "primary"}
+        size="sm"
+        className="col-12"
+        caret
+      >
         {selected ? selected : label}
       </DropdownToggle>
       <DropdownMenu>

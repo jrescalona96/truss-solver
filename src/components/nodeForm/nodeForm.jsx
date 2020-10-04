@@ -70,7 +70,7 @@ class NodeForm extends Form {
     return (
       <div id="nodeForm">
         <h3>Nodes</h3>
-        {name && <h5>{name}</h5>}
+        {name && <Label>Name: {name}</Label>}
         <form onSubmit={this.handleSubmit}>
           <Label>Coordinates</Label>
           {this.renderInputFormGroup(
