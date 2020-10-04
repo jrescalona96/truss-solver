@@ -14,12 +14,10 @@ def enclose(materials, nodes, bars):
 
     for ii in range(1, bar+1):
         nodes = np.array(nodes)
-        # this plots the nodes
         lx, ly = truss(nodes[bars[ii-1][1]-1][1], nodes[bars[ii - 1][1] - 1][2],
                        nodes[bars[ii-1][2]-1][1], nodes[bars[ii - 1][2] - 1][2])  # locates ix iy ij iy
         xij += lx
         yij += ly
-    # plt.show()
 
     coord_x = np.array([xij])
     coord_x = coord_x.reshape(bar, 3)
@@ -29,7 +27,6 @@ def enclose(materials, nodes, bars):
     coord_y = np.delete(coord_y, 2, 1)
     # [ix jx iy jy] this holds coordinates of i and j of bars
     coord_mat = np.concatenate((coord_x, coord_y), axis=1)
-    # print(coord_mat)
 
     def angle(ix, jx, iy, jy):  # this is a function to solve for angles
         b = math.degrees(math.atan((jy-iy)/(jx-ix)))
@@ -54,7 +51,6 @@ def enclose(materials, nodes, bars):
         # collects output of the for loop
         theta = np.concatenate((theta, theta1), axis=0)
     theta = theta.reshape(bar, 1)
-    # print(theta[10])
 
     def dist(ix, jx, iy, jy):  # function for calculation distance between 2 points
         d = math.sqrt((jx-ix)**2 + (jy-iy)**2)
@@ -66,7 +62,6 @@ def enclose(materials, nodes, bars):
         Length = np.concatenate((Length, length1), axis=0)
     # this is the array for the lengths of bars
     Length = Length.reshape(bar, 1)
-    # print(Length[2])
 
     def t_matrix(theta):  # this function solves for the Transformation matrix of a bar
         d = [[math.cos(math.radians(theta)), math.sin(math.radians(theta)), 0, 0],
@@ -82,7 +77,6 @@ def enclose(materials, nodes, bars):
         transf_m1 = t_matrix(theta[ii-1])
         transf_m = transf_m+transf_m1  # this stores all transformation matrices of the bars
     transf_m = np.array([transf_m])
-    # print(transf_m[0])
 
     def k_local(A, mat, L):
         stiffness_matrix = [[1, 0, -1, 0],  # stiffness matrix
@@ -99,7 +93,6 @@ def enclose(materials, nodes, bars):
                      [1], Length[ii-1])
         k = k+k1  # this is local stiffness matrix
     k = np.array([k])
-    # print(len(k[0][0]))
 
     def k_global(Tmat, stiffmat):  # 4X4 element global stiffness matrix
         t_transpose = Tmat
@@ -111,7 +104,6 @@ def enclose(materials, nodes, bars):
     for ii in range(1, bar + 1):
         k_g1 = k_global(transf_m[0][ii-1], k[0][ii-1])
         k_g = k_g+k_g1
-    # print(k_g[0])
 
     # this holds individual global stiffness matrix (2*nodes x 2*nodes)
     def K_matrix(nodes, node_i, node_j, k_glob):
@@ -130,14 +122,12 @@ def enclose(materials, nodes, bars):
     for ii in range(1, bar+1):
         K_mat1 = K_matrix(node, bars[ii-1][1], bars[ii-1][2], k_g[ii-1])
         K_mat = K_mat+K_mat1
-    # print(K_mat[0])
 
     # this sums all individual global stiffness matrix into (1) GLOBAL STIFFNESS MATRIX
     K_global = np.zeros((2*node, 2*node))
     for ii in range(1, bar+1):
         K_global1 = np.array([K_mat[ii-1]])
         K_global = K_global+K_global1
-    # print(K_global)
 
     f_x = nodes[0:node+1, 5]  # takes all x-forces
     f_y = nodes[0:node+1, 6]  # takes all y-forces
@@ -147,21 +137,12 @@ def enclose(materials, nodes, bars):
     f_nodes = f_nodes.transpose()  # x-force col y-force col
     # reshape into 1 col, alternating (x1 y1 x2 y2...
     f_nodes = np.reshape(f_nodes, (2*node, 1))
-    # print(np.size((f_nodes),1))
 
     restr = nodes[0:node+1, 3:5]  # extracts restraints from nodes matrix
-    # print(restr)
     c = np.reshape(restr, (2*node, 1))
-    # print(c)
     node_f = np.argwhere(c)
-    # print(node_f)
     node_f = node_f[0:, 0]  # all nodes with restraints
-    # print(node_f)
     node_fi = node_f[::-1]  # reverses order of node_f
-    # print(node_fi)
-    # print(len(node_fi+1))
-    # print(np.size((K_global),0))
-    # print(np.size((K_global),1))
 
     def reducerow(x, y):
         xi = np.delete(x, y, 0)
@@ -169,8 +150,6 @@ def enclose(materials, nodes, bars):
 
     # this reduces rows of global stiffness matrix ie restraints
     K_frow = reducerow(K_global[0], node_f)
-
-    # print(K_frow)
 
     def reducecol(x, y):
         xi = np.delete(x, y, 1)
@@ -188,11 +167,8 @@ def enclose(materials, nodes, bars):
     d_c = np.where(c == 0)[0]
 
     d[d_c] = d_f  # vector of displacements <<<<<<----------------------------- deflections
-    print(d)
 
     FORCES = np.matmul(K_global, d)  # vector of forces
-    print(FORCES)
-
     REACTIONS = FORCES[0, [node_f]]
 
     # this transforms global nodal displacements into local nodal displacements
@@ -210,14 +186,12 @@ def enclose(materials, nodes, bars):
         f_int1 = bars[ii-1][4] * materials[bars[ii-1][3]-1][1] / \
             Length[ii-1] * np.matmul([-1, 1], glob2local(ii-1, theta, bars, d))
         f_int = np.concatenate((f_int, f_int1), 0)
-    print(f_int)  # an array of internal forces <<<<<<<<<<<<<<<<<<<<<<<<<<<forces
 
     stress = []  # this solves for stresses
     for ii in range(1, bar+1):
         stress1 = materials[bars[ii-1][3]-1][1] / Length[ii-1] * \
             np.matmul([-1, 1], glob2local(ii-1, theta, bars, d))
         stress = np.concatenate((stress, stress1), 0)
-    print(stress)  # an array of stresses <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<stresses
 
     d_list = d.tolist()
     FORCES_list = FORCES.tolist()
@@ -225,61 +199,3 @@ def enclose(materials, nodes, bars):
     stress_list = stress.tolist()
 
     return d_list, FORCES_list, f_int_list, stress_list
-
-
-if __name__ == "__main__":
-
-    #          number E
-    materials1 = [1,    29000]
-    materials2 = [2,    30000]
-    materials3 = [3,    4200]
-    materials = [materials1,    # establish materials matrix
-                 materials2,
-                 materials3,
-                 ]
-    # print(materials)
-    #     number   x      y   bound_x   bound_y   force_x   force_y
-    nodes1 = [1,   -180,    0,  1,        1,        0,         0]
-    nodes2 = [2,   -60,     0,  0,        0,        0,        -20]
-    nodes3 = [3,    60,     0,  0,        0,        0,        -10]
-    nodes4 = [4,    180,    0,  0,        1,        0,         0]
-    nodes5 = [5,   -120,   90,  0,        0,        0,        -20]
-    nodes6 = [6,     0,    90,  0,        0,        10,        0]
-    nodes7 = [7,    120,   90,  0,        0,        10,        0]
-    # establish nodes matrix
-
-    nodes = [nodes1,
-             nodes2,
-             nodes3,
-             nodes4,
-             nodes5,
-             nodes6,
-             nodes7]
-
-    # truss element data
-    #     number  node_i   node_j   material   Area
-    bars1 = [1,   1,       2,       1,         math.pi]
-    bars2 = [2,   2,       3,       1,         math.pi]
-    bars3 = [3,   3,       4,       1,         math.pi]
-    bars4 = [4,   5,       6,       1,         math.pi]
-    bars5 = [5,   6,       7,       1,         math.pi]
-    bars6 = [6,   1,       5,       1,         math.pi]
-    bars7 = [7,   2,       6,       1,         math.pi]
-    bars8 = [8,   3,       7,       1,         math.pi]
-    bars9 = [9,   2,       5,       1,         math.pi]
-    bars10 = [10,  3,       6,       1,         math.pi]
-    bars11 = [11,  4,       7,       1,         math.pi]
-    # establish bars matrix
-    bars = [bars1,
-            bars2,
-            bars3,
-            bars4,
-            bars5,
-            bars6,
-            bars7,
-            bars8,
-            bars9,
-            bars10,
-            bars11]
-
-    enclose(materials, nodes, bars)

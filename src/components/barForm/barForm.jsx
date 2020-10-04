@@ -65,7 +65,7 @@ class BarForm extends Form {
           )}
           {this.renderInputFormGroup(
             "material",
-            "Material",
+            "",
             "text",
             material,
             this.handleChange,

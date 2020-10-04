@@ -6,9 +6,8 @@ from numpy.linalg import inv  # free displacement vector
 def enclose(nodes, bars):
     materials = [
         [1,    29000],
-        [1,    29000],
         [3,    4200]
-    ],
+    ]
     node = len(nodes)  # number of nodes
     bar = len(bars)  # number of bars
 
@@ -142,7 +141,6 @@ def enclose(nodes, bars):
     for ii in range(1, bar+1):
         K_global1 = np.array([K_mat[ii-1]])
         K_global = K_global+K_global1
-    # print(K_global)
 
     f_x = nodes[0:node+1, 5]  # takes all x-forces
     f_y = nodes[0:node+1, 6]  # takes all y-forces
@@ -152,21 +150,16 @@ def enclose(nodes, bars):
     f_nodes = f_nodes.transpose()  # x-force col y-force col
     # reshape into 1 col, alternating (x1 y1 x2 y2...
     f_nodes = np.reshape(f_nodes, (2*node, 1))
-    # print(np.size((f_nodes),1))
 
     restr = nodes[0:node+1, 3:5]  # extracts restraints from nodes matrix
-    # print(restr)
+
     c = np.reshape(restr, (2*node, 1))
-    # print(c)
+
     node_f = np.argwhere(c)
-    # print(node_f)
+
     node_f = node_f[0:, 0]  # all nodes with restraints
-    # print(node_f)
+
     node_fi = node_f[::-1]  # reverses order of node_f
-    # print(node_fi)
-    # print(len(node_fi+1))
-    # print(np.size((K_global),0))
-    # print(np.size((K_global),1))
 
     def reducerow(x, y):
         xi = np.delete(x, y, 0)
@@ -174,8 +167,6 @@ def enclose(nodes, bars):
 
     # this reduces rows of global stiffness matrix ie restraints
     K_frow = reducerow(K_global[0], node_f)
-
-    # print(K_frow)
 
     def reducecol(x, y):
         xi = np.delete(x, y, 1)
@@ -193,10 +184,8 @@ def enclose(nodes, bars):
     d_c = np.where(c == 0)[0]
 
     d[d_c] = d_f  # vector of displacements <<<<<<----------------------------- deflections
-    print(d)
 
     FORCES = np.matmul(K_global, d)  # vector of forces
-    print(FORCES)
 
     REACTIONS = FORCES[0, [node_f]]
 
@@ -215,14 +204,14 @@ def enclose(nodes, bars):
         f_int1 = bars[ii-1][4] * materials[bars[ii-1][3]-1][1] / \
             Length[ii-1] * np.matmul([-1, 1], glob2local(ii-1, theta, bars, d))
         f_int = np.concatenate((f_int, f_int1), 0)
-    print(f_int)  # an array of internal forces <<<<<<<<<<<<<<<<<<<<<<<<<<<forces
+    # print(f_int)  # an array of internal forces <<<<<<<<<<<<<<<<<<<<<<<<<<<forces
 
     stress = []  # this solves for stresses
     for ii in range(1, bar+1):
         stress1 = materials[bars[ii-1][3]-1][1] / Length[ii-1] * \
             np.matmul([-1, 1], glob2local(ii-1, theta, bars, d))
         stress = np.concatenate((stress, stress1), 0)
-    print(stress)  # an array of stresses <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<stresses
+    # print(stress)  # an array of stresses <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<stresses
 
     d_list = d.tolist()
     FORCES_list = FORCES.tolist()

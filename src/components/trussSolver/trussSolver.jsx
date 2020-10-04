@@ -54,23 +54,21 @@ const TrussSolver = () => {
   };
 
   return (
-    <div id="trussSolver" className="container mx-auto">
-      <div className="row">
-        <div className="m-1">
-          <NodeForm
-            controller={nodeController}
-            onConfirmNode={(data) => handleConfirmNode(data)}
-            onAppendNode={(data) => handleAppendNode(data)}
-            data={selectedNode}
-          />
-        </div>
-        <div className="m-1">
-          <BarForm
-            controller={barController}
-            onConfirmBar={(data) => handleConfirmBar(data)}
-            onAppendBar={(data) => handleAppendBar(data)}
-          />
-        </div>
+    <div id="trussSolver" className="d-flex justify-space-between mx-auto">
+      <div className="col-2">
+        <NodeForm
+          controller={nodeController}
+          onConfirmNode={(data) => handleConfirmNode(data)}
+          onAppendNode={(data) => handleAppendNode(data)}
+          data={selectedNode}
+        />
+        <BarForm
+          controller={barController}
+          onConfirmBar={(data) => handleConfirmBar(data)}
+          onAppendBar={(data) => handleAppendBar(data)}
+        />
+      </div>
+      <div className="col-10">
         <CoordinatePlane
           data={{ nodes: displayNodes, bars: displayBars }}
           onSetSelectedNode={(id) => handleSetSelectedNode(id)}
