@@ -1,15 +1,11 @@
 import React from "react";
 import Node from "../node/index";
 import Bar from "../bar/index";
-import {
-  calculatePlaneSize,
-  getScales,
-} from "../../../controllers/coordinatePlaneController";
+import { calculatePlaneSize } from "../../../controllers/coordinatePlaneController";
 import "./coordinatePlane.scss";
 
 const CoordinatePlane = ({ data, onSetSelectedNode }) => {
   const { nodes, bars } = data;
-  const { yScale, xScale } = getScales(nodes);
   const { width, height } = calculatePlaneSize(nodes);
 
   return (
@@ -19,12 +15,7 @@ const CoordinatePlane = ({ data, onSetSelectedNode }) => {
           <Bar key={item._id} data={item} />
         ))}
         {nodes.map((item) => (
-          <Node
-            key={item._id}
-            data={item}
-            onClick={onSetSelectedNode}
-            scales={{ yScale, xScale }}
-          />
+          <Node key={item._id} data={item} onClick={onSetSelectedNode} />
         ))}
       </svg>
     </div>

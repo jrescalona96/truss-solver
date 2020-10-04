@@ -6,7 +6,6 @@ import "./node.scss";
 const Node = ({ data, onClick }) => {
   const { _id, name, xCoord, yCoord, xForce, yForce } = data;
   const { xRel, yRel } = calcRelativeCoord(xCoord, yCoord);
-
   return (
     <g className="clickable node" onClick={() => onClick(_id)}>
       {xForce && (

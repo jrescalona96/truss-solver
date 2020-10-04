@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as nodeController from "../../controllers/nodeController";
 import * as barController from "../../controllers/barController";
 import CoordinatePlane from "../common/coordinatePlane/index";
@@ -11,27 +11,20 @@ const TrussSolver = () => {
   const [displayBars, setDisplayBars] = useState([]);
   const [selectedNode, setSelectedNode] = useState({ id: "" });
 
-  useEffect(() => {
-    const nodes = nodeController.getNodes();
+  const handleAddTempNode = (data) => {
+    const nodes = nodeController.addTempNode(data);
     setDisplayNodes(nodes);
-  }, [displayNodes]);
-
-  const handleAppendNode = (data) => {
-    const newNode = nodeController.createNode(data);
-    const nodes = nodeController.addTempNode(newNode);
     const bars = barController.updateBars(data);
-    setDisplayNodes(nodes);
     setDisplayBars(bars);
   };
 
   const handleConfirmNode = (data) => {
-    const newNode = nodeController.createNode(data);
-    const nodes = nodeController.addNode(newNode);
+    const nodes = nodeController.addNode(data);
     setSelectedNode({ id: "" });
     setDisplayNodes(nodes);
   };
 
-  const handleAppendBar = (data) => {
+  const handleAddTempBar = (data) => {
     const bar = barController.createBar(data);
     if (bar) {
       const bars = barController.addTempBar(bar);
@@ -50,7 +43,7 @@ const TrussSolver = () => {
   const handleSetSelectedNode = (_id) => {
     const node = nodeController.getNodeById(_id);
     setSelectedNode(node);
-    handleAppendNode(node);
+    handleAddTempNode(node);
   };
 
   return (
@@ -59,13 +52,13 @@ const TrussSolver = () => {
         <NodeForm
           controller={nodeController}
           onConfirmNode={(data) => handleConfirmNode(data)}
-          onAppendNode={(data) => handleAppendNode(data)}
+          onAddTempNode={(data) => handleAddTempNode(data)}
           data={selectedNode}
         />
         <BarForm
           controller={barController}
           onConfirmBar={(data) => handleConfirmBar(data)}
-          onAppendBar={(data) => handleAppendBar(data)}
+          onAddTempBar={(data) => handleAddTempBar(data)}
         />
       </div>
       <div className="col-10">

@@ -33,13 +33,11 @@ class NodeForm extends Form {
   }
 
   doUpdate() {
-    const { onAppendNode } = this.props;
-    onAppendNode(this.state.data);
+    this.props.onAddTempNode(this.state.data);
   }
 
   doSubmit() {
-    const { onConfirmNode } = this.props;
-    onConfirmNode(this.state.data);
+    this.props.onConfirmNode(this.state.data);
     this._initializeForm();
     // else add error for particular input
   }

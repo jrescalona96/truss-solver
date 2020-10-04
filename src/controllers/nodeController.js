@@ -20,8 +20,9 @@ export const getNodeByName = (name) => {
 };
 
 export const addNode = (data) => {
+  const newNode = createNode(data);
   const n = nodes.filter((item) => item._id !== data._id);
-  n.push(data);
+  n.push(newNode);
   nodes = n;
   return nodes;
 };
@@ -33,7 +34,8 @@ export const removeNode = (_id) => {
 
 export const addTempNode = (data) => {
   let tempNodes = nodes.filter((item) => item._id !== data._id);
-  tempNodes.push(data);
+  const newNode = createNode(data);
+  tempNodes.push(newNode);
   return tempNodes;
 };
 
@@ -42,15 +44,16 @@ export const createNode = (data) => {
     const { _id, name, xCoord, yCoord, xForce, yForce } = data;
     const id = _id ? _id : _generateId();
     const na = name ? name : `n${nodes.length}`;
-    const xc = parseFloat(xCoord);
-    const yc = parseFloat(yCoord);
+    const xc = Number(xCoord);
+    const yc = Number(yCoord);
     const xf = _parseNumberOrZero(xForce);
     const yf = _parseNumberOrZero(yForce);
-    return !isNaN(xc) && !isNaN(yc) ? new Node(id, na, xc, yc, xf, yf) : null;
+    const node = new Node(id, na, xc, yc, xf, yf);
+    return !isNaN(xc) && !isNaN(yc) ? node : null;
   }
 };
 
 const _parseNumberOrZero = (input) => {
   if (!input || isNaN(input)) return 0;
-  return parseFloat(input);
+  return Number(input);
 };

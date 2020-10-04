@@ -13,7 +13,6 @@ export const getBarNodes = (data) => {
   const { nodeNameI, nodeNameJ } = data;
   const nodeI = nodeController.getNodeByName(nodeNameI);
   const nodeJ = nodeController.getNodeByName(nodeNameJ);
-  console.log(nodeI, nodeJ);
   if (nodeI && nodeJ) {
     return {
       nodeI,
@@ -25,17 +24,15 @@ export const getBarNodes = (data) => {
 };
 
 export const updateBars = (data) => {
-  bars = bars.map((item) => {
-    if (item.nodeI._id === data._id) {
-      item.nodeI = data;
-    }
-    if (item.nodeJ._id === data._id) {
-      item.nodeJ = data;
+  const node = nodeController.getNodeById(data._id);
+  return bars.map((item) => {
+    if (item.nodeI._id === node._id) {
+      item.nodeI = node;
+    } else if (item.nodeJ._id === node._id) {
+      item.nodeJ = node;
     }
     return item;
   });
-
-  return bars;
 };
 
 export const createBar = (data) => {
