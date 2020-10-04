@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { calcRelativeCoord } from "../../../controllers/coordinatePlaneController";
 import Force from "../force/index";
 import "./node.scss";
 
-const Node = ({ data, onClick }) => {
+const Node = ({ data, onClick, isSelected }) => {
   const { _id, name, xCoord, yCoord, xForce, yForce } = data;
   const { xRel, yRel } = calcRelativeCoord(xCoord, yCoord);
   return (
@@ -17,7 +17,13 @@ const Node = ({ data, onClick }) => {
       <text x={xRel + 10} y={yRel - 10} stroke="black" fill="black" dy=".25em">
         {name} ({xCoord},{yCoord})
       </text>
-      <circle cx={xRel} cy={yRel} r={5} stroke="black" fill="green"></circle>
+      <circle
+        cx={xRel}
+        cy={yRel}
+        r={isSelected ? 8 : 5}
+        stroke="black"
+        fill={isSelected ? "orange" : "green"}
+      ></circle>
     </g>
   );
 };

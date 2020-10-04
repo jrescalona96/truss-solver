@@ -58,6 +58,7 @@ const TrussSolver = () => {
       <div className="col-10">
         <CoordinatePlane
           data={{ nodes: displayNodes, bars: displayBars }}
+          selected={selectedNode}
           onSetSelectedNode={(id) => handleSetSelectedNode(id)}
         />
       </div>
