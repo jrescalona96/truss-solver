@@ -33,7 +33,7 @@ class BarForm extends Form {
   };
 
   doSubmit = () => {
-    this.props.onConfirmBar(this.state.data);
+    this.props.onAddBar(this.state.data);
     this._initializeForm();
   };
 

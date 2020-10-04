@@ -35,6 +35,26 @@ export const updateBars = (data) => {
   });
 };
 
+export const addTempBar = (data) => {
+  const bar = createBar(data);
+  if (bar) {
+    let tempBars = [...bars];
+    tempBars.push(bar);
+  } else {
+    return null;
+  }
+};
+
+export const addBar = (data) => {
+  const bar = createBar(data);
+  if (bar) {
+    bars.push(bar);
+    return bars;
+  } else {
+    return null;
+  }
+};
+
 export const createBar = (data) => {
   const _id = _generateId();
   const { material, area } = data;
@@ -48,17 +68,4 @@ export const createBar = (data) => {
     // TODO: return bars
     return null;
   }
-};
-
-export const addTempBar = (data) => {
-  const bar = { ...data };
-  let tempBars = [...bars];
-  tempBars.push(bar);
-  return tempBars;
-};
-
-export const addBar = (data) => {
-  const bar = { ...data };
-  bars.push(bar);
-  return bars;
 };

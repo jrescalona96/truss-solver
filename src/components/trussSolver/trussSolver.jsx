@@ -20,24 +20,18 @@ const TrussSolver = () => {
 
   const handleConfirmNode = (data) => {
     const nodes = nodeController.addNode(data);
-    setSelectedNode({ id: "" });
     setDisplayNodes(nodes);
+    setSelectedNode({ id: "" });
   };
 
   const handleAddTempBar = (data) => {
-    const bar = barController.createBar(data);
-    if (bar) {
-      const bars = barController.addTempBar(bar);
-      setDisplayBars(bars);
-    }
+    const bars = barController.addTempBar(data);
+    if (bars) setDisplayBars(bars);
   };
 
-  const handleConfirmBar = (data) => {
-    const bar = barController.createBar(data);
-    if (bar) {
-      const bars = barController.addBar(bar);
-      setDisplayBars(bars);
-    }
+  const handleAddBar = (data) => {
+    const bars = barController.addBar(data);
+    if (bars) setDisplayBars(bars);
   };
 
   const handleSetSelectedNode = (_id) => {
@@ -57,7 +51,7 @@ const TrussSolver = () => {
         />
         <BarForm
           controller={barController}
-          onConfirmBar={(data) => handleConfirmBar(data)}
+          onAddBar={(data) => handleAddBar(data)}
           onAddTempBar={(data) => handleAddTempBar(data)}
         />
       </div>
