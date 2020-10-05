@@ -1,11 +1,21 @@
 import React from "react";
 import { calcRelativeCoord } from "../../../controllers/coordinatePlaneController";
+import Support from "../support/index";
 import Force from "../force/index";
 import Point from "../point/index";
 import "./node.scss";
 
 const Node = ({ data, onClick, isSelected }) => {
-  const { _id, name, xCoord, yCoord, xForce, yForce } = data;
+  const {
+    _id,
+    name,
+    xCoord,
+    yCoord,
+    xForce,
+    yForce,
+    xSupport,
+    ySupport,
+  } = data;
   const { xRel, yRel } = calcRelativeCoord(xCoord, yCoord);
   const label = `${name}(${xCoord}, ${yCoord})`;
   return (
@@ -22,6 +32,7 @@ const Node = ({ data, onClick, isSelected }) => {
         radius={isSelected ? 8 : 5}
         fill={isSelected ? "orange" : "green"}
       />
+      <Support contactCoords={{ xRel, yRel }} type={{ xSupport, ySupport }} />
     </g>
   );
 };
