@@ -1,0 +1,148 @@
+[
+  {
+    "_id": "_y2dmqbnz1",
+    "name": "0",
+    "xCoord": 0,
+    "yCoord": 0,
+    "xForce": 0,
+    "yForce": 0,
+    "xSupport": 0,
+    "ySupport": 0
+  },
+  {
+    "_id": "_3sfcb22a0",
+    "name": "1",
+    "xCoord": 0,
+    "yCoord": 120,
+    "xForce": 0,
+    "yForce": 0,
+    "xSupport": 0,
+    "ySupport": 0
+  },
+  {  
+    "_id": "_085lguj4o",
+    "name": "3",
+    "xCoord": 80,
+    "yCoord": 80,
+    "xForce": 0,
+    "yForce": 0,
+    "xSupport": 0,
+    "ySupport": 0
+  },
+  {
+    "_id": "_8tea3a97g",
+    "name": "2",
+    "xCoord": 120,
+    "yCoord": 0,
+    "xForce": 0,
+    "yForce": 0,
+    "xSupport": 0,
+    "ySupport": 0
+  }
+]
+[
+  ({
+    "_id": "_myf05orap",
+    "nodeI": {
+      "_id": "_3sfcb22a0",
+      "name": "1",
+      "xCoord": 0,
+      "yCoord": 120,
+      "xForce": 0,
+      "yForce": 0,
+      "xSupport": 0,
+      "ySupport": 0
+    },
+    "nodeJ": {
+      "_id": "_085lguj4o",
+      "name": "3",
+      "xCoord": 80,
+      "yCoord": 80,
+      "xForce": 0,
+      "yForce": 0,
+      "xSupport": 0,
+      "ySupport": 0
+    },
+    "material": "",
+    "area": "",
+    "length": None
+  },
+  {
+    "_id": "_ivoez2itg",
+    "nodeI": {
+      "_id": "_8tea3a97g",
+      "name": "2",
+      "xCoord": 120,
+      "yCoord": 0,
+      "xForce": 0,
+      "yForce": 0,
+      "xSupport": 0,
+      "ySupport": 0
+    },
+    "nodeJ": {
+      "_id": "_085lguj4o",
+      "name": "3",
+      "xCoord": 80,
+      "yCoord": 80,
+      "xForce": 0,
+      "yForce": 0,
+      "xSupport": 0,
+      "ySupport": 0
+    },
+    "material": "",
+    "area": "",
+    "length": None
+  },
+  {
+    "_id": "_gnp3db1p9",
+    "nodeI": {
+      "_id": "_y2dmqbnz1",
+      "name": "0",
+      "xCoord": 0,
+      "yCoord": 0,
+      "xForce": 0,
+      "yForce": 0,
+      "xSupport": 0,
+      "ySupport": 0
+    },
+    "nodeJ": {
+      "_id": "_3sfcb22a0",
+      "name": "1",
+      "xCoord": 0,
+      "yCoord": 120,
+      "xForce": 0,
+      "yForce": 0,
+      "xSupport": 0,
+      "ySupport": 0
+    },
+    "material": "",
+    "area": "",
+    "length": None
+  },
+  {
+    "_id": "_7qigg1i08",
+    "nodeI": {
+      "_id": "_8tea3a97g",
+      "name": "2",
+      "xCoord": 120,
+      "yCoord": 0,
+      "xForce": 0,
+      "yForce": 0,
+      "xSupport": 0,
+      "ySupport": 0
+    },
+    "nodeJ": {
+      "_id": "_y2dmqbnz1",
+      "name": "0",
+      "xCoord": 0,
+      "yCoord": 0,
+      "xForce": 0,
+      "yForce": 0,
+      "xSupport": 0,
+      "ySupport": 0
+    },
+    "material": "",
+    "area": "",
+    "length": None
+  })
+]

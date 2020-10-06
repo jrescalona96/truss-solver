@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "reactstrap";
 import * as nodeController from "../../controllers/nodeController";
 import * as barController from "../../controllers/barController";
+import http from "../../services/httpServices";
 import CoordinatePlane from "../common/coordinatePlane/index";
 import NodeForm from "../nodeForm/index";
 import BarForm from "../barForm/index";
@@ -41,6 +42,14 @@ const TrussSolver = () => {
     handleAddTempNode(node);
   };
 
+  const handleCalculate = async () => {
+    const res = await http.post("api/calculate", {
+      nodes: displayNodes,
+      bars: displayBars,
+    });
+    console.log(res);
+  };
+
   return (
     <div id="trussSolver" className="d-flex justify-space-between mx-auto">
       <div className="col-2">
@@ -56,7 +65,12 @@ const TrussSolver = () => {
           onAddTempBar={(data) => handleAddTempBar(data)}
         />
         <div id="calculateButton">
-          <Button size="sm" color="success" className="mt-2 w-100">
+          <Button
+            onClick={handleCalculate}
+            size="sm"
+            color="success"
+            className="mt-2 w-100"
+          >
             Calculate
           </Button>
         </div>

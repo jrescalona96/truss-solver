@@ -1,47 +1,10 @@
 from flask import Flask, jsonify, request, make_response
+from flask_cors import CORS, cross_origin
 from solver import enclose
+from utilities import generate_id_table, map_nodes, map_bars
 
 app = Flask(__name__)
-
-
-def dict_converter(input_list):
-    output_list = []
-
-    for index, value in enumerate(input_list):
-        if index % 2 == 0:
-            temp = {}
-            temp['x'] = value[0]
-        else:
-            temp['y'] = value[0]
-            output_list.append(temp)
-
-    return output_list
-
-
-def map_ids(source, data):
-
-    sample = [
-        {"_id": "test1",   "xCoord": -180,    "yCoord": 0,  "xSupport": 1,
-            "ySupport": 1,        "xForce": 0,         "yForce": 0},
-        {"_id": "test2",   "xCoord": -60,     "yCoord": 0,  "xSupport": 0,
-            "ySupport": 0,        "xForce": 0,        "yForce": -20},
-        {"_id": "test3",    "xCoord": 60,     "yCoord": 0,  "xSupport": 0,
-            "ySupport": 0,        "xForce": 0,        "yForce": -10},
-        {"_id": "test4",    "xCoord": 180,    "yCoord": 0,  "xSupport": 0,
-            "ySupport": 1,        "xForce": 0,         "yForce": 0},
-        {"_id": "test5",   "xCoord": -120,   "yCoord": 90,  "xSupport": 0,
-            "ySupport": 0,        "xForce": 0,        "yForce": -20},
-        {"_id": "test6",     "xCoord": 0,    "yCoord": 90,  "xSupport": 0,
-            "ySupport": 0,        "xForce": 10,        "yForce": 0},
-        {"_id": "test7",    "xCoord": 120,   "yCoord": 90,  "xSupport": 0,
-            "ySupport": 0,        "xForce": 10,        "yForce": 0}
-    ]
-
-    output_list = []
-
-    for index, value in enumerate(sample):
-        output_list.append({value["_id"]: data[index]})
-    return output_list
+cors = CORS(app)  # disable CORS TODO: remove before publishing
 
 
 @app.route('/', methods=['GET'])
@@ -51,25 +14,29 @@ def sample_get():
     return res
 
 
-@app.route('/', methods=['POST'])
+@app.route('/api/calculate', methods=['POST'])
 def truss_input():
     nodes = request.json['nodes']
     bars = request.json['bars']
+    nodes_id_table = generate_id_table(nodes)
+    bars_id_table = generate_id_table(bars)
+    print(map_nodes(nodes, nodes_id_table))
+    print(map_bars(bars, nodes_id_table))
 
-    displacements, forces, internal, stress = enclose(nodes, bars)
+    # displacements, forces, internal, stress = enclose(nodes, bars)
 
-    output = {'displacement': dict_converter(displacements),
-              'forces': dict_converter(forces[0]),
-              'internal': internal,
-              'stress': stress
-              }
+    # output = {'displacement': dict_converter(displacements),
+    #           'forces': dict_converter(forces[0]),
+    #           'internal': internal,
+    #           'stress': stress
+    #           }
 
-    print("\ndisplacement")
-    print(map_ids(nodes, dict_converter(displacements)))
-    print("\nforces")
-    print(map_ids(nodes, dict_converter(forces[0])))
+    # print("\ndisplacement")
+    # print(map_ids(nodes, dict_converter(displacements)))
+    # print("\nforces")
+    # print(map_ids(nodes, dict_converter(forces[0])))
 
-    res = make_response(jsonify(output), 200)
+    res = make_response("jsonify(output)", 200)
     return res
 
 
