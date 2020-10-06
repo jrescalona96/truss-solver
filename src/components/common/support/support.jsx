@@ -53,6 +53,6 @@ const Support = ({ contactCoords, type, offset }) => {
     else return null;
   };
 
-  return <g>{_getSupport()}</g>;
+  return <>{_getSupport()}</>;
 };
 export default Support;
