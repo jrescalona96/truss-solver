@@ -18,6 +18,7 @@ const Point = ({ placement, label, radius, fill }) => {
         cy={placement.yRel}
         r={radius}
         stroke="black"
+        strokeWidth="1.5"
         fill={fill}
       ></circle>
     </g>

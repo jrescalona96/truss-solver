@@ -16,6 +16,7 @@ const Node = ({ data, onClick, isSelected }) => {
     xSupport,
     ySupport,
   } = data;
+  const radius = 6;
   const { xRel, yRel } = calcRelativeCoord(xCoord, yCoord);
   const label = `${name}(${xCoord}, ${yCoord})`;
   return (
@@ -29,10 +30,14 @@ const Node = ({ data, onClick, isSelected }) => {
       <Point
         placement={{ xRel, yRel }}
         label={label}
-        radius={isSelected ? 8 : 5}
+        radius={radius}
         fill={isSelected ? "orange" : "green"}
       />
-      <Support contactCoords={{ xRel, yRel }} type={{ xSupport, ySupport }} />
+      <Support
+        contactCoords={{ xRel, yRel }}
+        type={{ xSupport, ySupport }}
+        offset={radius}
+      />
     </g>
   );
 };
