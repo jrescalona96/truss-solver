@@ -15,9 +15,7 @@ class Form extends Component {
     const { value, name } = input;
     data[name] = value;
     this.setState({ data });
-    if (value) {
-      this.doUpdate();
-    }
+    if (value) this.doUpdate();
   };
 
   renderInputFormGroup = (
@@ -44,7 +42,13 @@ class Form extends Component {
 
   renderSubmitBtn = (label, disabled) => {
     return (
-      <Button color="primary" size="sm" type="submit" disabled={disabled}>
+      <Button
+        color="primary"
+        size="sm"
+        type="submit"
+        disabled={disabled}
+        className="w-100"
+      >
         {label}
       </Button>
     );

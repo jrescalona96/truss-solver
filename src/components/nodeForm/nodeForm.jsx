@@ -69,7 +69,7 @@ class NodeForm extends Form {
     const { options, support } = this.state;
     return (
       <div id="nodeForm">
-        <h3>Nodes</h3>
+        <h4>Nodes</h4>
         {name && <Label>Name: {name}</Label>}
         <form onSubmit={this.handleSubmit}>
           <Label>Coordinates</Label>
@@ -108,6 +108,7 @@ class NodeForm extends Form {
             "Y-Component",
             _id ? false : true
           )}
+          <Label>Support Type</Label>
           {this.renderDropdownMenu(
             options,
             "support",

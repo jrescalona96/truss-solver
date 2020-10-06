@@ -42,7 +42,7 @@ class BarForm extends Form {
 
     return (
       <div id="barForm">
-        <h3>Bars</h3>
+        <h4 className="mt-2">Bars</h4>
         <Label>Nodes</Label>
         <form onSubmit={this.handleSubmit}>
           {this.renderInputFormGroup(
@@ -51,7 +51,7 @@ class BarForm extends Form {
             "text",
             nodeNameI,
             this.handleChange,
-            "Node I connection"
+            "Node 1"
           )}
           {this.renderInputFormGroup(
             "nodeNameJ",
@@ -59,7 +59,7 @@ class BarForm extends Form {
             "text",
             nodeNameJ,
             this.handleChange,
-            "Node J connection"
+            "Node 2"
           )}
           {this.renderInputFormGroup(
             "material",

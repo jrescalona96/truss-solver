@@ -10,13 +10,14 @@ export const calcRelativeCoord = (x, y) => {
   return { xRel, yRel };
 };
 
+// TODO: need to reimplement this
 export const calculatePlaneSize = (nodes) => {
-  const defaultWidth = 1000;
-  const defaultHeight = 600;
+  const defaultWidth = window.innerWidth * 0.8;
+  const defaultHeight = window.innerHeight * 0.95;
   const maxX = Math.max(...nodes.map((item) => item.xCoord));
   const maxY = Math.max(...nodes.map((item) => item.yCoord));
-  const width = maxX >= defaultWidth ? maxX + 50 : defaultWidth;
-  const height = maxY >= defaultHeight ? maxY + 50 : defaultHeight;
+  const width = maxX >= defaultWidth ? maxX + ORIGIN.x : defaultWidth;
+  const height = maxY >= defaultHeight ? maxY + ORIGIN.y : defaultHeight;
   COORD_PLANE_SIZE_X = width;
   COORD_PLANE_SIZE_Y = height;
   return { width, height };

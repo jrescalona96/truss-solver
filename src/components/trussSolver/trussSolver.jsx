@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button } from "reactstrap";
 import * as nodeController from "../../controllers/nodeController";
 import * as barController from "../../controllers/barController";
 import CoordinatePlane from "../common/coordinatePlane/index";
@@ -54,6 +55,11 @@ const TrussSolver = () => {
           onAddBar={(data) => handleAddBar(data)}
           onAddTempBar={(data) => handleAddTempBar(data)}
         />
+        <div id="calculateButton">
+          <Button size="sm" color="success" className="mt-2 w-100">
+            Calculate
+          </Button>
+        </div>
       </div>
       <div className="col-10">
         <CoordinatePlane

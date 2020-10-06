@@ -12,14 +12,14 @@ const Menu = ({ options, name, label, selected, onChange, disabled }) => {
   const toggle = () => setIsOpen((prevState) => !prevState);
   return (
     <Dropdown
-      className="mb-1"
+      className="mb-2"
       disabled={disabled}
       isOpen={isOpen}
       toggle={toggle}
       size="sm"
     >
       <DropdownToggle
-        color={disabled ? "secondary" : "primary"}
+        color={disabled ? "outline-secondary" : "outline-primary"}
         size="sm"
         className="col-12"
         caret
