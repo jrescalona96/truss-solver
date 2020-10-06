@@ -25,7 +25,7 @@ const Node = ({ data, onClick, isSelected }) => {
         <Force xRel={xRel} yRel={yRel} direction="x" magnitude={xForce} />
       )}
       {yForce && (
-        <Force xRel={xRel} yRel={yRel} direction="y" magnitude={yForce} />
+        <Force xRel={xRel} yRel={yRel} direction="y" magnitude={-yForce} />
       )}
       <Point
         placement={{ xRel, yRel }}

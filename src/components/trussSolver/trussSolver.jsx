@@ -48,7 +48,8 @@ const TrussSolver = () => {
       bars: displayBars,
     };
     const res = await http.post("api/calculate", body);
-    console.log(res);
+    console.log(res.data.nodes);
+    console.log(res.data.bars);
   };
 
   return (
