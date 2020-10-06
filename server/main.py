@@ -16,12 +16,12 @@ def sample_get():
 
 @app.route('/api/calculate', methods=['POST'])
 def truss_input():
-    nodes = request.json['nodes']
-    bars = request.json['bars']
-    nodes_id_table = generate_id_table(nodes)
-    bars_id_table = generate_id_table(bars)
-    print(map_nodes(nodes, nodes_id_table))
-    print(map_bars(bars, nodes_id_table))
+    req_nodes = request.json['nodes']
+    req_bars = request.json['bars']
+    nodes_id_table = generate_id_table(req_nodes)
+    bars_id_table = generate_id_table(req_bars)
+    nodes = map_nodes(req_nodes, nodes_id_table)
+    bars = map_bars(req_bars, nodes_id_table)
 
     # displacements, forces, internal, stress = enclose(nodes, bars)
 

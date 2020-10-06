@@ -14,9 +14,9 @@ class NodeForm extends Form {
       yForce: 0,
       xSupport: 0,
       ySupport: 0,
+      support: "",
     },
-    support: "",
-    options: ["Pin", "Roller"],
+    supportOptions: ["Pin", "Roller"],
     errors: {},
   };
 
@@ -30,6 +30,7 @@ class NodeForm extends Form {
       yForce: 0,
       xSupport: 0,
       ySupport: 0,
+      support: "",
     };
     this.setState({ data });
     this.setState({ support: "" });
@@ -45,12 +46,14 @@ class NodeForm extends Form {
     }
   }
 
-  handleSetSupport = (supportName) => {
-    const { xSupport, ySupport } = nodeController.getSupportValues(supportName);
+  handleSetSupport = (event) => {
+    this.handleChange(event);
+    const { xSupport, ySupport } = nodeController.getSupportValues(
+      this.state.data.support
+    );
     const data = { ...this.state.data };
     data.xSupport = xSupport;
     data.ySupport = ySupport;
-    this.setState({ support: supportName });
     this.setState({ data });
   };
 
@@ -66,7 +69,7 @@ class NodeForm extends Form {
 
   render() {
     const { _id, name, xCoord, yCoord, xForce, yForce } = this.state.data;
-    const { options, support } = this.state;
+    const { supportOptions: options, support } = this.state;
     return (
       <div id="nodeForm">
         <h4>Nodes</h4>
@@ -117,7 +120,7 @@ class NodeForm extends Form {
             this.handleSetSupport,
             _id ? false : true
           )}
-          {this.renderSubmitBtn("Confirm")}
+          {this.renderSubmitBtn("Add")}
         </form>
       </div>
     );

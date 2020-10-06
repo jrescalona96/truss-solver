@@ -43,15 +43,16 @@ const TrussSolver = () => {
   };
 
   const handleCalculate = async () => {
-    const res = await http.post("api/calculate", {
+    const body = {
       nodes: displayNodes,
       bars: displayBars,
-    });
+    };
+    const res = await http.post("api/calculate", body);
     console.log(res);
   };
 
   return (
-    <div id="trussSolver" className="d-flex justify-space-between mx-auto">
+    <div id="trussSolver" className="d-flex justify-space-between">
       <div className="col-2">
         <NodeForm
           controller={nodeController}
@@ -64,16 +65,15 @@ const TrussSolver = () => {
           onAddBar={(data) => handleAddBar(data)}
           onAddTempBar={(data) => handleAddTempBar(data)}
         />
-        <div id="calculateButton">
-          <Button
-            onClick={handleCalculate}
-            size="sm"
-            color="success"
-            className="mt-2 w-100"
-          >
-            Calculate
-          </Button>
-        </div>
+        <Button
+          id="calculateButton"
+          onClick={handleCalculate}
+          size="sm"
+          color="success"
+          className="mt-2 w-100"
+        >
+          Calculate
+        </Button>
       </div>
       <div className="col-10">
         <CoordinatePlane

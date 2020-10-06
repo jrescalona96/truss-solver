@@ -37,6 +37,9 @@ class BarForm extends Form {
     this._initializeForm();
   };
 
+  isDisabled = (nodeNameI, nodeNameJ) =>
+    nodeNameI && nodeNameJ ? false : true;
+
   render() {
     const { nodeNameI, nodeNameJ, material, area } = this.state.data;
 
@@ -61,23 +64,23 @@ class BarForm extends Form {
             this.handleChange,
             "Node 2"
           )}
-          {this.renderInputFormGroup(
+          {this.renderDropdownMenu(
+            ["Steel", "Wood"],
             "material",
-            "",
-            "text",
+            "Material",
             material,
             this.handleChange,
-            "Material"
+            this.isDisabled(nodeNameI, nodeNameJ)
           )}
-          {this.renderInputFormGroup(
+          {this.renderDropdownMenu(
+            ["Rectangular", "Circular"],
             "area",
-            "",
-            "text",
+            "Area",
             area,
             this.handleChange,
-            "Area"
+            this.isDisabled(nodeNameI, nodeNameJ)
           )}
-          {this.renderSubmitBtn("Add")}
+          {this.renderSubmitBtn("Add", this.isDisabled(nodeNameI, nodeNameJ))}
         </form>
       </div>
     );

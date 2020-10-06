@@ -28,12 +28,7 @@ const Menu = ({ options, name, label, selected, onChange, disabled }) => {
       </DropdownToggle>
       <DropdownMenu>
         {options.map((item) => (
-          <DropdownItem
-            key={item}
-            name={name}
-            value={item}
-            onClick={() => onChange(item)}
-          >
+          <DropdownItem key={item} name={name} value={item} onClick={onChange}>
             {item}
           </DropdownItem>
         ))}

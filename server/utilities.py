@@ -1,3 +1,6 @@
+import math
+
+
 def dict_converter(input_list):
     output_list = []
 
@@ -63,10 +66,20 @@ def map_bars(data, id_table):
         item.append(index)
         item.append(id_table[nodeI_id])
         item.append(id_table[nodeJ_id])
-        item.append(value['material'])
-        item.append(value['area'])
+        item.append(get_material_coef(value['material']))
+        item.append(get_area_coef(value['area']))
         output.append(item)
     return output
+
+
+def get_material_coef(name):
+    materials = {"Steel": 1, "Wood": 2}
+    return materials[name]
+
+
+def get_area_coef(name):
+    shapes = {"Rectangular": 1, "Circular": math.pi}
+    return shapes[name]
 
 
 # generates a lookup table for each id to an index

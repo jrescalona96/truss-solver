@@ -43,7 +43,7 @@ class Form extends Component {
   renderSubmitBtn = (label, disabled) => {
     return (
       <Button
-        color="primary"
+        color={disabled ? "secondary" : "primary"}
         size="sm"
         type="submit"
         disabled={disabled}
