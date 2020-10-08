@@ -44,7 +44,7 @@ class BarForm extends Form {
     const { nodeNameI, nodeNameJ, material, area } = this.state.data;
 
     return (
-      <div id="barForm">
+      <div id="barForm" className="w-100">
         <h4 className="mt-2">Bars</h4>
         <Label>Nodes</Label>
         <form onSubmit={this.handleSubmit}>

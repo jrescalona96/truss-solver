@@ -71,7 +71,7 @@ class NodeForm extends Form {
     const { _id, name, xCoord, yCoord, xForce, yForce } = this.state.data;
     const { supportOptions: options, support } = this.state;
     return (
-      <div id="nodeForm">
+      <div id="nodeForm" className="w-100">
         <h4>Nodes</h4>
         {name && <Label>Name: {name}</Label>}
         <form onSubmit={this.handleSubmit}>
@@ -120,7 +120,7 @@ class NodeForm extends Form {
             this.handleSetSupport,
             _id ? false : true
           )}
-          {this.renderSubmitBtn("Add")}
+          {this.renderSubmitBtn(_id ?"Update" :"Add")}
         </form>
       </div>
     );
