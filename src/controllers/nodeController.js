@@ -21,9 +21,8 @@ const _generateId = () => {
 
 const _generateName = () => {
   const names = getAllNodes().map((item) => item.name.charCodeAt(0));
-  const largestName = Math.max(...names);
-  if (largestName < 0) return "A";
-  else return String.fromCharCode(largestName + 1);
+  if (names.length < 1) return "A";
+  return String.fromCharCode(Math.max(...names) + 1);
 };
 
 const _parseNumberOrZero = (input) => {
