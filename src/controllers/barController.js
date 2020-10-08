@@ -1,13 +1,16 @@
 import * as nodeController from "./nodeController";
+import { fetchAll, updateAll } from '../services/dataServices';
 import Bar from "../models/Bar";
 
-let bars = [];
+export const getAllBars = () => {
+  let bars = fetchAll("bars")
+  if (!bars) bars = updateAll("bars", []);
+  return bars;
+};
 
 const _generateId = () => {
   return "_" + Math.random().toString(36).substr(2, 9);
 };
-
-export const getBars = () => bars;
 
 export const getBarNodes = (data) => {
   const { nodeNameI, nodeNameJ } = data;
@@ -23,11 +26,10 @@ export const getBarNodes = (data) => {
   }
 };
 
-export const updateBars = (data) => {
+export const updateBarNode = (node) => {
   // updated node related to bar being updated
-  const node = data;
-  // return a list of bars with updated node
-  return bars.map((item) => {
+  const prevBars = getAllBars();
+  const bars =  prevBars.map((item) => {
     if (item.nodeI._id === node._id) {
       item.nodeI = node;
     } else if (item.nodeJ._id === node._id) {
@@ -35,9 +37,11 @@ export const updateBars = (data) => {
     }
     return item;
   });
+  return bars;
 };
 
 export const addTempBar = (data) => {
+  const bars = getAllBars();
   const bar = createBar(data);
   if (bar) {
     let tempBars = [...bars];
@@ -48,13 +52,16 @@ export const addTempBar = (data) => {
 };
 
 export const addBar = (data) => {
+  let bars = getAllBars();
   const bar = createBar(data);
   if (bar) {
     bars.push(bar);
+    updateAll("bars", bars);
     return bars;
   } else {
     return null;
   }
+
 };
 
 export const createBar = (data) => {
@@ -63,11 +70,9 @@ export const createBar = (data) => {
   const nodes = getBarNodes(data);
   if (nodes) {
     const { nodeI, nodeJ } = nodes;
-    // TODO: updateBars(new Bar(_id, nodeI, nodeJ, material, area))
     const bar = new Bar(_id, nodeI, nodeJ, material, area);
     return bar;
   } else {
-    // TODO: return bars
     return null;
   }
 };
