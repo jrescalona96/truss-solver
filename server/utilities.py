@@ -3,7 +3,6 @@ import math
 
 def dict_converter(input_list):
     output_list = []
-
     for index, value in enumerate(input_list):
         if index % 2 == 0:
             temp = {}
@@ -66,18 +65,18 @@ def map_bars(data, id_table):
         item.append(index)
         item.append(id_table[nodeI_id])
         item.append(id_table[nodeJ_id])
-        item.append(get_material_coef(value['material']))
-        item.append(get_area_coef(value['area']))
+        item.append(get_material(value['material']))
+        item.append(get_area(value['area']))
         output.append(item)
     return output
 
 
-def get_material_coef(name):
+def get_material(name):
     materials = {"Steel": 1, "Wood": 2}
     return materials[name]
 
 
-def get_area_coef(name):
+def get_area(name):
     shapes = {"Rectangular": 1, "Circular": math.pi}
     return shapes[name]
 
@@ -87,5 +86,5 @@ def generate_id_table(nodes):
     output = {}
     for index, value in enumerate(nodes):
         id = value['_id']
-        output[id] = index
+        output[id] = index+1
     return output

@@ -20,22 +20,23 @@ def truss_input():
     req_nodes = request.json['nodes']
     req_bars = request.json['bars']
 
+    # displacements, forces, internal, stress = enclose(req_nodes, req_bars)
+
     nodes_id_table = generate_id_table(req_nodes)
     bars_id_table = generate_id_table(req_bars)
+
     nodes = map_nodes(req_nodes, nodes_id_table)
     bars = map_bars(req_bars, nodes_id_table)
 
-    # TODO: issue running formatted data.
-    # displacements, forces, internal, stress = enclose(nodes, bars)
+    displacements, forces, internal, stress = enclose(nodes, bars)
 
-    # output = {'displacement': dict_converter(displacements),
-    #           'forces': dict_converter(forces[0]),
-    #           'internal': internal,
-    #           'stress': stress}
-
-    output = {'nodes': nodes, 'bars': bars}
+    output = {'displacement': dict_converter(displacements),
+              'forces': dict_converter(forces[0]),
+              'internal': internal,
+              'stress': stress}
 
     res = make_response(jsonify(output), 200)
+
     return res
 
 

@@ -128,13 +128,11 @@ def enclose(nodes, bars):
             2] = k_glob[2][0:2], k_glob[3][0:2]
         y[node_j*2-2:node_j*2, node_j*2-2:node_j *
             2] = k_glob[2][2:4], k_glob[3][2:4]
-
         return[y]
     K_mat = []
     for ii in range(1, bar+1):
         K_mat1 = K_matrix(node, bars[ii-1][1], bars[ii-1][2], k_g[ii-1])
         K_mat = K_mat+K_mat1
-    # print(K_mat[0])
 
     # this sums all individual global stiffness matrix into (1) GLOBAL STIFFNESS MATRIX
     K_global = np.zeros((2*node, 2*node))
@@ -186,8 +184,6 @@ def enclose(nodes, bars):
     d[d_c] = d_f  # vector of displacements <<<<<<----------------------------- deflections
 
     FORCES = np.matmul(K_global, d)  # vector of forces
-
-    REACTIONS = FORCES[0, [node_f]]
 
     # this transforms global nodal displacements into local nodal displacements
 
