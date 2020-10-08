@@ -54,6 +54,13 @@ const TrussSolver = () => {
     console.log(res);
   };
 
+  const handleDeleteNode = (id) => {
+    const nodes = nodeController.deleteNode(id);
+    const bars = barController.deleteConnectedBars(id);
+    setDisplayNodes(nodes);
+    setDisplayBars(bars)
+  }
+
   const handleResetAll = () => {
     setDisplayBars([]);
     setDisplayNodes([]);
@@ -69,6 +76,7 @@ const TrussSolver = () => {
             controller={nodeController}
             onAddNode={(data) => handleAddNode(data)}
             onAddTempNode={(data) => handleAddTempNode(data)}
+            onDeleteNode={(data) => handleDeleteNode(data)}
             data={selectedNode}
           />
           <BarForm
@@ -77,7 +85,6 @@ const TrussSolver = () => {
             onAddTempBar={(data) => handleAddTempBar(data)}
           />
           <Button
-
             id="calculateButton"
             onClick={handleCalculate}
             size="sm"

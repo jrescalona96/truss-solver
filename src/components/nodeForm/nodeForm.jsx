@@ -120,7 +120,8 @@ class NodeForm extends Form {
             this.handleSetSupport,
             _id ? false : true
           )}
-          {this.renderSubmitBtn(_id ?"Update" :"Add")}
+          {this.renderSubmitBtn(_id ?"Update" : "Add")}
+          {_id ? this.renderActionButton("Delete", () => this.props.onDeleteNode(_id), "danger") : null}
         </form>
       </div>
     );

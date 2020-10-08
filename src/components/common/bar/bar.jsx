@@ -9,7 +9,7 @@ const Bar = ({ data }) => {
   const colors = ["#9b9b9b","#5f5f5f","#333333"]
   const widths = [12,7,1]
   return (
-    <g className="bar">
+    <g className="bar clickable">
       <line
         x1={coord1.xRel}
         y1={coord1.yRel}

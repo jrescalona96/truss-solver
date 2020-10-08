@@ -30,13 +30,13 @@ const _parseNumberOrZero = (input) => {
   return Number(input);
 };
 
-export const getNodeById = (_id) => {
-  const node = getAllNodes().find((item) => item._id === _id);
+export const getNodeById = (id) => {
+  const node = getAllNodes().find((item) => item._id === id);
   return node;
 };
 
-export const getNodeByName = (name) => {
-  const node = getAllNodes().find((item) => item.name === name);
+export const getNodeByName = (n) => {
+  const node = getAllNodes().find((item) => item.name === n);
   return node;
 };
 
@@ -54,7 +54,7 @@ export const addTempNode = (data) => {
   return { newNode, nodes: tempNodes };
 };
 
-export const removeNode = (_id) => {
+export const deleteNode = (_id) => {
   const nodes = getAllNodes().filter((item) => item._id !== _id);
   return updateAll("nodes", nodes);
 };

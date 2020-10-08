@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import InputFormGroup from "../inputFormGroup/index";
-import Menu from "../menu/index";
 import { Button } from "reactstrap";
+import Menu from "../menu/index";
+import ActionButton from '../actionButton/index';
 import "./form.scss";
+
 
 class Form extends Component {
   handleSubmit = (event) => {
@@ -66,6 +68,12 @@ class Form extends Component {
       />
     );
   };
+
+  renderActionButton = (label, onClick, color) => {
+    return(
+      <ActionButton label={label} onClick={onClick} color={color}/>
+    );
+  }
 }
 
 export default Form;

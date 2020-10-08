@@ -26,6 +26,17 @@ export const getBarNodes = (data) => {
   }
 };
 
+/**
+ * Delete all bars connecgted to a node
+ * @param {id} id of Node
+ * @returns {Array} array of updated bars
+ */
+export const deleteConnectedBars = (id) => {
+  const prevBars = getAllBars();
+  const bars =  prevBars.filter((item) => item.nodeI._id !== id && item.nodeJ._id !== id);
+  return updateAll("bars",bars);
+}
+
 export const updateBarNode = (node) => {
   // updated node related to bar being updated
   const prevBars = getAllBars();
