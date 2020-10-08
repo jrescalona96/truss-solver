@@ -9,7 +9,9 @@ import BarForm from "../barForm/index";
 import "./trussSolver.scss";
 
 const TrussSolver = () => {
-  const [displayNodes, setDisplayNodes] = useState([]);
+  const [displayNodes, setDisplayNodes] = useState(
+    nodeController.getAllNodes()
+  );
   const [displayBars, setDisplayBars] = useState([]);
   const [selectedNode, setSelectedNode] = useState({ id: "" });
 

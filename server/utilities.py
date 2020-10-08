@@ -15,7 +15,6 @@ def dict_converter(input_list):
 
 
 def map_nodes(data, id_table):
-    print(id_table)
     output = []
     for node in data:
         item = []

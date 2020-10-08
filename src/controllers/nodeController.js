@@ -1,15 +1,42 @@
 import Node from "../models/Node";
 
-let nodes = [];
+/**
+ * Get data from local storage
+ * @return {Array} nodes from localStorage
+ */
+export const getAllNodes = () => {
+  let nodes = JSON.parse(localStorage.getItem("nodes"));
+  if (!nodes) nodes = _init();
+  return nodes;
+};
 
+/**
+ * Initialize localStorage
+ * @return {Array} empty array from localStorage
+ */
+const _init = () => {
+  localStorage.setItem("nodes", JSON.stringify([]));
+  return JSON.parse(localStorage.getItem("nodes"));
+};
+
+const _updateNodes = (nodes) => {
+  localStorage.setItem("nodes", JSON.stringify(nodes));
+  return getAllNodes();
+};
+
+/**
+ * Generates a string of length 9
+ * @return {String} randomly generated Id
+ */
 const _generateId = () => {
   return "_" + Math.random().toString(36).substr(2, 9);
 };
 
 const _generateName = () => {
-  const lastNode = nodes[nodes.length - 1];
-  if (lastNode) return String(Number(lastNode.name) + 1);
-  else return "0";
+  const names = getAllNodes().map((item) => item.name.charCodeAt(0));
+  const largestName = Math.max(...names);
+  if (largestName < 0) return "A";
+  else return String.fromCharCode(largestName + 1);
 };
 
 const _parseNumberOrZero = (input) => {
@@ -17,36 +44,35 @@ const _parseNumberOrZero = (input) => {
   return Number(input);
 };
 
-export const getNodes = () => nodes;
+export const getNodes = () => getAllNodes();
 
 export const getNodeById = (_id) => {
-  const node = nodes.find((item) => item._id === _id);
+  const node = getAllNodes().find((item) => item._id === _id);
   return node;
 };
 
 export const getNodeByName = (name) => {
-  const node = nodes.find((item) => item.name === name);
+  const node = getAllNodes().find((item) => item.name === name);
   return node;
 };
 
 export const addNode = (data) => {
   const newNode = createNode(data);
-  const n = nodes.filter((item) => item._id !== data._id);
-  n.push(newNode);
-  nodes = n;
-  return nodes;
+  let nodes = getAllNodes().filter((item) => item._id !== data._id);
+  nodes.push(newNode);
+  return _updateNodes(nodes);
 };
 
 export const addTempNode = (data) => {
-  let tempNodes = nodes.filter((item) => item._id !== data._id);
+  let tempNodes = getAllNodes().filter((item) => item._id !== data._id);
   const newNode = createNode(data);
   tempNodes.push(newNode);
   return { newNode, nodes: tempNodes };
 };
 
 export const removeNode = (_id) => {
-  nodes = nodes.filter((item) => item._id !== _id);
-  return nodes;
+  const nodes = getAllNodes().filter((item) => item._id !== _id);
+  return _updateNodes(nodes);
 };
 
 export const getSupportValues = (data) => {

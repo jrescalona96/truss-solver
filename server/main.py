@@ -46,10 +46,11 @@ def truss_input():
               'forces': mapped_forces,
               'internal': mapped_internal,
               'stress': mapped_stresses}
-    print(output)
+
     res = make_response(jsonify(output), 200)
 
     return res
+
 
 if __name__ == '__main__':
     app.run(debug=True)
