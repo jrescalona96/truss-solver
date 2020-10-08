@@ -7,7 +7,7 @@ const Bar = ({ data }) => {
   const coord1 = calcRelativeCoord(nodeI.xCoord, nodeI.yCoord);
   const coord2 = calcRelativeCoord(nodeJ.xCoord, nodeJ.yCoord);
   const colors = ["#9b9b9b","#5f5f5f","#333333"]
-  const widths = [12,7,2]
+  const widths = [12,7,1]
   return (
     <g className="bar">
       <line
@@ -33,6 +33,7 @@ const Bar = ({ data }) => {
         y2={coord2.yRel}
         stroke={colors[2]}
         strokeWidth={widths[2]}
+        strokeDasharray={[5,2]}
       />
     </g>
   );
