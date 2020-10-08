@@ -3,7 +3,7 @@ import math
 from numpy.linalg import inv  # free displacement vector
 
 
-def enclose(nodes, bars):
+def calculate(nodes, bars):
     materials = [
         [1,    29000],
         [3,    4200]

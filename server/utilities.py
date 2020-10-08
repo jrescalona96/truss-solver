@@ -11,46 +11,22 @@ def dict_converter(input_list):
             temp['y'] = value[0]
             output_list.append(temp)
     return output_list
-
-
-def map_ids(source, data):
-    sample = [
-        {"_id": "test1",   "xCoord": -180,    "yCoord": 0,  "xSupport": 1,
-            "ySupport": 1,        "xForce": 0,         "yForce": 0},
-        {"_id": "test2",   "xCoord": -60,     "yCoord": 0,  "xSupport": 0,
-            "ySupport": 0,        "xForce": 0,        "yForce": -20},
-        {"_id": "test3",    "xCoord": 60,     "yCoord": 0,  "xSupport": 0,
-            "ySupport": 0,        "xForce": 0,        "yForce": -10},
-        {"_id": "test4",    "xCoord": 180,    "yCoord": 0,  "xSupport": 0,
-            "ySupport": 1,        "xForce": 0,         "yForce": 0},
-        {"_id": "test5",   "xCoord": -120,   "yCoord": 90,  "xSupport": 0,
-            "ySupport": 0,        "xForce": 0,        "yForce": -20},
-        {"_id": "test6",     "xCoord": 0,    "yCoord": 90,  "xSupport": 0,
-            "ySupport": 0,        "xForce": 10,        "yForce": 0},
-        {"_id": "test7",    "xCoord": 120,   "yCoord": 90,  "xSupport": 0,
-            "ySupport": 0,        "xForce": 10,        "yForce": 0}
-    ]
-
-    output_list = []
-
-    for index, value in enumerate(sample):
-        output_list.append({value["_id"]: data[index]})
-    return output_list
-
-
 # formats bars to solver's input format
+
+
 def map_nodes(data, id_table):
+    print(id_table)
     output = []
-    for value in data:
+    for node in data:
         item = []
-        id = value['_id']
+        id = node['_id']
         item.append(id_table[id])
-        item.append(value['xCoord'])
-        item.append(value['yCoord'])
-        item.append(value['xSupport'])
-        item.append(value['ySupport'])
-        item.append(value['xForce'])
-        item.append(value['yForce'])
+        item.append(node['xCoord'])
+        item.append(node['yCoord'])
+        item.append(node['xSupport'])
+        item.append(node['ySupport'])
+        item.append(node['xForce'])
+        item.append(node['yForce'])
         output.append(item)
     return output
 
@@ -58,15 +34,15 @@ def map_nodes(data, id_table):
 # formats bars to solver's input format
 def map_bars(data, id_table):
     output = []
-    for index, value in enumerate(data):
+    for idx, bar in enumerate(data):
         item = []
-        nodeI_id = value['nodeI']['_id']
-        nodeJ_id = value['nodeJ']['_id']
-        item.append(index)
+        nodeI_id = bar['nodeI']['_id']
+        nodeJ_id = bar['nodeJ']['_id']
+        item.append(idx)
         item.append(id_table[nodeI_id])
         item.append(id_table[nodeJ_id])
-        item.append(get_material(value['material']))
-        item.append(get_area(value['area']))
+        item.append(get_material(bar['material']))
+        item.append(get_area(bar['area']))
         output.append(item)
     return output
 
@@ -82,9 +58,26 @@ def get_area(name):
 
 
 # generates a lookup table for each id to an index
-def generate_id_table(nodes):
+def generate_index_table(nodes):
     output = {}
-    for index, value in enumerate(nodes):
-        id = value['_id']
-        output[id] = index+1
+    for idx, item in enumerate(nodes):
+        output[item['_id']] = idx+1
+    return output
+
+
+def generate_id_list(d):
+    return list(d.keys())
+
+
+def map_node_ids(source, ids):
+    output = []
+    for idx, value in enumerate(dict_converter(source)):
+        output.append({ids[idx]: value})
+    return output
+
+
+def map_bar_ids(source, ids):
+    output = []
+    for idx, value in enumerate(source):
+        output.append({ids[idx]: value})
     return output
