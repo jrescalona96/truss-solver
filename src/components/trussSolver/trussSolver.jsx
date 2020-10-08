@@ -22,7 +22,7 @@ const TrussSolver = () => {
     setDisplayBars(bars);
   };
 
-  const handleConfirmNode = (data) => {
+  const handleAddNode = (data) => {
     const nodes = nodeController.addNode(data);
     setDisplayNodes(nodes);
     setSelectedNode({ id: "" });
@@ -58,7 +58,7 @@ const TrussSolver = () => {
       <div className="col-2">
         <NodeForm
           controller={nodeController}
-          onConfirmNode={(data) => handleConfirmNode(data)}
+          onAddNode={(data) => handleAddNode(data)}
           onAddTempNode={(data) => handleAddTempNode(data)}
           data={selectedNode}
         />

@@ -1,27 +1,14 @@
 import Node from "../models/Node";
+import { fetchAll, updateAll } from "../services/dataServices";
 
 /**
  * Get data from local storage
  * @return {Array} nodes from localStorage
  */
 export const getAllNodes = () => {
-  let nodes = JSON.parse(localStorage.getItem("nodes"));
-  if (!nodes) nodes = _init();
+  let nodes = fetchAll("nodes");
+  if (!nodes) nodes = updateAll("nodes", []);
   return nodes;
-};
-
-/**
- * Initialize localStorage
- * @return {Array} empty array from localStorage
- */
-const _init = () => {
-  localStorage.setItem("nodes", JSON.stringify([]));
-  return JSON.parse(localStorage.getItem("nodes"));
-};
-
-const _updateNodes = (nodes) => {
-  localStorage.setItem("nodes", JSON.stringify(nodes));
-  return getAllNodes();
 };
 
 /**
@@ -44,8 +31,6 @@ const _parseNumberOrZero = (input) => {
   return Number(input);
 };
 
-export const getNodes = () => getAllNodes();
-
 export const getNodeById = (_id) => {
   const node = getAllNodes().find((item) => item._id === _id);
   return node;
@@ -60,7 +45,7 @@ export const addNode = (data) => {
   const newNode = createNode(data);
   let nodes = getAllNodes().filter((item) => item._id !== data._id);
   nodes.push(newNode);
-  return _updateNodes(nodes);
+  return updateAll("nodes", nodes);
 };
 
 export const addTempNode = (data) => {
@@ -72,7 +57,7 @@ export const addTempNode = (data) => {
 
 export const removeNode = (_id) => {
   const nodes = getAllNodes().filter((item) => item._id !== _id);
-  return _updateNodes(nodes);
+  return updateAll("nodes", nodes);
 };
 
 export const getSupportValues = (data) => {

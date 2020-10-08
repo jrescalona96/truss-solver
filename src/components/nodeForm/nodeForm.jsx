@@ -62,7 +62,7 @@ class NodeForm extends Form {
   }
 
   doSubmit() {
-    this.props.onConfirmNode(this.state.data);
+    this.props.onAddNode(this.state.data);
     this._initializeForm();
     // else add error for particular input
   }
