@@ -12,6 +12,11 @@ const _generateId = () => {
   return "_" + Math.random().toString(36).substr(2, 9);
 };
 
+export const getBarById = (id) => {
+  const bars = getAllBars();
+  return bars.find(item => item._id === id);
+}
+
 export const getBarNodes = (data) => {
   const { nodeNameI, nodeNameJ } = data;
   const nodeI = nodeController.getNodeByName(nodeNameI);
@@ -52,7 +57,7 @@ export const updateBarNode = (node) => {
 };
 
 export const addTempBar = (data) => {
-  const bars = getAllBars();
+  const bars = getAllBars().filter((item) => item._id !== data._id);
   const bar = createBar(data);
   if (bar) {
     let tempBars = [...bars];
@@ -63,7 +68,7 @@ export const addTempBar = (data) => {
 };
 
 export const addBar = (data) => {
-  let bars = getAllBars();
+  let bars = getAllBars().filter((item) => item._id !== data._id);
   const bar = createBar(data);
   if (bar) {
     bars.push(bar);
@@ -72,7 +77,6 @@ export const addBar = (data) => {
   } else {
     return null;
   }
-
 };
 
 export const createBar = (data) => {
@@ -87,3 +91,9 @@ export const createBar = (data) => {
     return null;
   }
 };
+
+export const deleteBar = (id) => {
+  const bars = getAllBars().filter(item => item._id !== id);
+  updateAll("bars",bars)
+  return bars
+}

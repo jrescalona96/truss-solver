@@ -2,14 +2,14 @@ import React from "react";
 import { calcRelativeCoord } from "../../../controllers/coordinatePlaneController";
 import "./bar.scss";
 
-const Bar = ({ data }) => {
-  const { nodeI, nodeJ } = data;
+const Bar = ({ data, onClick }) => {
+  const { _id,nodeI, nodeJ } = data;
   const coord1 = calcRelativeCoord(nodeI.xCoord, nodeI.yCoord);
   const coord2 = calcRelativeCoord(nodeJ.xCoord, nodeJ.yCoord);
-  const colors = ["#9b9b9b","#5f5f5f","#333333"]
-  const widths = [12,7,1]
+  const colors = ["#959595","#5f5f5f","#333333"]
+  const widths = [12,7,2]
   return (
-    <g className="bar clickable">
+    <g className="bar clickable" onClick={() => onClick(_id)}>
       <line
         x1={coord1.xRel}
         y1={coord1.yRel}
@@ -33,7 +33,6 @@ const Bar = ({ data }) => {
         y2={coord2.yRel}
         stroke={colors[2]}
         strokeWidth={widths[2]}
-        strokeDasharray={[5,2]}
       />
     </g>
   );

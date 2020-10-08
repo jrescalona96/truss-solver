@@ -6,6 +6,7 @@ import Form from "../common/form/index";
 class BarForm extends Form {
   state = {
     data: {
+      _id:"",
       nodeNameI: "",
       nodeNameJ: "",
       material: "",
@@ -20,12 +21,28 @@ class BarForm extends Form {
 
   _initializeForm() {
     const data = {
+      _id:"",
       nodeNameI: "",
       nodeNameJ: "",
       material: "",
       area: "",
     };
     this.setState({ data });
+  }
+
+  componentDidUpdate(prevProps) {
+    const { data: prevData } = prevProps;
+    const { data : newData } = this.props;
+    if (newData._id && prevData._id !== newData._id) {
+      const { _id, nodeI, nodeJ, material, area } = newData;
+      let data = {};
+      data["_id"] = _id;
+      data["nodeNameI"] = nodeI.name;
+      data["nodeNameJ"] = nodeJ.name;
+      data["material"] = material;
+      data["area"] = area;
+      this.setState({ data });
+    }
   }
 
   doUpdate = () => {
@@ -41,7 +58,7 @@ class BarForm extends Form {
     nodeNameI && nodeNameJ ? false : true;
 
   render() {
-    const { nodeNameI, nodeNameJ, material, area } = this.state.data;
+    const { _id,nodeNameI, nodeNameJ, material, area } = this.state.data;
 
     return (
       <div id="barForm" className="w-100">
@@ -80,7 +97,15 @@ class BarForm extends Form {
             this.handleChange,
             this.isDisabled(nodeNameI, nodeNameJ)
           )}
-          {this.renderSubmitBtn("Add", this.isDisabled(nodeNameI, nodeNameJ))}
+      
+          {this.renderSubmitBtn(
+            _id ?"Update" : "Add", 
+            this.isDisabled(nodeNameI, nodeNameJ)
+          )}
+          {_id ? this.renderActionButton(
+            "Delete",
+            () => this.props.onDeleteBar(_id),
+            "danger") : null}
         </form>
       </div>
     );

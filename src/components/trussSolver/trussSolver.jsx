@@ -15,6 +15,7 @@ const TrussSolver = () => {
   );
   const [displayBars, setDisplayBars] = useState(barController.getAllBars());
   const [selectedNode, setSelectedNode] = useState({ id: "" });
+  const [selectedBar, setSelectedBar] = useState({ id: "" });
 
   const handleAddTempNode = (data) => {
     const { nodes, newNode } = nodeController.addTempNode(data);
@@ -39,11 +40,17 @@ const TrussSolver = () => {
     if (bars) setDisplayBars(bars);
   };
 
-  const handleSetSelectedNode = (_id) => {
-    const node = nodeController.getNodeById(_id);
+  const handleSetSelectedNode = (id) => {
+    const node = nodeController.getNodeById(id);
     setSelectedNode(node);
     handleAddTempNode(node);
   };
+
+  const handleSetSelectedBar = (id) => {
+    const bar = barController.getBarById(id);
+    setSelectedBar(bar);
+    handleAddTempBar(bar);
+  }
 
   const handleCalculate = async () => {
     const body = {
@@ -59,6 +66,11 @@ const TrussSolver = () => {
     const bars = barController.deleteConnectedBars(id);
     setDisplayNodes(nodes);
     setDisplayBars(bars)
+  }
+
+  const handleDeleteBar = (id) => {
+     const bars = barController.deleteBar(id);
+     setDisplayBars(bars);
   }
 
   const handleResetAll = () => {
@@ -83,6 +95,8 @@ const TrussSolver = () => {
             controller={barController}
             onAddBar={(data) => handleAddBar(data)}
             onAddTempBar={(data) => handleAddTempBar(data)}
+            onDeleteBar={(data) => handleDeleteBar(data)}
+            data={selectedBar}
           />
           <Button
             id="calculateButton"
@@ -106,12 +120,13 @@ const TrussSolver = () => {
           </Button>
         </div>
       </div>
-      
       <div className="col-10">
         <CoordinatePlane
           data={{ nodes: displayNodes, bars: displayBars }}
-          selected={selectedNode}
+          selectedNode={selectedNode}
           onSetSelectedNode={(id) => handleSetSelectedNode(id)}
+          selectedBar={selectedBar}
+          onSetSelectedBar={(id) => handleSetSelectedBar(id)}
         />
       </div>
     </div>
