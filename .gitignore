@@ -30,3 +30,5 @@ _backup/
 
 ./server/__pycache__/
 server/solver.py
+
+**/.vscode/
