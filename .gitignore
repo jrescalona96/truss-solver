@@ -29,4 +29,4 @@ __pycache__/
 _backup/
 
 ./server/__pycache__/
-./server/solver.py
+server/solver.py
