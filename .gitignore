@@ -25,3 +25,8 @@ yarn-error.log*
 .vscode/
 
 __pycache__/
+
+_backup/
+
+./server/__pycache__/
+./server/solver.py

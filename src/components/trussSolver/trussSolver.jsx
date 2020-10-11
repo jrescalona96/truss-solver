@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import { Button } from "reactstrap";
 import * as nodeController from "../../controllers/nodeController";
 import * as barController from "../../controllers/barController";
 import http from "../../services/httpServices";
 import * as data from "../../services/dataServices"
 import CoordinatePlane from "../common/coordinatePlane/index";
+import ActionButton from "../common/actionButton/index";
 import NodeForm from "../nodeForm/index";
 import BarForm from "../barForm/index";
 import "./trussSolver.scss";
 
+
 const TrussSolver = () => {
-  const [displayNodes, setDisplayNodes] = useState(
-    nodeController.getAllNodes()
-  );
+  const [displayNodes, setDisplayNodes] = useState(nodeController.getAllNodes());
   const [displayBars, setDisplayBars] = useState(barController.getAllBars());
   const [selectedNode, setSelectedNode] = useState({ id: "" });
   const [selectedBar, setSelectedBar] = useState({ id: "" });
@@ -50,6 +49,10 @@ const TrussSolver = () => {
     const bar = barController.getBarById(id);
     setSelectedBar(bar);
     handleAddTempBar(bar);
+  }
+
+  const handleUpdateNode = (data) => {
+
   }
 
   const handleCalculate = async () => {
@@ -98,26 +101,18 @@ const TrussSolver = () => {
             onDeleteBar={(data) => handleDeleteBar(data)}
             data={selectedBar}
           />
-          <Button
-            id="calculateButton"
+          <ActionButton
+            label="Calculate"
             onClick={handleCalculate}
-            size="sm"
             color="success"
-            className="mt-2 w-100"
-          >
-            Calculate
-          </Button>
+          />
         </div>
         <div className="row">
-          <Button
-            id="resetButton"
+          <ActionButton
+            label="Reset"
             onClick={handleResetAll}
-            size="sm"
             color="danger"
-            className="mt-2 w-100"
-          >
-            Reset
-          </Button>
+          />
         </div>
       </div>
       <div className="col-10">

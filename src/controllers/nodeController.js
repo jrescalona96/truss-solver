@@ -30,6 +30,13 @@ const _parseNumberOrZero = (input) => {
   return Number(input);
 };
 
+const _idValidNode = ({xCoord, yCoord}) => {
+  const nodes = getAllNodes();
+  const found = nodes.find(item => item.xCoord === xCoord && item.yCoord === yCoord);
+  if (found) return false;
+  else return true;
+}
+
 export const getNodeById = (id) => {
   const node = getAllNodes().find((item) => item._id === id);
   return node;
@@ -41,10 +48,14 @@ export const getNodeByName = (n) => {
 };
 
 export const addNode = (data) => {
-  const newNode = createNode(data);
-  let nodes = getAllNodes().filter((item) => item._id !== data._id);
-  nodes.push(newNode);
-  return updateAll("nodes", nodes);
+  if (_idValidNode(data)) {
+    const newNode = createNode(data);
+    let nodes = getAllNodes().filter((item) => item._id !== data._id);
+    nodes.push(newNode);
+    return updateAll("nodes", nodes);
+  } else {
+    return getAllNodes()
+  }
 };
 
 export const addTempNode = (data) => {
@@ -53,6 +64,11 @@ export const addTempNode = (data) => {
   tempNodes.push(newNode);
   return { newNode, nodes: tempNodes };
 };
+
+export const updateNode = (data) => {
+  const node = getAllNodes().find(item => item._id = data._id);
+  //
+}
 
 export const deleteNode = (_id) => {
   const nodes = getAllNodes().filter((item) => item._id !== _id);
@@ -106,5 +122,3 @@ export const createNode = (data) => {
     return !isNaN(xc) && !isNaN(yc) ? node : null;
   }
 };
-
-// TODO: create separate function to update nodes
