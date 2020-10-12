@@ -30,15 +30,6 @@ const _parseNumberOrZero = (input) => {
   return Number(input);
 };
 
-const _idValidNode = ({ xCoord, yCoord }) => {
-  const nodes = getAllNodes();
-  const found = nodes.find(
-    (item) => item.xCoord === xCoord && item.yCoord === yCoord
-  );
-  if (found) return false;
-  else return true;
-};
-
 export const getNodeById = (id) => {
   const node = getAllNodes().find((item) => item._id === id);
   return node;
