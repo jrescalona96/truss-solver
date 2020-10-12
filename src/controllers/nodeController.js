@@ -50,14 +50,10 @@ export const getNodeByName = (n) => {
 };
 
 export const addNode = (data) => {
-  if (_idValidNode(data)) {
-    const newNode = createNode(data);
-    let nodes = getAllNodes().filter((item) => item._id !== data._id);
-    nodes.push(newNode);
-    return updateAll("nodes", nodes);
-  } else {
-    return getAllNodes();
-  }
+  const newNode = createNode(data);
+  let nodes = getAllNodes().filter((item) => item._id !== data._id);
+  nodes.push(newNode);
+  return updateAll("nodes", nodes);
 };
 
 export const updateNode = (data) => {

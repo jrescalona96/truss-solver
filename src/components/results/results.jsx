@@ -1,11 +1,22 @@
 import React from "react";
-import { Label } from "reactstrap";
+import CoordinatePlane from "../common/coordinatePlane/index";
+import * as nodeController from "../../controllers/nodeController";
+import * as barController from "../../controllers/barController";
 import "./results.scss";
 
 const Results = () => {
+  const existingNodes = nodeController.getAllNodes();
+  const existingBars = barController.getAllBars();
+
   return (
     <div id="results">
-      <Label>Results</Label>
+      <h4>Results</h4>
+      <CoordinatePlane
+        data={{ nodes: existingNodes, bars: existingBars }}
+        selectedNode={{ id: "" }}
+        onSetSelectedNode={() => {}}
+        onSetSelectedBar={() => {}}
+      />
     </div>
   );
 };

@@ -39,9 +39,9 @@ class NodeForm extends Form {
   componentDidUpdate(prevProps) {
     const { data: prevData } = prevProps;
     if (this.props.data._id && prevData._id !== this.props.data._id) {
-      const data = { ...this.props.data };
+      let data = { ...this.props.data };
       const support = nodeController.getSupportType(data);
-      this.setState({ support });
+      data.support = support;
       this.setState({ data });
     }
   }
@@ -51,7 +51,7 @@ class NodeForm extends Form {
     const { xSupport, ySupport } = nodeController.getSupportValues(
       this.state.data.support
     );
-    const data = { ...this.state.data };
+    let data = { ...this.state.data };
     data.xSupport = xSupport;
     data.ySupport = ySupport;
     this.setState({ data });
@@ -68,8 +68,16 @@ class NodeForm extends Form {
   }
 
   render() {
-    const { _id, name, xCoord, yCoord, xForce, yForce } = this.state.data;
-    const { supportOptions: options, support } = this.state;
+    const {
+      _id,
+      name,
+      xCoord,
+      yCoord,
+      xForce,
+      yForce,
+      support,
+    } = this.state.data;
+    const { supportOptions: options } = this.state;
     return (
       <div id="nodeForm" className="w-100">
         <h4>Nodes</h4>

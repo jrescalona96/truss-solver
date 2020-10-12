@@ -35,8 +35,7 @@ def truss_input():
     nodes_id_list = generate_id_list(nodes_index_table)
     bars_id_list = generate_id_list(bars_index_table)
 
-    mapped_displacements = map_node_ids(
-        displacements, nodes_id_list)
+    mapped_displacements = map_node_ids(displacements, nodes_id_list)
     mapped_forces = map_node_ids(forces[0], nodes_id_list)
     mapped_internal = map_bar_ids(internal, bars_id_list)
     mapped_stresses = map_bar_ids(stress, bars_id_list)

@@ -4,7 +4,12 @@ import Bar from "../bar/index";
 import { calculatePlaneSize } from "../../../controllers/coordinatePlaneController";
 import "./coordinatePlane.scss";
 
-const CoordinatePlane = ({ data, selectedNode, onSetSelectedNode, onSetSelectedBar}) => {
+const CoordinatePlane = ({
+  data,
+  selectedNode,
+  onSetSelectedNode,
+  onSetSelectedBar,
+}) => {
   const { nodes, bars } = data;
   const { width, height } = calculatePlaneSize(nodes);
 
@@ -12,7 +17,7 @@ const CoordinatePlane = ({ data, selectedNode, onSetSelectedNode, onSetSelectedB
     <div id="coordinatePlane">
       <svg width={width} height={height}>
         {bars.map((item) => (
-          <Bar key={item._id} data={item} onClick={onSetSelectedBar}/>
+          <Bar key={item._id} data={item} onClick={onSetSelectedBar} />
         ))}
         {nodes.map((item) => (
           <Node

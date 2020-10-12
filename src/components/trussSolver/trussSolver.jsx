@@ -25,6 +25,7 @@ const TrussSolver = () => {
   };
 
   const handleAddNode = (data) => {
+    console.log(data);
     const nodes = nodeController.addNode(data);
     setDisplayNodes(nodes);
     setSelectedNode({ id: "" });
@@ -47,6 +48,7 @@ const TrussSolver = () => {
   };
 
   const handleSetSelectedBar = (id) => {
+    console.log(id);
     const bar = barController.getBarById(id);
     setSelectedBar(bar);
     handleUpdateBar(bar);
@@ -112,8 +114,8 @@ const TrussSolver = () => {
         <CoordinatePlane
           data={{ nodes: displayNodes, bars: displayBars }}
           selectedNode={selectedNode}
-          onSetSelectedNode={(id) => handleSetSelectedNode(id)}
           selectedBar={selectedBar}
+          onSetSelectedNode={(id) => handleSetSelectedNode(id)}
           onSetSelectedBar={(id) => handleSetSelectedBar(id)}
         />
       </div>
