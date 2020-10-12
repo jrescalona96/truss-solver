@@ -48,19 +48,22 @@ const TrussSolver = () => {
   };
 
   const handleSetSelectedBar = (id) => {
-    console.log(id);
     const bar = barController.getBarById(id);
     setSelectedBar(bar);
     handleUpdateBar(bar);
   };
 
-  const handleCalculate = async () => {
+  const handleCalculate = () => {
     const body = {
       nodes: displayNodes,
       bars: displayBars,
     };
-    const res = await http.post("api/calculate", body);
-    console.log(res);
+    http.post("api/calculate", body).then((res) => {
+      console.log(res.data)
+    }).catch((e) => {
+      alert("Something Went Wrong! Please check input members.")
+    });
+
   };
 
   const handleDeleteNode = (id) => {

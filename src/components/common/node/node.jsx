@@ -16,7 +16,6 @@ const Node = ({ data, onClick, isSelected }) => {
     xSupport,
     ySupport,
   } = data;
-  console.log(data);
   const radius = 6;
   const { xRel, yRel } = calcRelativeCoord(xCoord, yCoord);
   const label = `${name}(${xCoord}, ${yCoord})`;
