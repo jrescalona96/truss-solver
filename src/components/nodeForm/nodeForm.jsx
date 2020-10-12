@@ -58,7 +58,7 @@ class NodeForm extends Form {
   };
 
   doUpdate() {
-    this.props.onAddTempNode(this.state.data);
+    this.props.onUpdateNode(this.state.data);
   }
 
   doSubmit() {

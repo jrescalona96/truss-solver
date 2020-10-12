@@ -55,7 +55,7 @@ export const updateBarNode = (node) => {
     }
     return item;
   });
-  return bars;
+  return updateAll("bars", bars);
 };
 
 export const updateBar = (data) => {

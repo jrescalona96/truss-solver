@@ -94,7 +94,7 @@ const TrussSolver = () => {
           <BarForm
             controller={barController}
             onAddBar={(data) => handleAddBar(data)}
-            onUpdatebar={(data) => handleUpdateBar(data)}
+            onUpdateBar={(data) => handleUpdateBar(data)}
             onDeleteBar={(data) => handleDeleteBar(data)}
             data={selectedBar}
           />
