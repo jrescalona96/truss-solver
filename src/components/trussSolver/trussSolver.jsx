@@ -9,7 +9,7 @@ import NodeForm from "../nodeForm/index";
 import BarForm from "../barForm/index";
 import "./trussSolver.scss";
 
-const TrussSolver = () => {
+const TrussSolver = (props) => {
   const [displayNodes, setDisplayNodes] = useState(
     nodeController.getAllNodes()
   );
@@ -60,10 +60,11 @@ const TrussSolver = () => {
     };
     http.post("api/calculate", body).then((res) => {
       console.log(res.data)
-    }).catch((e) => {
-      alert("Something Went Wrong! Please check input members.")
+      props.history.push('/solver/results');
+    }).catch((error) => {
+      alert("Please check input members.")
+      console.log(error)
     });
-
   };
 
   const handleDeleteNode = (id) => {

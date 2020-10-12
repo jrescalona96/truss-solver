@@ -6,14 +6,14 @@ import "./styles/_global.scss";
 import "./App.css";
 
 const App = () => {
-  const baseRoute = "";
+  const baseRoute = "/solver";
   return (
     <div className="App">
       <Switch>
         <Route
           exact
-          path={`${baseRoute}/solver`}
-          component={() => <TrussSolver />}
+          path={`${baseRoute}/`}
+          component={(props) => <TrussSolver {...props} />}
         />
         <Route
           path={`${baseRoute}/results`}
