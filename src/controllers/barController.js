@@ -1,9 +1,9 @@
 import * as nodeController from "./nodeController";
-import { fetchAll, updateAll } from '../services/dataServices';
+import { fetchAll, updateAll } from "../services/dataServices";
 import Bar from "../models/Bar";
 
 export const getAllBars = () => {
-  let bars = fetchAll("bars")
+  let bars = fetchAll("bars");
   if (!bars) bars = updateAll("bars", []);
   return bars;
 };
@@ -14,8 +14,8 @@ const _generateId = () => {
 
 export const getBarById = (id) => {
   const bars = getAllBars();
-  return bars.find(item => item._id === id);
-}
+  return bars.find((item) => item._id === id);
+};
 
 export const getBarNodes = (data) => {
   const { nodeNameI, nodeNameJ } = data;
@@ -38,14 +38,16 @@ export const getBarNodes = (data) => {
  */
 export const deleteConnectedBars = (id) => {
   const prevBars = getAllBars();
-  const bars =  prevBars.filter((item) => item.nodeI._id !== id && item.nodeJ._id !== id);
-  return updateAll("bars",bars);
-}
+  const bars = prevBars.filter(
+    (item) => item.nodeI._id !== id && item.nodeJ._id !== id
+  );
+  return updateAll("bars", bars);
+};
 
 export const updateBarNode = (node) => {
   // updated node related to bar being updated
   const prevBars = getAllBars();
-  const bars =  prevBars.map((item) => {
+  const bars = prevBars.map((item) => {
     if (item.nodeI._id === node._id) {
       item.nodeI = node;
     } else if (item.nodeJ._id === node._id) {
@@ -56,7 +58,7 @@ export const updateBarNode = (node) => {
   return bars;
 };
 
-export const addTempBar = (data) => {
+export const updateBar = (data) => {
   const bars = getAllBars().filter((item) => item._id !== data._id);
   const bar = createBar(data);
   if (bar) {
@@ -93,7 +95,7 @@ export const createBar = (data) => {
 };
 
 export const deleteBar = (id) => {
-  const bars = getAllBars().filter(item => item._id !== id);
-  updateAll("bars",bars)
-  return bars
-}
+  const bars = getAllBars().filter((item) => item._id !== id);
+  updateAll("bars", bars);
+  return bars;
+};

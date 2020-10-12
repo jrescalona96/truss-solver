@@ -2,22 +2,23 @@ import React, { useState } from "react";
 import * as nodeController from "../../controllers/nodeController";
 import * as barController from "../../controllers/barController";
 import http from "../../services/httpServices";
-import * as data from "../../services/dataServices"
+import * as data from "../../services/dataServices";
 import CoordinatePlane from "../common/coordinatePlane/index";
 import ActionButton from "../common/actionButton/index";
 import NodeForm from "../nodeForm/index";
 import BarForm from "../barForm/index";
 import "./trussSolver.scss";
 
-
 const TrussSolver = () => {
-  const [displayNodes, setDisplayNodes] = useState(nodeController.getAllNodes());
+  const [displayNodes, setDisplayNodes] = useState(
+    nodeController.getAllNodes()
+  );
   const [displayBars, setDisplayBars] = useState(barController.getAllBars());
   const [selectedNode, setSelectedNode] = useState({ id: "" });
   const [selectedBar, setSelectedBar] = useState({ id: "" });
 
-  const handleAddTempNode = (data) => {
-    const { nodes, newNode } = nodeController.addTempNode(data);
+  const handleUpdateNode = (data) => {
+    const { nodes, newNode } = nodeController.updateNode(data);
     setDisplayNodes(nodes);
     const bars = barController.updateBarNode(newNode);
     setDisplayBars(bars);
@@ -29,8 +30,8 @@ const TrussSolver = () => {
     setSelectedNode({ id: "" });
   };
 
-  const handleAddTempBar = (data) => {
-    const bars = barController.addTempBar(data);
+  const handleUpdateBar = (data) => {
+    const bars = barController.updateBar(data);
     if (bars) setDisplayBars(bars);
   };
 
@@ -42,18 +43,14 @@ const TrussSolver = () => {
   const handleSetSelectedNode = (id) => {
     const node = nodeController.getNodeById(id);
     setSelectedNode(node);
-    handleAddTempNode(node);
+    handleUpdateNode(node);
   };
 
   const handleSetSelectedBar = (id) => {
     const bar = barController.getBarById(id);
     setSelectedBar(bar);
-    handleAddTempBar(bar);
-  }
-
-  const handleUpdateNode = (data) => {
-
-  }
+    handleUpdateBar(bar);
+  };
 
   const handleCalculate = async () => {
     const body = {
@@ -68,20 +65,20 @@ const TrussSolver = () => {
     const nodes = nodeController.deleteNode(id);
     const bars = barController.deleteConnectedBars(id);
     setDisplayNodes(nodes);
-    setDisplayBars(bars)
-  }
+    setDisplayBars(bars);
+  };
 
   const handleDeleteBar = (id) => {
-     const bars = barController.deleteBar(id);
-     setDisplayBars(bars);
-  }
+    const bars = barController.deleteBar(id);
+    setDisplayBars(bars);
+  };
 
   const handleResetAll = () => {
     setDisplayBars([]);
     setDisplayNodes([]);
-    setSelectedNode({id:""});
+    setSelectedNode({ id: "" });
     data.resetAll();
-  }
+  };
 
   return (
     <div id="trussSolver" className="d-flex justify-space-between">
@@ -90,14 +87,14 @@ const TrussSolver = () => {
           <NodeForm
             controller={nodeController}
             onAddNode={(data) => handleAddNode(data)}
-            onAddTempNode={(data) => handleAddTempNode(data)}
+            onUpdateNode={(data) => handleUpdateNode(data)}
             onDeleteNode={(data) => handleDeleteNode(data)}
             data={selectedNode}
           />
           <BarForm
             controller={barController}
             onAddBar={(data) => handleAddBar(data)}
-            onAddTempBar={(data) => handleAddTempBar(data)}
+            onUpdatebar={(data) => handleUpdateBar(data)}
             onDeleteBar={(data) => handleDeleteBar(data)}
             data={selectedBar}
           />
@@ -108,11 +105,7 @@ const TrussSolver = () => {
           />
         </div>
         <div className="row">
-          <ActionButton
-            label="Reset"
-            onClick={handleResetAll}
-            color="danger"
-          />
+          <ActionButton label="Reset" onClick={handleResetAll} color="danger" />
         </div>
       </div>
       <div className="col-10">

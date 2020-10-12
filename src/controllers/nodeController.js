@@ -30,12 +30,14 @@ const _parseNumberOrZero = (input) => {
   return Number(input);
 };
 
-const _idValidNode = ({xCoord, yCoord}) => {
+const _idValidNode = ({ xCoord, yCoord }) => {
   const nodes = getAllNodes();
-  const found = nodes.find(item => item.xCoord === xCoord && item.yCoord === yCoord);
+  const found = nodes.find(
+    (item) => item.xCoord === xCoord && item.yCoord === yCoord
+  );
   if (found) return false;
   else return true;
-}
+};
 
 export const getNodeById = (id) => {
   const node = getAllNodes().find((item) => item._id === id);
@@ -54,21 +56,16 @@ export const addNode = (data) => {
     nodes.push(newNode);
     return updateAll("nodes", nodes);
   } else {
-    return getAllNodes()
+    return getAllNodes();
   }
 };
 
-export const addTempNode = (data) => {
+export const updateNode = (data) => {
   let tempNodes = getAllNodes().filter((item) => item._id !== data._id);
   const newNode = createNode(data);
   tempNodes.push(newNode);
   return { newNode, nodes: tempNodes };
 };
-
-export const updateNode = (data) => {
-  const node = getAllNodes().find(item => item._id = data._id);
-  //
-}
 
 export const deleteNode = (_id) => {
   const nodes = getAllNodes().filter((item) => item._id !== _id);
