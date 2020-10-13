@@ -13,11 +13,13 @@ const Point = ({ placement, label, radius, fill }) => {
         fill={fill}
       />
       <text
-        x={placement.xRel-radius/3}
+        x={placement.xRel}
         y={placement.yRel}
         stroke="black"
         fill="black"
-        dy=".25em"
+        dy="0.3em"
+        dx="-0.35em"
+        fontSize="1.2rem"
       >
         {label}
       </text>

@@ -31,7 +31,7 @@ const Node = ({ data, onClick, isSelected }) => {
         placement={{ xRel, yRel }}
         label={label}
         radius={radius}
-        fill={isSelected ? "orange" : "green"}
+        fill={isSelected ? "orange" : "skyblue"}
       />
       <Support
         contactCoords={{ xRel, yRel }}

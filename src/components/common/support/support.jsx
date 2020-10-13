@@ -9,14 +9,25 @@ const Support = ({ contactCoords, type, offset }) => {
   const fill = "#00000000";
 
   const base = (
-    <line
-      x1={`${xRel - width}`}
-      y1={`${yRel + height*2}`}
-      x2={`${xRel + width}`}
-      y2={`${yRel + height*2}`}
-      stroke="black"
-      strokeWidth={`${strokeWidth}`}
-    />
+    <>
+      <line
+        x1={`${xRel - width}`}
+        y1={`${yRel + height*2}`}
+        x2={`${xRel + width}`}
+        y2={`${yRel + height*2}`}
+        stroke="black"
+        strokeWidth={`${strokeWidth}`}
+      />
+      <line
+        x1={`${xRel - width}`}
+        y1={`${yRel + height*2.2}`}
+        x2={`${xRel + width}`}
+        y2={`${yRel + height*2.2}`}
+        stroke="black"
+        strokeWidth={`${strokeWidth*2.5}`}
+        strokeDasharray={[2,2]}
+      />
+    </>
   );
 
   const pin = (
