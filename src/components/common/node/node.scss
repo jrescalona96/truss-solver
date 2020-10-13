@@ -1,10 +1,6 @@
 .node {
-  .label {
-    font-weight: bold;
-    font-style: italic;
-  }
   &:hover {
-    .label {
+    .coordinatesLabel {
       fill: red;
     }
   }

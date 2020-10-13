@@ -7,6 +7,7 @@ import Support from "../support/index";
 import Force from "../force/index";
 import Point from "../point/index";
 import "./node.scss";
+import CoordinatesLabel from "../coordinatesLabel/index";
 
 const Node = ({ data, onClick, isSelected, size, fill }) => {
   const {
@@ -21,7 +22,7 @@ const Node = ({ data, onClick, isSelected, size, fill }) => {
   } = data;
   const radius = 12;
   const { xRel, yRel } = calcRelativeCoord(xCoord, yCoord);
-  const { x, y } = calcLabelPosition(data, radius, xRel, yRel);
+  const labelPlacement = calcLabelPosition(data, radius, xRel, yRel);
   const getFill = () => {};
   return (
     <g className="clickable node" onClick={() => onClick(_id)}>
@@ -31,9 +32,7 @@ const Node = ({ data, onClick, isSelected, size, fill }) => {
       {yForce && (
         <Force xRel={xRel} yRel={yRel} direction="y" magnitude={-yForce} />
       )}
-      <text className="label" x={x} y={y}>
-        {`${xCoord},${yCoord}`}
-      </text>
+      <CoordinatesLabel text={{ xCoord, yCoord }} placement={labelPlacement} />
       <Point
         placement={{ xRel, yRel }}
         label={name}

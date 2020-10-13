@@ -9,7 +9,6 @@ const CoordinatePlane = ({
   selectedNode,
   onSetSelectedNode,
   onSetSelectedBar,
-  classes,
   nodeFill,
   nodeSize,
 }) => {
