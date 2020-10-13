@@ -1,45 +1,26 @@
-import * as d3 from "d3";
-
-const ORIGIN = { x: 50, y: 50 };
-let COORD_PLANE_SIZE_X = 1000;
-let COORD_PLANE_SIZE_Y = 600;
+const origin = { x: 50, y: 50 };
+const planeSize = { width: 1000, height: 600 };
 
 export const calcRelativeCoord = (x, y) => {
-  const xRel = ORIGIN.x + x;
-  const yRel = COORD_PLANE_SIZE_Y - ORIGIN.y - y;
+  const xRel = origin.x + x;
+  const yRel = planeSize.height - origin.y - y;
   return { xRel, yRel };
 };
 
-// TODO: need to reimplement this
 export const calculatePlaneSize = (nodes) => {
   const defaultWidth = window.innerWidth * 0.8;
   const defaultHeight = window.innerHeight * 0.95;
   const maxX = Math.max(...nodes.map((item) => item.xCoord));
   const maxY = Math.max(...nodes.map((item) => item.yCoord));
-  const width = maxX >= defaultWidth ? maxX + ORIGIN.x : defaultWidth;
-  const height = maxY >= defaultHeight ? maxY + ORIGIN.y : defaultHeight;
-  COORD_PLANE_SIZE_X = width;
-  COORD_PLANE_SIZE_Y = height;
-  return { width, height };
+  const width = maxX >= defaultWidth ? maxX + origin.x : defaultWidth;
+  const height = maxY >= defaultHeight ? maxY + origin.y : defaultHeight;
+  planeSize.width = width;
+  planeSize.height = height;
+  return planeSize;
 };
 
-export const getScales = (data) => {
-  // find max
-  const domainData = data.map((item) => item.xCoord);
-  const ordinalData = data.map((item) => item.yCoord);
-  const maxDomain = data.length === 1 ? COORD_PLANE_SIZE_X : d3.max(domainData);
-  const maxOrdinal =
-    data.length === 1 ? COORD_PLANE_SIZE_Y : d3.max(ordinalData);
-
-  const xScale = d3
-    .scaleLinear()
-    .domain([0, maxDomain])
-    .range(0, COORD_PLANE_SIZE_X);
-
-  const yScale = d3
-    .scaleLinear()
-    .domain([0, maxOrdinal])
-    .range([COORD_PLANE_SIZE_Y, 0]);
-
-  return { yScale, xScale };
+export const calcLabelPosition = (data, radius, xRel, yRel) => {
+  const x = xRel - radius * 2;
+  const y = yRel - radius * 1.5;
+  return { x, y };
 };

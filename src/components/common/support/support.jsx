@@ -4,7 +4,7 @@ const Support = ({ contactCoords, type, offset }) => {
   const { xRel, yRel } = contactCoords;
   const height = offset;
   const width = 20;
-  const strokeWidth = 2;
+  const strokeWidth = 1.5;
   const stroke = "#000000";
   const fill = "#00000000";
 
@@ -12,20 +12,20 @@ const Support = ({ contactCoords, type, offset }) => {
     <>
       <line
         x1={`${xRel - width}`}
-        y1={`${yRel + height*2}`}
+        y1={`${yRel + height * 2}`}
         x2={`${xRel + width}`}
-        y2={`${yRel + height*2}`}
+        y2={`${yRel + height * 2}`}
         stroke="black"
-        strokeWidth={`${strokeWidth}`}
+        strokeWidth={`${strokeWidth * 1.5}`}
       />
       <line
-        x1={`${xRel - width}`}
-        y1={`${yRel + height*2.2}`}
+        x1={`${xRel - width + 1}`}
+        y1={`${yRel + height * 2.2}`}
         x2={`${xRel + width}`}
-        y2={`${yRel + height*2.2}`}
+        y2={`${yRel + height * 2.2}`}
         stroke="black"
-        strokeWidth={`${strokeWidth*2.5}`}
-        strokeDasharray={[2,2]}
+        strokeWidth={`${strokeWidth * 3}`}
+        strokeDasharray={[2, 2]}
       />
     </>
   );
@@ -34,8 +34,8 @@ const Support = ({ contactCoords, type, offset }) => {
     <>
       <polygon
         points={`${xRel},${yRel + offset} 
-                 ${xRel - width / 2}, ${yRel + height*2}
-                 ${xRel + width / 2},${yRel + height*2}`}
+                 ${xRel - width / 2}, ${yRel + height * 2}
+                 ${xRel + width / 2},${yRel + height * 2}`}
         fill={fill}
         stroke={stroke}
         strokeWidth={`${strokeWidth}`}
@@ -49,7 +49,7 @@ const Support = ({ contactCoords, type, offset }) => {
       <circle
         cx={xRel}
         cy={yRel + height * 1.5}
-        r={height/2}
+        r={height / 2}
         fill={fill}
         stroke={stroke}
         strokeWidth={`${strokeWidth}`}
@@ -66,4 +66,5 @@ const Support = ({ contactCoords, type, offset }) => {
 
   return <>{_getSupport()}</>;
 };
+
 export default Support;

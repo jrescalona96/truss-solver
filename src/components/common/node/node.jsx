@@ -1,5 +1,8 @@
 import React from "react";
-import { calcRelativeCoord } from "../../../controllers/coordinatePlaneController";
+import {
+  calcRelativeCoord,
+  calcLabelPosition,
+} from "../../../controllers/coordinatePlaneController";
 import Support from "../support/index";
 import Force from "../force/index";
 import Point from "../point/index";
@@ -16,9 +19,9 @@ const Node = ({ data, onClick, isSelected }) => {
     xSupport,
     ySupport,
   } = data;
-  const radius = 15;
+  const radius = 12;
   const { xRel, yRel } = calcRelativeCoord(xCoord, yCoord);
-  const label = name;
+  const { x, y } = calcLabelPosition(data, radius, xRel, yRel);
   return (
     <g className="clickable node" onClick={() => onClick(_id)}>
       {xForce && (
@@ -27,9 +30,12 @@ const Node = ({ data, onClick, isSelected }) => {
       {yForce && (
         <Force xRel={xRel} yRel={yRel} direction="y" magnitude={-yForce} />
       )}
+      <text className="label" x={x} y={y}>
+        {`${xCoord},${yCoord}`}
+      </text>
       <Point
         placement={{ xRel, yRel }}
-        label={label}
+        label={name}
         radius={radius}
         fill={isSelected ? "orange" : "skyblue"}
       />

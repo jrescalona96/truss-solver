@@ -25,7 +25,6 @@ const TrussSolver = (props) => {
   };
 
   const handleAddNode = (data) => {
-    console.log(data);
     const nodes = nodeController.addNode(data);
     setDisplayNodes(nodes);
     setSelectedNode({ id: "" });
@@ -58,13 +57,15 @@ const TrussSolver = (props) => {
       nodes: displayNodes,
       bars: displayBars,
     };
-    http.post("api/calculate", body).then((res) => {
-      console.log(res.data)
-      props.history.push('/solver/results');
-    }).catch((error) => {
-      alert("Please check input members.")
-      console.log(error)
-    });
+    http
+      .post("api/calculate", body)
+      .then((res) => {
+        console.log(res.data);
+        props.history.push("/solver/results");
+      })
+      .catch((error) => {
+        alert("Please check input members.");
+      });
   };
 
   const handleDeleteNode = (id) => {
