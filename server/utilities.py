@@ -69,14 +69,16 @@ def generate_id_list(d):
 
 
 def map_node_ids(source, ids):
-    output = []
+    output = {}
     for idx, value in enumerate(dict_converter(source)):
-        output.append({ids[idx]: value})
+        id = ids[idx]
+        output[id] = value
     return output
 
 
 def map_bar_ids(source, ids):
-    output = []
+    output = {}
     for idx, value in enumerate(source):
-        output.append({ids[idx]: value})
+        id = ids[idx]
+        output[id] = value
     return output

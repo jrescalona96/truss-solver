@@ -7,12 +7,13 @@ import "./results.scss";
 const Results = () => {
   const existingNodes = nodeController.getAllNodes();
   const existingBars = barController.getAllBars();
+  const { resultNodes } = nodeController.getResultants();
 
   return (
     <div id="results">
       <h4>Results</h4>
       <CoordinatePlane
-        data={{ nodes: existingNodes, bars: existingBars }}
+        data={{ nodes: [...existingNodes, ...resultNodes], bars: existingBars }}
         selectedNode={{ id: "" }}
         onSetSelectedNode={() => {}}
         onSetSelectedBar={() => {}}

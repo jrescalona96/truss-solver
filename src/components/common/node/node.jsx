@@ -8,7 +8,7 @@ import Force from "../force/index";
 import Point from "../point/index";
 import "./node.scss";
 
-const Node = ({ data, onClick, isSelected }) => {
+const Node = ({ data, onClick, isSelected, size, fill }) => {
   const {
     _id,
     name,
@@ -22,6 +22,7 @@ const Node = ({ data, onClick, isSelected }) => {
   const radius = 12;
   const { xRel, yRel } = calcRelativeCoord(xCoord, yCoord);
   const { x, y } = calcLabelPosition(data, radius, xRel, yRel);
+  const getFill = () => {};
   return (
     <g className="clickable node" onClick={() => onClick(_id)}>
       {xForce && (
@@ -37,7 +38,8 @@ const Node = ({ data, onClick, isSelected }) => {
         placement={{ xRel, yRel }}
         label={name}
         radius={radius}
-        fill={isSelected ? "orange" : "skyblue"}
+        fill={fill}
+        opacity={isSelected ? 1 : 0.7}
       />
       <Support
         contactCoords={{ xRel, yRel }}

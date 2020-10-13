@@ -60,10 +60,12 @@ const TrussSolver = (props) => {
     http
       .post("api/calculate", body)
       .then((res) => {
-        console.log(res.data);
+        const results = data.mapResults(res.data);
+        data.updateAll("results", results);
         props.history.push("/solver/results");
       })
       .catch((error) => {
+        console.log(error);
         alert("Please check input members.");
       });
   };
@@ -122,6 +124,9 @@ const TrussSolver = (props) => {
           selectedBar={selectedBar}
           onSetSelectedNode={(id) => handleSetSelectedNode(id)}
           onSetSelectedBar={(id) => handleSetSelectedBar(id)}
+          fill="#00000000"
+          nodeFill="lightblue"
+          nodeSize={12}
         />
       </div>
     </div>

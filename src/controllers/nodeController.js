@@ -83,6 +83,7 @@ export const getSupportType = ({ xSupport, ySupport }) => {
 };
 
 export const createNode = (data) => {
+  console.log(data);
   if (data) {
     const {
       _id,
@@ -105,4 +106,8 @@ export const createNode = (data) => {
     const node = new Node(id, na, xc, yc, xf, yf, xs, ys);
     return !isNaN(xc) && !isNaN(yc) ? node : null;
   }
+};
+
+export const getResultants = () => {
+  return fetchAll("results");
 };

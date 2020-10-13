@@ -1,7 +1,7 @@
 import React from "react";
 import "./point.scss";
 
-const Point = ({ placement, label, radius, fill }) => {
+const Point = ({ placement, label, radius, fill, opacity }) => {
   return (
     <g>
       <circle
@@ -11,6 +11,7 @@ const Point = ({ placement, label, radius, fill }) => {
         stroke="black"
         strokeWidth="2"
         fill={fill}
+        fillOpacity={opacity}
       />
       <text
         x={placement.xRel}
@@ -19,8 +20,7 @@ const Point = ({ placement, label, radius, fill }) => {
         fill="black"
         dy="0.3em"
         dx="-0.35em"
-        fontSize="1.2rem"
-      >
+        fontSize="1.2rem">
         {label}
       </text>
     </g>

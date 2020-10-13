@@ -9,13 +9,16 @@ const CoordinatePlane = ({
   selectedNode,
   onSetSelectedNode,
   onSetSelectedBar,
+  classes,
+  nodeFill,
+  nodeSize,
 }) => {
   const { nodes, bars } = data;
   const { width, height } = calculatePlaneSize(nodes);
 
   return (
-    <div id="coordinatePlane">
-      <svg width={width} height={height}>
+    <div className="coordinatePlane">
+      <svg viewBox={`0 0 ${width} ${height}`}>
         {bars.map((item) => (
           <Bar key={item._id} data={item} onClick={onSetSelectedBar} />
         ))}
@@ -25,6 +28,8 @@ const CoordinatePlane = ({
             data={item}
             onClick={onSetSelectedNode}
             isSelected={item._id === selectedNode._id}
+            fill={nodeFill}
+            size={nodeSize}
           />
         ))}
       </svg>
