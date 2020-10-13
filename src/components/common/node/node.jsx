@@ -16,9 +16,9 @@ const Node = ({ data, onClick, isSelected }) => {
     xSupport,
     ySupport,
   } = data;
-  const radius = 6;
+  const radius = 15;
   const { xRel, yRel } = calcRelativeCoord(xCoord, yCoord);
-  const label = `${name}(${xCoord}, ${yCoord})`;
+  const label = name;
   return (
     <g className="clickable node" onClick={() => onClick(_id)}>
       {xForce && (

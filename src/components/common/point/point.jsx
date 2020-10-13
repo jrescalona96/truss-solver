@@ -4,15 +4,6 @@ import "./point.scss";
 const Point = ({ placement, label, radius, fill }) => {
   return (
     <g>
-      <text
-        x={placement.xRel + 5}
-        y={placement.yRel - 12}
-        stroke="black"
-        fill="black"
-        dy=".25em"
-      >
-        {label}
-      </text>
       <circle
         cx={placement.xRel}
         cy={placement.yRel}
@@ -20,7 +11,16 @@ const Point = ({ placement, label, radius, fill }) => {
         stroke="black"
         strokeWidth="2"
         fill={fill}
-      ></circle>
+      />
+      <text
+        x={placement.xRel-radius/3}
+        y={placement.yRel}
+        stroke="black"
+        fill="black"
+        dy=".25em"
+      >
+        {label}
+      </text>
     </g>
   );
 };
