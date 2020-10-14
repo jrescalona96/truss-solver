@@ -83,7 +83,6 @@ export const getSupportType = ({ xSupport, ySupport }) => {
 };
 
 export const createNode = (data) => {
-  console.log(data);
   if (data) {
     const {
       _id,

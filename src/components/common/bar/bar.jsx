@@ -3,11 +3,11 @@ import { calcRelativeCoord } from "../../../controllers/coordinatePlaneControlle
 import "./bar.scss";
 
 const Bar = ({ data, onClick }) => {
-  const { _id,nodeI, nodeJ } = data;
+  const { _id, nodeI, nodeJ } = data;
   const coord1 = calcRelativeCoord(nodeI.xCoord, nodeI.yCoord);
   const coord2 = calcRelativeCoord(nodeJ.xCoord, nodeJ.yCoord);
-  const colors = ["#959595","#5f5f5f","#333333"]
-  const widths = [12,7,2]
+  const colors = ["#959595", "#5f5f5f", "#333333"];
+  const widths = [9, 7, 2];
   return (
     <g className="bar clickable" onClick={() => onClick(_id)}>
       <line

@@ -1,7 +1,8 @@
 import React from "react";
 import "./point.scss";
 
-const Point = ({ placement, label, radius, fill, opacity }) => {
+const Point = ({ placement, label, radius, fill, isSelected, nameOn }) => {
+  const inactiveColor = "orange";
   return (
     <g>
       <circle
@@ -9,20 +10,21 @@ const Point = ({ placement, label, radius, fill, opacity }) => {
         cy={placement.yRel}
         r={radius}
         stroke="black"
-        strokeWidth="2"
-        fill={fill}
-        fillOpacity={opacity}
+        strokeWidth="1"
+        fill={isSelected ? inactiveColor : fill}
       />
-      <text
-        x={placement.xRel}
-        y={placement.yRel}
-        stroke="black"
-        fill="black"
-        dy="0.3em"
-        dx="-0.35em"
-        fontSize="1.2rem">
-        {label}
-      </text>
+      {nameOn && (
+        <text
+          x={placement.xRel}
+          y={placement.yRel}
+          stroke="black"
+          fill="black"
+          dy="0.3em"
+          dx="-0.35em"
+          fontSize="1.2rem">
+          {label}
+        </text>
+      )}
     </g>
   );
 };

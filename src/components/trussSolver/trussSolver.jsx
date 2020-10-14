@@ -120,6 +120,7 @@ const TrussSolver = (props) => {
       <div className="col-10">
         <CoordinatePlane
           data={{ nodes: displayNodes, bars: displayBars }}
+          secondaryData={null}
           selectedNode={selectedNode}
           selectedBar={selectedBar}
           onSetSelectedNode={(id) => handleSetSelectedNode(id)}

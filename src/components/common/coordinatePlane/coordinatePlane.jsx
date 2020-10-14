@@ -6,22 +6,44 @@ import "./coordinatePlane.scss";
 
 const CoordinatePlane = ({
   data,
+  secondaryData,
   selectedNode,
   onSetSelectedNode,
   onSetSelectedBar,
   nodeFill,
   nodeSize,
 }) => {
-  const { nodes, bars } = data;
-  const { width, height } = calculatePlaneSize(nodes);
-
+  const { nodes: primaryNodes, bars: primaryBars } = data;
+  const { width, height } = calculatePlaneSize(primaryNodes);
+  let secondaryNodes = [];
+  let secondaryBars = [];
+  if (secondaryData) {
+    secondaryNodes = secondaryData.nodes;
+    secondaryBars = secondaryData.bars;
+  }
   return (
     <div className="coordinatePlane">
       <svg viewBox={`0 0 ${width} ${height}`}>
-        {bars.map((item) => (
+        {secondaryBars.map((item) => (
+          <Bar key={item._id} data={item} onClick={() => {}} />
+        ))}
+        {secondaryNodes.map((item) => (
+          <Node
+            key={item._id}
+            data={item}
+            onClick={() => {}}
+            isSelected={item._id === selectedNode._id}
+            fill="orange"
+            size={nodeSize / 2}
+            nameOn={false}
+            labelOn={false}
+            forcesOn={true}
+          />
+        ))}
+        {primaryBars.map((item) => (
           <Bar key={item._id} data={item} onClick={onSetSelectedBar} />
         ))}
-        {nodes.map((item) => (
+        {primaryNodes.map((item) => (
           <Node
             key={item._id}
             data={item}
@@ -29,6 +51,9 @@ const CoordinatePlane = ({
             isSelected={item._id === selectedNode._id}
             fill={nodeFill}
             size={nodeSize}
+            nameOn={true}
+            labelOn={true}
+            forcesOn={false}
           />
         ))}
       </svg>

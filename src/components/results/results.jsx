@@ -13,10 +13,13 @@ const Results = () => {
     <div id="results">
       <h4>Results</h4>
       <CoordinatePlane
-        data={{ nodes: [...existingNodes, ...resultNodes], bars: existingBars }}
+        data={{ nodes: existingNodes, bars: existingBars }}
+        secondaryData={{ nodes: resultNodes, bars: [] }}
         selectedNode={{ id: "" }}
         onSetSelectedNode={() => {}}
         onSetSelectedBar={() => {}}
+        nodeFill="lightblue"
+        nodeSize={12}
       />
     </div>
   );

@@ -9,7 +9,16 @@ import Point from "../point/index";
 import "./node.scss";
 import CoordinatesLabel from "../coordinatesLabel/index";
 
-const Node = ({ data, onClick, isSelected, size, fill }) => {
+const Node = ({
+  data,
+  onClick,
+  isSelected,
+  size,
+  fill,
+  labelOn,
+  forcesOn,
+  nameOn,
+}) => {
   const {
     _id,
     name,
@@ -20,25 +29,30 @@ const Node = ({ data, onClick, isSelected, size, fill }) => {
     xSupport,
     ySupport,
   } = data;
-  const radius = 12;
+  const radius = size;
   const { xRel, yRel } = calcRelativeCoord(xCoord, yCoord);
   const labelPlacement = calcLabelPosition(data, radius, xRel, yRel);
-  const getFill = () => {};
   return (
     <g className="clickable node" onClick={() => onClick(_id)}>
-      {xForce && (
+      {xForce && forcesOn && (
         <Force xRel={xRel} yRel={yRel} direction="x" magnitude={xForce} />
       )}
-      {yForce && (
+      {yForce && forcesOn && (
         <Force xRel={xRel} yRel={yRel} direction="y" magnitude={-yForce} />
       )}
-      <CoordinatesLabel text={{ xCoord, yCoord }} placement={labelPlacement} />
+      {labelOn && (
+        <CoordinatesLabel
+          text={{ xCoord, yCoord }}
+          placement={labelPlacement}
+        />
+      )}
       <Point
         placement={{ xRel, yRel }}
         label={name}
         radius={radius}
         fill={fill}
-        opacity={isSelected ? 1 : 0.7}
+        isSelected={isSelected}
+        nameOn={nameOn}
       />
       <Support
         contactCoords={{ xRel, yRel }}
