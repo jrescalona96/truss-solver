@@ -1,4 +1,5 @@
 import { createNode } from "../controllers/nodeController";
+import { createBar } from "../controllers/barController";
 
 export const fetchAll = (key) => {
   return JSON.parse(localStorage.getItem(key));
@@ -19,9 +20,11 @@ export const resetAll = () => {
 
 export const mapResults = (data) => {
   const nodes = fetchAll("nodes");
-  const { displacement, forces } = data;
+  const bars = fetchAll("bars");
+  const { displacement, forces, internal, stress } = data;
   const nodeResults = mapResultNodes(nodes, displacement, forces);
-  return { resultNodes: nodeResults };
+  const barResults = mapResultBars(bars, nodeResults, internal, stress);
+  return { nodeResults, barResults };
 };
 
 const mapResultNodes = (nodes, displacements, forces) => {
@@ -44,11 +47,20 @@ const mapResultNodes = (nodes, displacements, forces) => {
   return results;
 };
 
-// // TODO: Add data representation for internal and stress
-// const mapResultBars = (bars, internal, stress) => {
-//   const results = bars.map((b) => {
-//     const { _id } = b;
-//     const barInternal = internal[_id];
-//     const barStress = stress[_id];
-//   });
-// };
+// TODO: Add data representation for internal and stress
+const mapResultBars = (bars, nodes, internal, stress) => {
+  const results = bars.map((b) => {
+    let data = { ...b };
+    data.nodeNameI = b.nodeI.name;
+    data.nodeNameJ = b.nodeJ.name;
+    let resultantBar = createBar(data);
+    resultantBar.nodeI = nodes.find(
+      (item) => item.name === resultantBar.nodeI.name
+    );
+    resultantBar.nodeJ = nodes.find(
+      (item) => item.name === resultantBar.nodeJ.name
+    );
+    return resultantBar;
+  });
+  return results;
+};

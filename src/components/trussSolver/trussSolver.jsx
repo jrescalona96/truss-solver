@@ -89,6 +89,13 @@ const TrussSolver = (props) => {
     data.resetAll();
   };
 
+  const memberStyles = {
+    nodeSize: 12,
+    nodeFill: "lightblue",
+    barSize: [6, 6],
+    barFill: ["#959595", "#0000ff2f"],
+  };
+
   return (
     <div id="trussSolver" className="d-flex justify-space-between">
       <div className="d-flex flex-column justify-content-between col-2">
@@ -119,15 +126,13 @@ const TrussSolver = (props) => {
       </div>
       <div className="col-10">
         <CoordinatePlane
-          data={{ nodes: displayNodes, bars: displayBars }}
+          primaryData={{ nodes: displayNodes, bars: displayBars }}
           secondaryData={null}
           selectedNode={selectedNode}
           selectedBar={selectedBar}
           onSetSelectedNode={(id) => handleSetSelectedNode(id)}
           onSetSelectedBar={(id) => handleSetSelectedBar(id)}
-          fill="#00000000"
-          nodeFill="lightblue"
-          nodeSize={12}
+          {...memberStyles}
         />
       </div>
     </div>

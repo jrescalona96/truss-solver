@@ -5,15 +5,17 @@ import { calculatePlaneSize } from "../../../controllers/coordinatePlaneControll
 import "./coordinatePlane.scss";
 
 const CoordinatePlane = ({
-  data,
+  primaryData,
   secondaryData,
   selectedNode,
   onSetSelectedNode,
   onSetSelectedBar,
   nodeFill,
   nodeSize,
+  barFill,
+  barSize,
 }) => {
-  const { nodes: primaryNodes, bars: primaryBars } = data;
+  const { nodes: primaryNodes, bars: primaryBars } = primaryData;
   const { width, height } = calculatePlaneSize(primaryNodes);
   let secondaryNodes = [];
   let secondaryBars = [];
@@ -21,11 +23,27 @@ const CoordinatePlane = ({
     secondaryNodes = secondaryData.nodes;
     secondaryBars = secondaryData.bars;
   }
+
   return (
     <div className="coordinatePlane">
       <svg viewBox={`0 0 ${width} ${height}`}>
+        {primaryBars.map((item) => (
+          <Bar
+            key={item._id}
+            data={item}
+            onClick={onSetSelectedBar}
+            fill={barFill[0]}
+            width={barSize[0]}
+          />
+        ))}
         {secondaryBars.map((item) => (
-          <Bar key={item._id} data={item} onClick={() => {}} />
+          <Bar
+            key={item._id}
+            data={item}
+            onClick={() => {}}
+            fill={barFill[1]}
+            width={barSize[1]}
+          />
         ))}
         {secondaryNodes.map((item) => (
           <Node
@@ -39,9 +57,6 @@ const CoordinatePlane = ({
             labelOn={false}
             forcesOn={true}
           />
-        ))}
-        {primaryBars.map((item) => (
-          <Bar key={item._id} data={item} onClick={onSetSelectedBar} />
         ))}
         {primaryNodes.map((item) => (
           <Node
