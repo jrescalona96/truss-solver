@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as nodeController from "../../controllers/nodeController";
 import * as barController from "../../controllers/barController";
+import { calculatePlaneSize } from "../../controllers/coordinatePlaneController";
 import http from "../../services/httpServices";
 import * as data from "../../services/dataServices";
 import CoordinatePlane from "../common/coordinatePlane/index";
@@ -52,24 +53,6 @@ const TrussSolver = (props) => {
     handleUpdateBar(bar);
   };
 
-  const handleCalculate = () => {
-    const body = {
-      nodes: displayNodes,
-      bars: displayBars,
-    };
-    http
-      .post("api/calculate", body)
-      .then((res) => {
-        const results = data.mapResults(res.data);
-        data.updateAll("results", results);
-        props.history.push("/solver/results");
-      })
-      .catch((error) => {
-        console.log(error);
-        alert("Please check input members.");
-      });
-  };
-
   const handleDeleteNode = (id) => {
     const nodes = nodeController.deleteNode(id);
     const bars = barController.deleteConnectedBars(id);
@@ -89,16 +72,36 @@ const TrussSolver = (props) => {
     data.resetAll();
   };
 
+  const handleCalculate = () => {
+    const body = {
+      nodes: displayNodes,
+      bars: displayBars,
+    };
+    http
+      .post("api/calculate", body)
+      .then((res) => {
+        const results = data.mapResults(res.data);
+        data.updateAll("results", results);
+        data.updateAll("resultsData", res.data);
+        props.history.push("/solver/results");
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("Please check input members.");
+      });
+  };
+
   const memberStyles = {
     nodeSize: 12,
     nodeFill: "lightblue",
     barSize: [6, 6],
     barFill: ["#959595", "#0000ff2f"],
   };
+  const { width, height } = calculatePlaneSize(displayNodes);
 
   return (
     <div id="trussSolver" className="d-flex justify-space-between">
-      <div className="d-flex flex-column justify-content-between col-2">
+      <div className="forms container d-flex flex-column justify-content-between col-2">
         <div className="row">
           <NodeForm
             controller={nodeController}
@@ -126,6 +129,8 @@ const TrussSolver = (props) => {
       </div>
       <div className="col-10">
         <CoordinatePlane
+          width={width}
+          height={height}
           primaryData={{ nodes: displayNodes, bars: displayBars }}
           secondaryData={null}
           selectedNode={selectedNode}
