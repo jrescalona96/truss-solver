@@ -2,7 +2,7 @@ import React from "react";
 
 const Force = ({ xRel, yRel, direction, magnitude }) => {
   const lineWidth = 10;
-  const lineLength = 25;
+  const lineLength = 50;
 
   const calcAxis = () => {
     return direction === "x"
@@ -17,11 +17,13 @@ const Force = ({ xRel, yRel, direction, magnitude }) => {
   return (
     <rect
       className="force"
+      rx="5"
       x={xRel - lineWidth / 2}
       y={yRel - lineWidth / 2}
       {...calcAxis()}
       {...calcDirection()}
-      fill={direction === "x" ? "red" : "green"}></rect>
+      fill={direction === "x" ? "red" : "green"}
+    />
   );
 };
 

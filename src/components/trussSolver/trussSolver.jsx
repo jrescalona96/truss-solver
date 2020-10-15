@@ -93,8 +93,9 @@ const TrussSolver = (props) => {
   };
 
   const memberStyles = {
-    nodeSize: 12,
-    nodeFill: "lightblue",
+    nodeNameColor: "#0000ff",
+    nodeSize: [12, 12],
+    nodeFill: "skyblue",
     barSize: [6, 6],
     barFill: ["#959595", "#0000ff2f"],
   };
@@ -102,7 +103,9 @@ const TrussSolver = (props) => {
   const { planeSize, viewBox } = calculatePlaneSize(displayNodes);
 
   return (
-    <div id="trussSolver" className="d-flex justify-space-between">
+    <div
+      id="trussSolver"
+      className="d-flex justify-self-center justify-space-between m-2">
       <div className="forms container d-flex flex-column justify-content-between col-2">
         <div className="row">
           <NodeForm

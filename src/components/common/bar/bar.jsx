@@ -10,22 +10,7 @@ const Bar = ({ data, onClick, fill, width }) => {
   return (
     <g className="bar clickable" onClick={() => onClick(_id)}>
       <line
-        x1={coord1.xRel}
-        y1={coord1.yRel}
-        x2={coord2.xRel}
-        y2={coord2.yRel}
-        stroke={fill}
-        strokeWidth={width}
-      />
-      <line
-        x1={coord1.xRel}
-        y1={coord1.yRel}
-        x2={coord2.xRel}
-        y2={coord2.yRel}
-        stroke={fill}
-        strokeWidth={width}
-      />
-      <line
+        rx="5"
         x1={coord1.xRel}
         y1={coord1.yRel}
         x2={coord2.xRel}

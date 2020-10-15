@@ -18,6 +18,7 @@ const Node = ({
   labelOn,
   forcesOn,
   nameOn,
+  nodeNameColor,
 }) => {
   const {
     _id,
@@ -49,6 +50,7 @@ const Node = ({
       <Point
         placement={{ xRel, yRel }}
         label={name}
+        labelColor={nodeNameColor ? nodeNameColor : "#000"}
         radius={radius}
         fill={fill}
         isSelected={isSelected}

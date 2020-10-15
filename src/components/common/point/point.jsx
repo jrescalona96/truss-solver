@@ -1,7 +1,15 @@
 import React from "react";
 import "./point.scss";
 
-const Point = ({ placement, label, radius, fill, isSelected, nameOn }) => {
+const Point = ({
+  placement,
+  label,
+  radius,
+  fill,
+  isSelected,
+  nameOn,
+  labelColor,
+}) => {
   const inactiveColor = "orange";
   return (
     <g>
@@ -17,10 +25,10 @@ const Point = ({ placement, label, radius, fill, isSelected, nameOn }) => {
         <text
           x={placement.xRel}
           y={placement.yRel}
-          stroke="black"
-          fill="black"
-          dy="0.3em"
-          dx="-0.35em"
+          stroke={labelColor}
+          fill={labelColor}
+          dy="0.35em"
+          dx="-0.3em"
           fontSize="1.2rem">
           {label}
         </text>

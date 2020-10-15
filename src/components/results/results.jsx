@@ -11,15 +11,17 @@ const Results = () => {
   const { nodeResults, barResults } = nodeController.getResultants();
 
   const memberStyles = {
-    nodeSize: 12,
+    nodeSize: [12, 6],
     nodeFill: "lightblue",
-    barSize: [6, 6],
+    barSize: [8, 6],
     barFill: ["#959595", "#0000ff2f"],
   };
   const { planeSize, viewBox } = calculatePlaneSize(existingNodes);
 
   return (
-    <div id="results" className="container row">
+    <div
+      id="results"
+      className="d-flex justify-self-center justify-space-between m-2">
       <div className="col-2"></div>
       <div className="col-10">
         <CoordinatePlane
@@ -31,7 +33,7 @@ const Results = () => {
           onSetSelectedNode={() => {}}
           onSetSelectedBar={() => {}}
           primaryLabelsOn={true}
-          primaryNamesOn={true}
+          primaryNamesOn={false}
           primaryForcesOn={false}
           secondaryForcesOn={true}
           secondaryLabelsOn={false}

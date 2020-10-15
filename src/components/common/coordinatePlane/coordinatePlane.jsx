@@ -20,6 +20,7 @@ const CoordinatePlane = ({
   secondaryForcesOn,
   nodeFill,
   nodeSize,
+  nodeNameColor,
   barFill,
   barSize,
 }) => {
@@ -56,19 +57,6 @@ const CoordinatePlane = ({
                     width={barSize[1]}
                   />
                 ))}
-              {primaryData.nodes.map((item) => (
-                <Node
-                  key={item._id}
-                  data={item}
-                  onClick={onSetSelectedNode}
-                  isSelected={item._id === selectedNode._id}
-                  fill={nodeFill}
-                  size={nodeSize}
-                  nameOn={primaryNamesOn}
-                  labelOn={primaryLabelsOn}
-                  forcesOn={primaryForcesOn}
-                />
-              ))}
               {secondaryData &&
                 secondaryData.nodes.map((item) => (
                   <Node
@@ -77,12 +65,26 @@ const CoordinatePlane = ({
                     onClick={() => {}}
                     isSelected={item._id === selectedNode._id}
                     fill="orange"
-                    size={nodeSize / 2}
+                    size={nodeSize[1]}
                     nameOn={secondaryNamesOn}
                     labelOn={secondaryLabelsOn}
                     forcesOn={secondaryForcesOn}
                   />
                 ))}
+              {primaryData.nodes.map((item) => (
+                <Node
+                  key={item._id}
+                  data={item}
+                  onClick={onSetSelectedNode}
+                  isSelected={item._id === selectedNode._id}
+                  fill={nodeFill}
+                  size={nodeSize[0]}
+                  nameOn={primaryNamesOn}
+                  nodeNameColor={nodeNameColor}
+                  labelOn={primaryLabelsOn}
+                  forcesOn={primaryForcesOn}
+                />
+              ))}
             </React.Fragment>
           </svg>
         </TransformComponent>
