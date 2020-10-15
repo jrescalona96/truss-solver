@@ -2,10 +2,11 @@ import React from "react";
 import Node from "../node/index";
 import Bar from "../bar/index";
 import "./coordinatePlane.scss";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 const CoordinatePlane = ({
-  width,
-  height,
+  viewBox,
+  planeSize,
   primaryData,
   secondaryData,
   selectedNode,
@@ -22,62 +23,71 @@ const CoordinatePlane = ({
   barFill,
   barSize,
 }) => {
-  const { nodes: primaryNodes, bars: primaryBars } = primaryData;
-
-  let secondaryNodes = [];
-  let secondaryBars = [];
-  if (secondaryData) {
-    secondaryNodes = secondaryData.nodes;
-    secondaryBars = secondaryData.bars;
-  }
-
+  const minX = Math.min(...primaryData.nodes.map((item) => item.xCoord));
+  const minY = primaryData.nodes.find((item) => item.xCoord === minX).yCoord;
+  const offset = 50;
   return (
-    <svg className="coordinatePlane" viewBox={`0 0 ${width} ${height}`}>
-      {primaryBars.map((item) => (
-        <Bar
-          key={item._id}
-          data={item}
-          onClick={onSetSelectedBar}
-          fill={barFill[0]}
-          width={barSize[0]}
-        />
-      ))}
-      {secondaryBars.map((item) => (
-        <Bar
-          key={item._id}
-          data={item}
-          onClick={() => {}}
-          fill={barFill[1]}
-          width={barSize[1]}
-        />
-      ))}
-      {primaryNodes.map((item) => (
-        <Node
-          key={item._id}
-          data={item}
-          onClick={onSetSelectedNode}
-          isSelected={item._id === selectedNode._id}
-          fill={nodeFill}
-          size={nodeSize}
-          nameOn={primaryNamesOn}
-          labelOn={primaryLabelsOn}
-          forcesOn={primaryForcesOn}
-        />
-      ))}{" "}
-      {secondaryNodes.map((item) => (
-        <Node
-          key={item._id}
-          data={item}
-          onClick={() => {}}
-          isSelected={item._id === selectedNode._id}
-          fill="orange"
-          size={nodeSize / 2}
-          nameOn={secondaryNamesOn}
-          labelOn={secondaryLabelsOn}
-          forcesOn={secondaryForcesOn}
-        />
-      ))}
-    </svg>
+    <div className="coordinatePlane">
+      <TransformWrapper
+        defaultScale={1}
+        defaultPositionX={minX - planeSize.width / 2 + offset}
+        defaultPositionY={minY + offset}
+        options={{ limitToBounds: false }}
+        doubleClick={{ mode: "zoomOut" }}>
+        <TransformComponent>
+          <svg width={planeSize.width} height={planeSize.height}>
+            <React.Fragment>
+              {primaryData.bars.map((item) => (
+                <Bar
+                  key={item._id}
+                  data={item}
+                  onClick={onSetSelectedBar}
+                  fill={barFill[0]}
+                  width={barSize[0]}
+                />
+              ))}
+              {secondaryData &&
+                secondaryData.bars.map((item) => (
+                  <Bar
+                    key={item._id}
+                    data={item}
+                    onClick={() => {}}
+                    fill={barFill[1]}
+                    width={barSize[1]}
+                  />
+                ))}
+              {primaryData.nodes.map((item) => (
+                <Node
+                  key={item._id}
+                  data={item}
+                  onClick={onSetSelectedNode}
+                  isSelected={item._id === selectedNode._id}
+                  fill={nodeFill}
+                  size={nodeSize}
+                  nameOn={primaryNamesOn}
+                  labelOn={primaryLabelsOn}
+                  forcesOn={primaryForcesOn}
+                />
+              ))}
+              {secondaryData &&
+                secondaryData.nodes.map((item) => (
+                  <Node
+                    key={item._id}
+                    data={item}
+                    onClick={() => {}}
+                    isSelected={item._id === selectedNode._id}
+                    fill="orange"
+                    size={nodeSize / 2}
+                    nameOn={secondaryNamesOn}
+                    labelOn={secondaryLabelsOn}
+                    forcesOn={secondaryForcesOn}
+                  />
+                ))}
+            </React.Fragment>
+          </svg>
+        </TransformComponent>
+      </TransformWrapper>
+    </div>
   );
 };
 

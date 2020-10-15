@@ -1,5 +1,5 @@
-const origin = { x: 50, y: 50 };
-const planeSize = { width: 1000, height: 4 };
+const planeSize = { width: 3000, height: 2000 };
+const origin = { x: planeSize.width / 2, y: planeSize.height / 2 };
 
 export const calcRelativeCoord = (x, y) => {
   const xRel = origin.x + x;
@@ -8,15 +8,8 @@ export const calcRelativeCoord = (x, y) => {
 };
 
 export const calculatePlaneSize = (nodes) => {
-  const defaultWidth = window.innerWidth * 0.8;
-  const defaultHeight = window.innerHeight;
-  const maxX = Math.max(...nodes.map((item) => item.xCoord));
-  const maxY = Math.max(...nodes.map((item) => item.yCoord));
-  const width = maxX >= defaultWidth ? maxX + origin.x : defaultWidth;
-  const height = maxY >= defaultHeight ? maxY + origin.y : defaultHeight;
-  planeSize.width = width;
-  planeSize.height = height;
-  return planeSize;
+  const viewBox = { width: planeSize.width, height: planeSize.height };
+  return { planeSize, viewBox };
 };
 
 export const calcLabelPosition = (data, radius, xRel, yRel) => {

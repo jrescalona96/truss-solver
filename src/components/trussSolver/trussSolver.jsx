@@ -9,6 +9,7 @@ import ActionButton from "../common/actionButton/index";
 import NodeForm from "../nodeForm/index";
 import BarForm from "../barForm/index";
 import "./trussSolver.scss";
+import Plane from "../common/plane/plane";
 
 const TrussSolver = (props) => {
   const [displayNodes, setDisplayNodes] = useState(
@@ -98,7 +99,7 @@ const TrussSolver = (props) => {
     barFill: ["#959595", "#0000ff2f"],
   };
 
-  const { width, height } = calculatePlaneSize(displayNodes);
+  const { planeSize, viewBox } = calculatePlaneSize(displayNodes);
 
   return (
     <div id="trussSolver" className="d-flex justify-space-between">
@@ -130,8 +131,8 @@ const TrussSolver = (props) => {
       </div>
       <div className="col-10">
         <CoordinatePlane
-          width={width}
-          height={height}
+          viewBox={viewBox}
+          planeSize={planeSize}
           primaryData={{ nodes: displayNodes, bars: displayBars }}
           secondaryData={null}
           selectedNode={selectedNode}
