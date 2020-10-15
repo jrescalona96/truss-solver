@@ -1,8 +1,8 @@
 import React from "react";
 
 const Force = ({ xRel, yRel, direction, magnitude }) => {
-  const lineWidth = 4;
-  const lineLength = 20;
+  const lineWidth = 10;
+  const lineLength = 15;
 
   const calcAxis = () => {
     return direction === "x"

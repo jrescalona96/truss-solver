@@ -34,17 +34,17 @@ const Node = ({
   const labelPlacement = calcLabelPosition(data, radius, xRel, yRel);
   return (
     <g className="clickable node" onClick={() => onClick(_id)}>
-      {xForce && forcesOn && (
-        <Force xRel={xRel} yRel={yRel} direction="x" magnitude={xForce} />
-      )}
-      {yForce && forcesOn && (
-        <Force xRel={xRel} yRel={yRel} direction="y" magnitude={-yForce} />
-      )}
       {labelOn && (
         <CoordinatesLabel
           text={{ xCoord, yCoord }}
           placement={labelPlacement}
         />
+      )}
+      {xForce && forcesOn && (
+        <Force xRel={xRel} yRel={yRel} direction="x" magnitude={xForce} />
+      )}
+      {yForce && forcesOn && (
+        <Force xRel={xRel} yRel={yRel} direction="y" magnitude={-yForce} />
       )}
       <Point
         placement={{ xRel, yRel }}

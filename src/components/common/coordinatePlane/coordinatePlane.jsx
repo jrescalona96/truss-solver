@@ -11,6 +11,12 @@ const CoordinatePlane = ({
   selectedNode,
   onSetSelectedNode,
   onSetSelectedBar,
+  primaryLabelsOn,
+  primaryNamesOn,
+  secondaryLabelsOn,
+  secondaryNamesOn,
+  primaryForcesOn,
+  secondaryForcesOn,
   nodeFill,
   nodeSize,
   barFill,
@@ -45,19 +51,6 @@ const CoordinatePlane = ({
           width={barSize[1]}
         />
       ))}
-      {secondaryNodes.map((item) => (
-        <Node
-          key={item._id}
-          data={item}
-          onClick={() => {}}
-          isSelected={item._id === selectedNode._id}
-          fill="orange"
-          size={nodeSize / 2}
-          nameOn={false}
-          labelOn={false}
-          forcesOn={true}
-        />
-      ))}
       {primaryNodes.map((item) => (
         <Node
           key={item._id}
@@ -66,9 +59,22 @@ const CoordinatePlane = ({
           isSelected={item._id === selectedNode._id}
           fill={nodeFill}
           size={nodeSize}
-          nameOn={true}
-          labelOn={true}
-          forcesOn={false}
+          nameOn={primaryNamesOn}
+          labelOn={primaryLabelsOn}
+          forcesOn={primaryForcesOn}
+        />
+      ))}{" "}
+      {secondaryNodes.map((item) => (
+        <Node
+          key={item._id}
+          data={item}
+          onClick={() => {}}
+          isSelected={item._id === selectedNode._id}
+          fill="orange"
+          size={nodeSize / 2}
+          nameOn={secondaryNamesOn}
+          labelOn={secondaryLabelsOn}
+          forcesOn={secondaryForcesOn}
         />
       ))}
     </svg>

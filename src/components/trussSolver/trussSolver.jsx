@@ -97,6 +97,7 @@ const TrussSolver = (props) => {
     barSize: [6, 6],
     barFill: ["#959595", "#0000ff2f"],
   };
+
   const { width, height } = calculatePlaneSize(displayNodes);
 
   return (
@@ -137,6 +138,9 @@ const TrussSolver = (props) => {
           selectedBar={selectedBar}
           onSetSelectedNode={(id) => handleSetSelectedNode(id)}
           onSetSelectedBar={(id) => handleSetSelectedBar(id)}
+          primaryLabelsOn={true}
+          primaryNamesOn={true}
+          primaryForcesOn={true}
           {...memberStyles}
         />
       </div>

@@ -26,6 +26,12 @@ const Results = () => {
         selectedNode={{ id: "" }}
         onSetSelectedNode={() => {}}
         onSetSelectedBar={() => {}}
+        primaryLabelsOn={true}
+        primaryNamesOn={true}
+        primaryForcesOn={false}
+        secondaryForcesOn={true}
+        secondaryLabelsOn={false}
+        secondaryNamesOn={false}
         {...memberStyles}
       />
     </div>
