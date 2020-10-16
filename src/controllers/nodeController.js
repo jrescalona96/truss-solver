@@ -1,3 +1,4 @@
+import { faCloudDownloadAlt } from "@fortawesome/free-solid-svg-icons";
 import Node from "../models/Node";
 import { fetchAll, updateAll } from "../services/dataServices";
 
@@ -102,7 +103,9 @@ export const createNode = (data) => {
     const yf = _parseNumberOrZero(yForce);
     const xs = xSupport;
     const ys = ySupport;
-    const node = new Node(id, na, xc, yc, xf, yf, xs, ys);
+    const xic = data.xInitialCoord ? data.xInitialCoord : 0;
+    const yic = data.yInitialCoord ? data.yInitialCoord : 0;
+    const node = new Node(id, na, xc, yc, xf, yf, xs, ys, xic, yic);
     return !isNaN(xc) && !isNaN(yc) ? node : null;
   }
 };

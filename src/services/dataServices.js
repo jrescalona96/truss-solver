@@ -40,6 +40,8 @@ const mapResultNodes = (nodes, displacements, forces) => {
       yCoord: n["yCoord"] + nodeDisplacement["y"] * 60,
       xForce: nodeForces["x"],
       yForce: nodeForces["y"],
+      xInitialCoord: n["xCoord"],
+      yInitialCoord: n["yCoord"],
     };
     const resultantNode = createNode(data);
     return resultantNode;

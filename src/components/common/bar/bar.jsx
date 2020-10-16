@@ -2,14 +2,15 @@ import React from "react";
 import { calcRelativeCoord } from "../../../controllers/coordinatePlaneController";
 import "./bar.scss";
 
-const Bar = ({ data, onClick, fill, width }) => {
+const Bar = ({ data, onClick, fill, width, animation }) => {
   const { _id, nodeI, nodeJ } = data;
   const coord1 = calcRelativeCoord(nodeI.xCoord, nodeI.yCoord);
   const coord2 = calcRelativeCoord(nodeJ.xCoord, nodeJ.yCoord);
 
   return (
-    <g className="bar clickable" onClick={() => onClick(_id)}>
+    <g className="bar clickable" onClick={() => onClick(_id)} style={animation}>
       <line
+        strokeLinecap="round"
         rx="5"
         x1={coord1.xRel}
         y1={coord1.yRel}

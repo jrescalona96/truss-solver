@@ -1,4 +1,5 @@
 import React from "react";
+import { Transition } from "react-spring/renderprops";
 import "./point.scss";
 
 const Point = ({
@@ -11,16 +12,29 @@ const Point = ({
   labelColor,
 }) => {
   const inactiveColor = "orange";
+  const circle = (
+    <circle
+      cx={placement.xRel}
+      cy={placement.yRel}
+      r={radius}
+      stroke="black"
+      strokeWidth="1"
+      fill={fill}
+    />
+  );
   return (
     <g>
-      <circle
-        cx={placement.xRel}
-        cy={placement.yRel}
-        r={radius}
-        stroke="black"
-        strokeWidth="1"
-        fill={isSelected ? inactiveColor : fill}
-      />
+      {isSelected ? (
+        <Transition
+          items={circle}
+          from={{ opacity: 0 }}
+          enter={{ opacity: 1 }}
+          leave={{ opacity: 0 }}>
+          {(circle) => circle && ((props) => <g style={props}>{circle}</g>)}
+        </Transition>
+      ) : (
+        circle
+      )}
       {nameOn && (
         <text
           x={placement.xRel}

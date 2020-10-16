@@ -1,7 +1,8 @@
 import React from "react";
+import { Spring } from "react-spring/renderprops";
 
-const Force = ({ xRel, yRel, direction, magnitude }) => {
-  const lineWidth = 10;
+const Force = ({ xRel, yRel, direction, magnitude, style }) => {
+  const lineWidth = 5;
   const lineLength = 50;
 
   const calcAxis = () => {
@@ -11,13 +12,17 @@ const Force = ({ xRel, yRel, direction, magnitude }) => {
   };
 
   const calcDirection = () => {
-    return magnitude < 0 && { transform: `rotate(180 ${xRel} ${yRel})` };
+    return (
+      magnitude < 0 &&
+      direction === "x" && { transform: `rotate(180 ${xRel} ${yRel})` }
+    );
   };
 
   return (
     <rect
+      style={style}
       className="force"
-      rx="5"
+      rx="2.5"
       x={xRel - lineWidth / 2}
       y={yRel - lineWidth / 2}
       {...calcAxis()}

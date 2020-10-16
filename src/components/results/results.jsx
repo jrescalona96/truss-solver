@@ -4,17 +4,18 @@ import * as nodeController from "../../controllers/nodeController";
 import * as barController from "../../controllers/barController";
 import { calculatePlaneSize } from "../../controllers/coordinatePlaneController";
 import "./results.scss";
+import ActionButton from "../common/actionButton";
 
-const Results = () => {
+const Results = (props) => {
   const existingNodes = nodeController.getAllNodes();
   const existingBars = barController.getAllBars();
   const { nodeResults, barResults } = nodeController.getResultants();
 
   const memberStyles = {
-    nodeSize: [12, 6],
+    nodeSize: [12, 12],
     nodeFill: "lightblue",
     barSize: [8, 6],
-    barFill: ["#959595", "#0000ff2f"],
+    barFill: ["#959595", "#0000ffbf"],
   };
   const { planeSize, viewBox } = calculatePlaneSize(existingNodes);
 
@@ -22,7 +23,15 @@ const Results = () => {
     <div
       id="results"
       className="d-flex justify-self-center justify-space-between m-2">
-      <div className="col-2"></div>
+      <div className="col-2">
+        <ActionButton
+          onClick={() => {
+            props.history.push("/solver");
+          }}
+          label="Edit Members"
+          color="info"
+        />
+      </div>
       <div className="col-10">
         <CoordinatePlane
           viewBox={viewBox}

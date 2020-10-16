@@ -3,11 +3,12 @@ import {
   calcRelativeCoord,
   calcLabelPosition,
 } from "../../../controllers/coordinatePlaneController";
+import CoordinatesLabel from "../coordinatesLabel/index";
 import Support from "../support/index";
 import Force from "../force/index";
 import Point from "../point/index";
+import { Spring } from "react-spring/renderprops";
 import "./node.scss";
-import CoordinatesLabel from "../coordinatesLabel/index";
 
 const Node = ({
   data,
@@ -19,6 +20,7 @@ const Node = ({
   forcesOn,
   nameOn,
   nodeNameColor,
+  animation,
 }) => {
   const {
     _id,
@@ -34,7 +36,10 @@ const Node = ({
   const { xRel, yRel } = calcRelativeCoord(xCoord, yCoord);
   const labelPlacement = calcLabelPosition(data, radius, xRel, yRel);
   return (
-    <g className="clickable node" onClick={() => onClick(_id)}>
+    <g
+      style={animation}
+      className="clickable node"
+      onClick={() => onClick(_id)}>
       {labelOn && (
         <CoordinatesLabel
           text={{ xCoord, yCoord }}
@@ -42,10 +47,30 @@ const Node = ({
         />
       )}
       {xForce && forcesOn && (
-        <Force xRel={xRel} yRel={yRel} direction="x" magnitude={xForce} />
+        <Spring from={{ opacity: 0 }} to={{ opacity: 1 }} delay={500}>
+          {(props) => (
+            <Force
+              style={props}
+              xRel={xRel}
+              yRel={yRel}
+              direction="x"
+              magnitude={xForce}
+            />
+          )}
+        </Spring>
       )}
       {yForce && forcesOn && (
-        <Force xRel={xRel} yRel={yRel} direction="y" magnitude={-yForce} />
+        <Spring from={{ opacity: 0 }} to={{ opacity: 1 }} delay={500}>
+          {(props) => (
+            <Force
+              style={props}
+              xRel={xRel}
+              yRel={yRel}
+              direction="y"
+              magnitude={yForce}
+            />
+          )}
+        </Spring>
       )}
       <Point
         placement={{ xRel, yRel }}

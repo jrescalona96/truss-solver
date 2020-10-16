@@ -9,7 +9,6 @@ import ActionButton from "../common/actionButton/index";
 import NodeForm from "../nodeForm/index";
 import BarForm from "../barForm/index";
 import "./trussSolver.scss";
-import Plane from "../common/plane/plane";
 
 const TrussSolver = (props) => {
   const [displayNodes, setDisplayNodes] = useState(
