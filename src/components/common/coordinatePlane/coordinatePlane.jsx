@@ -1,11 +1,10 @@
 import React from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { config, Spring } from "react-spring/renderprops";
-import { useChain, animated } from "react-spring";
+import { calcRelativeCoord } from "../../../controllers/coordinatePlaneController";
 import Node from "../node/index";
 import Bar from "../bar/index";
 import "./coordinatePlane.scss";
-import { calcRelativeCoord } from "../../../controllers/coordinatePlaneController";
 
 const CoordinatePlane = ({
   viewBox,
@@ -27,8 +26,15 @@ const CoordinatePlane = ({
   barFill,
   barSize,
 }) => {
-  const minX = Math.min(...primaryData.nodes.map((item) => item.xCoord));
-  const minY = primaryData.nodes.find((item) => item.xCoord === minX).yCoord;
+  let minX = 0,
+    minY = 0;
+  if (primaryData && primaryData.length > 0) {
+    minX = Math.min(...primaryData.nodes.map((item) => item.coordinates.x));
+    minY = minX
+      ? primaryData.nodes.find((item) => item.coordinates.x === minX)
+          .coordinates.y
+      : 0;
+  }
   const offset = 100;
 
   const renderPrimaryNodes = () =>

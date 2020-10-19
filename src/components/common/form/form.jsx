@@ -48,8 +48,7 @@ class Form extends Component {
         size="sm"
         type="submit"
         disabled={disabled}
-        className="w-100"
-      >
+        className="w-100">
         {label}
       </Button>
     );

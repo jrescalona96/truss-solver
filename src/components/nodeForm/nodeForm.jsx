@@ -1,7 +1,6 @@
 import React from "react";
 import { Label } from "reactstrap";
 import Form from "../common/form/form";
-import * as nodeController from "../../controllers/nodeController";
 import "./nodeForm.scss";
 class NodeForm extends Form {
   state = {
@@ -12,11 +11,9 @@ class NodeForm extends Form {
       yCoord: 0,
       xForce: 0,
       yForce: 0,
-      xSupport: 0,
-      ySupport: 0,
-      support: "",
+      support: "None",
     },
-    supportOptions: ["Pin", "Roller"],
+    supportOptions: ["Pin", "Roller", "None"],
     errors: {},
   };
 
@@ -28,9 +25,7 @@ class NodeForm extends Form {
       yCoord: 0,
       xForce: 0,
       yForce: 0,
-      xSupport: 0,
-      ySupport: 0,
-      support: "",
+      support: "None",
     };
     this.setState({ data });
     this.setState({ support: "" });
@@ -38,24 +33,25 @@ class NodeForm extends Form {
 
   componentDidUpdate(prevProps) {
     const { data: prevData } = prevProps;
-    if (this.props.data._id && prevData._id !== this.props.data._id) {
-      let data = { ...this.props.data };
-      const support = nodeController.getSupportType(data);
-      data.support = support;
+    const { data: newData } = this.props;
+    if (newData._id && prevData._id !== newData._id) {
+      let data = { ...newData };
+      data.xCoord = newData.coordinates.x;
+      data.yCoord = newData.coordinates.y;
+      data.xForce = newData.force.x;
+      data.yForce = newData.force.y;
+      data.support = newData.support.type;
+      delete data["coordinates"];
+      delete data["force"];
+      delete data["displacement"];
       this.setState({ data });
     }
   }
 
-  handleSetSupport = (event) => {
-    this.handleChange(event);
-    const { xSupport, ySupport } = nodeController.getSupportValues(
-      this.state.data.support
-    );
-    let data = { ...this.state.data };
-    data.xSupport = xSupport;
-    data.ySupport = ySupport;
-    this.setState({ data });
-  };
+  doDelete(_id) {
+    this.props.onDeleteNode(_id);
+    this._initializeForm();
+  }
 
   doUpdate() {
     this.props.onUpdateNode(this.state.data);
@@ -77,7 +73,9 @@ class NodeForm extends Form {
       yForce,
       support,
     } = this.state.data;
+
     const { supportOptions: options } = this.state;
+
     return (
       <div id="nodeForm" className="w-100">
         <h4>Nodes</h4>
@@ -125,14 +123,14 @@ class NodeForm extends Form {
             "support",
             "Support",
             support,
-            this.handleSetSupport,
+            this.handleChange,
             _id ? false : true
           )}
           {this.renderSubmitBtn(_id ? "Update" : "Add")}
           {_id
             ? this.renderActionButton(
                 "Delete",
-                () => this.props.onDeleteNode(_id),
+                () => this.doDelete(_id),
                 "danger"
               )
             : null}

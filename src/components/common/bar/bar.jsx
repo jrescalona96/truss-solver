@@ -4,8 +4,8 @@ import "./bar.scss";
 
 const Bar = ({ data, onClick, fill, width, animation }) => {
   const { _id, nodeI, nodeJ } = data;
-  const coord1 = calcRelativeCoord(nodeI.xCoord, nodeI.yCoord);
-  const coord2 = calcRelativeCoord(nodeJ.xCoord, nodeJ.yCoord);
+  const coord1 = calcRelativeCoord(nodeI.coordinates.x, nodeI.coordinates.y);
+  const coord2 = calcRelativeCoord(nodeJ.coordinates.x, nodeJ.coordinates.y);
 
   return (
     <g className="bar clickable" onClick={() => onClick(_id)} style={animation}>

@@ -9,8 +9,8 @@ class BarForm extends Form {
       _id: "",
       nodeNameI: "",
       nodeNameJ: "",
-      material: "",
-      area: "",
+      material: "Steel",
+      section: "Circular",
     },
     errors: {},
   };
@@ -24,8 +24,8 @@ class BarForm extends Form {
       _id: "",
       nodeNameI: "",
       nodeNameJ: "",
-      material: "",
-      area: "",
+      material: "Steel",
+      section: "Circular",
     };
     this.setState({ data });
   }
@@ -34,13 +34,14 @@ class BarForm extends Form {
     const { data: prevData } = prevProps;
     const { data: newData } = this.props;
     if (newData._id && prevData._id !== newData._id) {
-      const { _id, nodeI, nodeJ, material, area } = newData;
-      let data = {};
-      data["_id"] = _id;
-      data["nodeNameI"] = nodeI.name;
-      data["nodeNameJ"] = nodeJ.name;
-      data["material"] = material;
-      data["area"] = area;
+      const { _id, nodeI, nodeJ, material, section } = newData;
+      console.log(newData);
+      let data = { ...this.state.data };
+      data._id = _id;
+      data.nodeNameI = nodeI.name;
+      data.nodeNameJ = nodeJ.name;
+      data.material = material.type;
+      data.section = section.type;
       this.setState({ data });
     }
   }
@@ -58,7 +59,7 @@ class BarForm extends Form {
     nodeNameI && nodeNameJ ? false : true;
 
   render() {
-    const { _id, nodeNameI, nodeNameJ, material, area } = this.state.data;
+    const { _id, nodeNameI, nodeNameJ, material, section } = this.state.data;
 
     return (
       <div id="barForm" className="w-100">
@@ -91,9 +92,9 @@ class BarForm extends Form {
           )}
           {this.renderDropdownMenu(
             ["Rectangular", "Circular"],
-            "area",
-            "Area",
-            area,
+            "section",
+            "Section",
+            section,
             this.handleChange,
             this.isDisabled(nodeNameI, nodeNameJ)
           )}

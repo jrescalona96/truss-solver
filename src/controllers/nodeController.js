@@ -1,5 +1,8 @@
-import { faCloudDownloadAlt } from "@fortawesome/free-solid-svg-icons";
 import Node from "../models/Node";
+import Coordinates from "../models/Coordinates";
+import Displacement from "../models/Displacement";
+import Support from "../models/Support";
+import Force from "../models/Force";
 import { fetchAll, updateAll } from "../services/dataServices";
 
 /**
@@ -13,34 +16,37 @@ export const getAllNodes = () => {
 };
 
 /**
- * Generates a string of length 9
+ * Generates a string of length 10
  * @return {String} randomly generated Id
  */
-const _generateId = () => {
-  return "_" + Math.random().toString(36).substr(2, 9);
+export const _generateId = () => `_${Math.random().toString(36).substr(2, 9)}`;
+
+/**
+ * Generates a 1 Uppercase Letter name
+ * @return {String} next available name in the alphabet (uppercase) or "A"
+ */
+export const _generateName = (nodes) => {
+  if (nodes && nodes.length > 0) {
+    const names = nodes.map((item) => item.name.charCodeAt(0));
+    const newName = String.fromCharCode(Math.max(...names) + 1);
+    return newName;
+  }
+  return "A";
 };
 
-const _generateName = () => {
-  const names = getAllNodes().map((item) => item.name.charCodeAt(0));
-  if (names.length < 1) return "A";
-  return String.fromCharCode(Math.max(...names) + 1);
-};
-
-const _parseNumberOrZero = (input) => {
-  if (!input || isNaN(input)) return 0;
-  return Number(input);
-};
-
+// TODO: TEST
 export const getNodeById = (id) => {
   const node = getAllNodes().find((item) => item._id === id);
   return node;
 };
 
+// TODO: TEST
 export const getNodeByName = (n) => {
   const node = getAllNodes().find((item) => item.name === n);
   return node;
 };
 
+// TODO: TEST
 export const addNode = (data) => {
   const newNode = createNode(data);
   let nodes = getAllNodes().filter((item) => item._id !== data._id);
@@ -48,6 +54,7 @@ export const addNode = (data) => {
   return updateAll("nodes", nodes);
 };
 
+// TODO: TEST
 export const updateNode = (data) => {
   let tempNodes = getAllNodes().filter((item) => item._id !== data._id);
   const newNode = createNode(data);
@@ -55,11 +62,13 @@ export const updateNode = (data) => {
   return { newNode, nodes: tempNodes };
 };
 
+// TODO: TEST
 export const deleteNode = (_id) => {
   const nodes = getAllNodes().filter((item) => item._id !== _id);
   return updateAll("nodes", nodes);
 };
 
+//TODO: Remove
 export const getSupportValues = (data) => {
   const supportTable = {
     Pin: { xSupport: 1, ySupport: 1 },
@@ -83,31 +92,40 @@ export const getSupportType = ({ xSupport, ySupport }) => {
   return support;
 };
 
+export const _isValid = (node) => {
+  if (!node) return false;
+  const hasValidCoordinates =
+    !isNaN(node.coordinates.x) && !isNaN(node.coordinates.y);
+  const hasValidForces = !isNaN(node.force.x) && !isNaN(node.force.y);
+  const hasValidSupport =
+    node.support !== null || node.support.x !== null || node.support.y !== null;
+
+  return hasValidCoordinates && hasValidForces && hasValidSupport;
+};
+
 export const createNode = (data) => {
-  if (data) {
-    const {
-      _id,
-      name,
-      xCoord,
-      yCoord,
-      xForce,
-      yForce,
-      xSupport,
-      ySupport,
-    } = data;
-    const id = _id ? _id : _generateId();
-    const na = name ? name : _generateName();
-    const xc = Number(xCoord);
-    const yc = Number(yCoord);
-    const xf = _parseNumberOrZero(xForce);
-    const yf = _parseNumberOrZero(yForce);
-    const xs = xSupport;
-    const ys = ySupport;
-    const xic = data.xInitialCoord ? data.xInitialCoord : 0;
-    const yic = data.yInitialCoord ? data.yInitialCoord : 0;
-    const node = new Node(id, na, xc, yc, xf, yf, xs, ys, xic, yic);
-    return !isNaN(xc) && !isNaN(yc) ? node : null;
-  }
+  if (!data) return null;
+  const {
+    _id,
+    name,
+    xCoord,
+    yCoord,
+    xForce,
+    yForce,
+    support,
+    xDisplacement,
+    yDisplacement,
+  } = data;
+  const allNodes = getAllNodes();
+  const node = new Node(
+    _id ? _id : _generateId(),
+    name ? name : _generateName(allNodes),
+    new Coordinates(xCoord, yCoord),
+    new Force(xForce, yForce),
+    new Support(support.type || support), // support.type for updating node, support for new node
+    new Displacement(xDisplacement, yDisplacement)
+  );
+  return _isValid(node) ? node : null;
 };
 
 export const getResultants = () => {

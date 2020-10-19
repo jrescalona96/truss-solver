@@ -22,18 +22,9 @@ const Node = ({
   nodeNameColor,
   animation,
 }) => {
-  const {
-    _id,
-    name,
-    xCoord,
-    yCoord,
-    xForce,
-    yForce,
-    xSupport,
-    ySupport,
-  } = data;
+  const { _id, name, coordinates, force, support } = data;
   const radius = size;
-  const { xRel, yRel } = calcRelativeCoord(xCoord, yCoord);
+  const { xRel, yRel } = calcRelativeCoord(coordinates.x, coordinates.y);
   const labelPlacement = calcLabelPosition(data, radius, xRel, yRel);
   return (
     <g
@@ -42,11 +33,11 @@ const Node = ({
       onClick={() => onClick(_id)}>
       {labelOn && (
         <CoordinatesLabel
-          text={{ xCoord, yCoord }}
+          text={{ xCoord: coordinates.x, yCoord: coordinates.y }}
           placement={labelPlacement}
         />
       )}
-      {xForce && forcesOn && (
+      {force.x && forcesOn && (
         <Spring from={{ opacity: 0 }} to={{ opacity: 1 }} delay={500}>
           {(props) => (
             <Force
@@ -54,12 +45,12 @@ const Node = ({
               xRel={xRel}
               yRel={yRel}
               direction="x"
-              magnitude={xForce}
+              magnitude={force.x}
             />
           )}
         </Spring>
       )}
-      {yForce && forcesOn && (
+      {force.y && forcesOn && (
         <Spring from={{ opacity: 0 }} to={{ opacity: 1 }} delay={500}>
           {(props) => (
             <Force
@@ -67,7 +58,7 @@ const Node = ({
               xRel={xRel}
               yRel={yRel}
               direction="y"
-              magnitude={yForce}
+              magnitude={force.y}
             />
           )}
         </Spring>
@@ -83,7 +74,7 @@ const Node = ({
       />
       <Support
         contactCoords={{ xRel, yRel }}
-        type={{ xSupport, ySupport }}
+        type={{ xSupport: support.x, ySupport: support.y }}
         offset={radius}
       />
     </g>

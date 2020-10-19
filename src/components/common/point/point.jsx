@@ -11,7 +11,6 @@ const Point = ({
   nameOn,
   labelColor,
 }) => {
-  const inactiveColor = "orange";
   const circle = (
     <circle
       cx={placement.xRel}

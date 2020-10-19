@@ -1,5 +1,4 @@
 import React from "react";
-import { Spring } from "react-spring/renderprops";
 
 const Force = ({ xRel, yRel, direction, magnitude, style }) => {
   const lineWidth = 5;

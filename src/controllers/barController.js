@@ -1,6 +1,9 @@
 import * as nodeController from "./nodeController";
 import { fetchAll, updateAll } from "../services/dataServices";
 import Bar from "../models/Bar";
+import Material from "../models/Material";
+import Rectangular from "../models/Rectangular";
+import Circular from "../models/Circular";
 
 export const getAllBars = () => {
   let bars = fetchAll("bars");
@@ -14,9 +17,21 @@ const _generateId = () => {
 
 export const getBarById = (id) => {
   const bars = getAllBars();
-  return bars.find((item) => item._id === id);
+  const bar = bars.find((item) => item._id === id);
+
+  if (bar) {
+    const { _id, nodeI, nodeJ } = bar;
+    const section =
+      bar.section === "Circular" ? new Circular(1) : new Rectangular(1, 1);
+    // TODO: update after fixing Material Model Class
+    const material = new Material(bar.material._type);
+    const newBar = new Bar(_id, nodeI, nodeJ, material, section);
+    return newBar;
+  }
+  return null;
 };
 
+//TODO: TEST
 export const getBarNodes = (data) => {
   const { nodeNameI, nodeNameJ } = data;
   const nodeI = nodeController.getNodeByName(nodeNameI);
@@ -42,6 +57,28 @@ export const deleteConnectedBars = (id) => {
     (item) => item.nodeI._id !== id && item.nodeJ._id !== id
   );
   return updateAll("bars", bars);
+};
+
+// TODO: TEST
+export const createBar = (data) => {
+  console.log(data);
+  const { material, section } = data;
+  const nodes = getBarNodes(data);
+  const newSection =
+    section === "Circular" ? new Circular(1) : new Rectangular(1, 1);
+  if (nodes) {
+    const { nodeI, nodeJ } = nodes;
+    const bar = new Bar(
+      _generateId(),
+      nodeI,
+      nodeJ,
+      new Material(material),
+      newSection
+    );
+    return bar;
+  } else {
+    return null;
+  }
 };
 
 export const updateBarNode = (node) => {
@@ -76,19 +113,6 @@ export const addBar = (data) => {
     bars.push(bar);
     updateAll("bars", bars);
     return bars;
-  } else {
-    return null;
-  }
-};
-
-export const createBar = (data) => {
-  const _id = _generateId();
-  const { material, area } = data;
-  const nodes = getBarNodes(data);
-  if (nodes) {
-    const { nodeI, nodeJ } = nodes;
-    const bar = new Bar(_id, nodeI, nodeJ, material, area);
-    return bar;
   } else {
     return null;
   }

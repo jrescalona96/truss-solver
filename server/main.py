@@ -12,6 +12,11 @@ cors = CORS(app)  # disable CORS TODO: remove before publishing
 def truss_input():
     req_nodes = request.json['nodes']
     req_bars = request.json['bars']
+    materials = [
+        [1,    29000],
+        [2,    29000],
+        [3,    4200]
+    ]
 
     # displacements, forces, internal, stress = enclose(req_nodes, req_bars)
     nodes_index_table = generate_index_table(req_nodes)
@@ -27,7 +32,8 @@ def truss_input():
 
     # run solver
     try:
-        displacements, forces, internal, stress = calculate(nodes, bars)
+        displacements, forces, internal, stress = calculate(
+            nodes, bars, materials)
         mapped_displacements = map_node_ids(displacements, nodes_id_list)
         mapped_forces = map_node_ids(forces[0], nodes_id_list)
         mapped_internal = map_bar_ids(internal, bars_id_list)

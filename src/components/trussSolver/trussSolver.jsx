@@ -30,8 +30,22 @@ const TrussSolver = (props) => {
     setDisplayNodes(nodes);
     setSelectedNode({ id: "" });
   };
+  const handleSetSelectedNode = (id) => {
+    const node = nodeController.getNodeById(id);
+    setSelectedNode(node);
+    handleUpdateNode(node);
+  };
+
+  const handleDeleteNode = (id) => {
+    const nodes = nodeController.deleteNode(id);
+    const bars = barController.deleteConnectedBars(id);
+    setDisplayNodes(nodes);
+    setDisplayBars(bars);
+    setSelectedNode({ id: "" });
+  };
 
   const handleUpdateBar = (data) => {
+    console.log(data);
     const bars = barController.updateBar(data);
     if (bars) setDisplayBars(bars);
   };
@@ -41,23 +55,10 @@ const TrussSolver = (props) => {
     if (bars) setDisplayBars(bars);
   };
 
-  const handleSetSelectedNode = (id) => {
-    const node = nodeController.getNodeById(id);
-    setSelectedNode(node);
-    handleUpdateNode(node);
-  };
-
   const handleSetSelectedBar = (id) => {
     const bar = barController.getBarById(id);
     setSelectedBar(bar);
     handleUpdateBar(bar);
-  };
-
-  const handleDeleteNode = (id) => {
-    const nodes = nodeController.deleteNode(id);
-    const bars = barController.deleteConnectedBars(id);
-    setDisplayNodes(nodes);
-    setDisplayBars(bars);
   };
 
   const handleDeleteBar = (id) => {
@@ -100,7 +101,6 @@ const TrussSolver = (props) => {
   };
 
   const { planeSize, viewBox } = calculatePlaneSize(displayNodes);
-
   return (
     <div
       id="trussSolver"
