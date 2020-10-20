@@ -61,7 +61,6 @@ export const deleteConnectedBars = (id) => {
 
 // TODO: TEST
 export const createBar = (data) => {
-  console.log(data);
   const { material, section } = data;
   const nodes = getBarNodes(data);
   const newSection =
@@ -85,11 +84,8 @@ export const updateBarNode = (node) => {
   // updated node related to bar being updated
   const prevBars = getAllBars();
   const bars = prevBars.map((item) => {
-    if (item.nodeI._id === node._id) {
-      item.nodeI = node;
-    } else if (item.nodeJ._id === node._id) {
-      item.nodeJ = node;
-    }
+    if (item.nodeI._id === node._id) item.nodeI = node;
+    else if (item.nodeJ._id === node._id) item.nodeJ = node;
     return item;
   });
   return updateAll("bars", bars);

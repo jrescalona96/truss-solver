@@ -57,7 +57,15 @@ export const addNode = (data) => {
 // TODO: TEST
 export const updateNode = (data) => {
   let tempNodes = getAllNodes().filter((item) => item._id !== data._id);
-  const newNode = createNode(data);
+  const { _id, name, xCoord, yCoord, xForce, yForce, support } = data;
+  const newNode = new Node(
+    _id,
+    name,
+    new Coordinates(xCoord, yCoord),
+    new Force(xForce, yForce),
+    new Support(support),
+    new Displacement()
+  );
   tempNodes.push(newNode);
   return { newNode, nodes: tempNodes };
 };

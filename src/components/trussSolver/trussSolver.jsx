@@ -18,6 +18,12 @@ const TrussSolver = (props) => {
   const [selectedNode, setSelectedNode] = useState({ id: "" });
   const [selectedBar, setSelectedBar] = useState({ id: "" });
 
+  const handleAddNode = (data) => {
+    const nodes = nodeController.addNode(data);
+    setDisplayNodes(nodes);
+    setSelectedNode({ id: "" });
+  };
+
   const handleUpdateNode = (data) => {
     const { nodes, newNode } = nodeController.updateNode(data);
     setDisplayNodes(nodes);
@@ -25,27 +31,20 @@ const TrussSolver = (props) => {
     setDisplayBars(bars);
   };
 
-  const handleAddNode = (data) => {
-    const nodes = nodeController.addNode(data);
-    setDisplayNodes(nodes);
-    setSelectedNode({ id: "" });
-  };
   const handleSetSelectedNode = (id) => {
     const node = nodeController.getNodeById(id);
     setSelectedNode(node);
-    handleUpdateNode(node);
   };
 
   const handleDeleteNode = (id) => {
     const nodes = nodeController.deleteNode(id);
-    const bars = barController.deleteConnectedBars(id);
     setDisplayNodes(nodes);
+    const bars = barController.deleteConnectedBars(id);
     setDisplayBars(bars);
     setSelectedNode({ id: "" });
   };
 
   const handleUpdateBar = (data) => {
-    console.log(data);
     const bars = barController.updateBar(data);
     if (bars) setDisplayBars(bars);
   };
