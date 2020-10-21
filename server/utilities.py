@@ -20,12 +20,12 @@ def map_nodes(data, id_table):
         item = []
         id = node['_id']
         item.append(id_table[id])
-        item.append(node['xCoord'])
-        item.append(node['yCoord'])
-        item.append(node['xSupport'])
-        item.append(node['ySupport'])
-        item.append(node['xForce'])
-        item.append(node['yForce'])
+        item.append(node['coordinates']['x'])
+        item.append(node['coordinates']['y'])
+        item.append(node['support']['x'])
+        item.append(node['support']['y'])
+        item.append(node['force']['x'])
+        item.append(node['force']['y'])
         output.append(item)
     return output
 
@@ -40,20 +40,15 @@ def map_bars(data, id_table):
         item.append(idx)
         item.append(id_table[nodeI_id])
         item.append(id_table[nodeJ_id])
-        item.append(get_material(bar['material']))
-        item.append(get_area(bar['area']))
+        item.append(get_material_idx(bar['material']['_type']))
+        item.append(bar['section']['area'])
         output.append(item)
     return output
 
 
-def get_material(name):
-    materials = {"Steel": 1, "Wood": 2}
-    return materials[name]
-
-
-def get_area(name):
-    shapes = {"Rectangular": 1, "Circular": math.pi}
-    return shapes[name]
+def get_material_idx(type):
+    indices = {"Steel": 1, "Wood": 3}
+    return indices[type]
 
 
 # generates a lookup table for each id to an index

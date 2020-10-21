@@ -35,7 +35,6 @@ class BarForm extends Form {
     const { data: newData } = this.props;
     if (newData._id && prevData._id !== newData._id) {
       const { _id, nodeI, nodeJ, material, section } = newData;
-      console.log(newData);
       let data = { ...this.state.data };
       data._id = _id;
       data.nodeNameI = nodeI.name;

@@ -29,7 +29,6 @@ def truss_input():
     # map input to solver data input format
     nodes = map_nodes(req_nodes, nodes_index_table)
     bars = map_bars(req_bars, nodes_index_table)
-
     # run solver
     try:
         displacements, forces, internal, stress = calculate(

@@ -10,7 +10,6 @@ const Results = (props) => {
   const existingNodes = nodeController.getAllNodes();
   const existingBars = barController.getAllBars();
   const { nodeResults, barResults } = nodeController.getResultants();
-
   const memberStyles = {
     nodeSize: [12, 12],
     nodeFill: "lightblue",

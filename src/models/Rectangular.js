@@ -5,9 +5,6 @@ export default class Rectangular extends Section {
     super("Rectangular");
     this.height = _height;
     this.width = _width;
-  }
-
-  get area() {
-    return this.height * this.width;
+    this.area = this.height * this.width;
   }
 }

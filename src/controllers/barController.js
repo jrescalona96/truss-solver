@@ -8,6 +8,17 @@ import Circular from "../models/Circular";
 export const getAllBars = () => {
   let bars = fetchAll("bars");
   if (!bars) bars = updateAll("bars", []);
+  bars.map((item) => {
+    const { _id, nodeI, nodeJ, material, section } = item;
+    return new Bar(
+      _id,
+      nodeController.createNode(nodeI),
+      nodeController.createNode(nodeJ),
+      material,
+      section
+    );
+  });
+
   return bars;
 };
 
@@ -61,14 +72,14 @@ export const deleteConnectedBars = (id) => {
 
 // TODO: TEST
 export const createBar = (data) => {
-  const { material, section } = data;
-  const nodes = getBarNodes(data);
+  const { _id, material, section } = data;
   const newSection =
     section === "Circular" ? new Circular(1) : new Rectangular(1, 1);
+  const nodes = getBarNodes(data);
   if (nodes) {
     const { nodeI, nodeJ } = nodes;
     const bar = new Bar(
-      _generateId(),
+      _id ? _id : _generateId(),
       nodeI,
       nodeJ,
       new Material(material),

@@ -57,15 +57,7 @@ export const addNode = (data) => {
 // TODO: TEST
 export const updateNode = (data) => {
   let tempNodes = getAllNodes().filter((item) => item._id !== data._id);
-  const { _id, name, xCoord, yCoord, xForce, yForce, support } = data;
-  const newNode = new Node(
-    _id,
-    name,
-    new Coordinates(xCoord, yCoord),
-    new Force(xForce, yForce),
-    new Support(support),
-    new Displacement()
-  );
+  const newNode = createNode(data);
   tempNodes.push(newNode);
   return { newNode, nodes: tempNodes };
 };
@@ -133,7 +125,7 @@ export const createNode = (data) => {
     new Support(support.type || support), // support.type for updating node, support for new node
     new Displacement(xDisplacement, yDisplacement)
   );
-  return _isValid(node) ? node : null;
+  return node;
 };
 
 export const getResultants = () => {

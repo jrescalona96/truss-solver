@@ -82,12 +82,11 @@ const TrussSolver = (props) => {
       .then((res) => {
         const results = data.mapResults(res.data);
         data.updateAll("results", results);
-        data.updateAll("resultsData", res.data);
         props.history.push("/solver/results");
       })
       .catch((error) => {
         console.log(error);
-        alert("Please check input members.");
+        alert(error);
       });
   };
 

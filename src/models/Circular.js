@@ -4,10 +4,7 @@ export default class Circular extends Section {
   constructor(radius = 1) {
     super("Circular");
     this._radius = radius;
-  }
-
-  get area() {
-    return this._radius * this._radius * Math.PI;
+    this.area = this._radius * this._radius * Math.PI;
   }
 
   get diameter() {
@@ -16,6 +13,7 @@ export default class Circular extends Section {
 
   set radius(val) {
     this._radius = val;
+    this.area = this._radius * this._radius * Math.PI;
   }
 
   get radius() {

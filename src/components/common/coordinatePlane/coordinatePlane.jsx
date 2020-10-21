@@ -1,7 +1,6 @@
 import React from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { config, Spring } from "react-spring/renderprops";
-import { calcRelativeCoord } from "../../../controllers/coordinatePlaneController";
 import Node from "../node/index";
 import Bar from "../bar/index";
 import "./coordinatePlane.scss";
@@ -26,8 +25,10 @@ const CoordinatePlane = ({
   barFill,
   barSize,
 }) => {
-  let minX = 0,
-    minY = 0;
+  let minX = 0;
+  let minY = 0;
+  const offset = 100;
+
   if (primaryData && primaryData.length > 0) {
     minX = Math.min(...primaryData.nodes.map((item) => item.coordinates.x));
     minY = minX
@@ -35,7 +36,6 @@ const CoordinatePlane = ({
           .coordinates.y
       : 0;
   }
-  const offset = 100;
 
   const renderPrimaryNodes = () =>
     primaryData.nodes.map((item) => (
@@ -74,24 +74,15 @@ const CoordinatePlane = ({
         </Spring>
       );
     });
-
   const renderSecondaryNodes = () =>
     secondaryData &&
     secondaryData.nodes.map((item, index) => {
-      const { xRel: xOrigin, yRel: yOrigin } = calcRelativeCoord(
-        item.xInitialCoord,
-        item.yInitialCoord
-      );
-      const { xRel: xFinal, yRel: yFinal } = calcRelativeCoord(
-        item.xCoord,
-        item.yCoord
-      );
       return (
         <Spring
           key={item._id}
           from={{
-            transform: `translate3d(${xOrigin - xFinal}px,${
-              yOrigin - yFinal
+            transform: `translate3d(${-item.displacement.x}px,${
+              item.displacement.y
             }px,0)`,
           }}
           to={{
@@ -124,7 +115,8 @@ const CoordinatePlane = ({
         key={item._id}
         from={{ opacity: 0 }}
         to={{ opacity: 1 }}
-        delay={500}>
+        delay={750}
+        config={config.slow}>
         {(props) => (
           <Bar
             animation={props}

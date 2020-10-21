@@ -34,14 +34,13 @@ const mapResultNodes = (nodes, displacements, forces) => {
     const nodeForces = forces[_id];
     const data = {
       name: n["name"],
-      xSupport: 0,
-      ySupport: 0,
-      xCoord: n["xCoord"] + nodeDisplacement["x"] * 60,
-      yCoord: n["yCoord"] + nodeDisplacement["y"] * 60,
+      support: { x: 0, y: 0 },
+      xCoord: n.coordinates.x + nodeDisplacement.x * 60,
+      yCoord: n.coordinates.y + nodeDisplacement.y * 60,
       xForce: nodeForces["x"],
       yForce: nodeForces["y"],
-      xInitialCoord: n["xCoord"],
-      yInitialCoord: n["yCoord"],
+      xDisplacement: nodeDisplacement.x * 60,
+      yDisplacement: nodeDisplacement.y * 60,
     };
     const resultantNode = createNode(data);
     return resultantNode;
