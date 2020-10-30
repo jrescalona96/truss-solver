@@ -29,8 +29,9 @@ def map_nodes(data, id_table):
         output.append(item)
     return output
 
-
 # formats bars to solver's input format
+
+
 def map_bars(data, id_table):
     output = []
     for idx, bar in enumerate(data):

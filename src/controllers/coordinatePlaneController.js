@@ -1,4 +1,4 @@
-const planeSize = { width: 3000, height: 2000 };
+const planeSize = { width: 2000, height: 2000 };
 const origin = { x: planeSize.width / 2, y: planeSize.height / 2 };
 
 export const calcRelativeCoord = (x, y) => {

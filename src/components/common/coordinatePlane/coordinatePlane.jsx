@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { config, Spring } from "react-spring/renderprops";
 import Node from "../node/index";
@@ -6,7 +6,6 @@ import Bar from "../bar/index";
 import "./coordinatePlane.scss";
 
 const CoordinatePlane = ({
-  viewBox,
   planeSize,
   primaryData,
   secondaryData,
@@ -25,17 +24,14 @@ const CoordinatePlane = ({
   barFill,
   barSize,
 }) => {
-  let minX = 0;
-  let minY = 0;
-  const offset = 100;
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+  const ref = useRef(null);
 
-  if (primaryData && primaryData.length > 0) {
-    minX = Math.min(...primaryData.nodes.map((item) => item.coordinates.x));
-    minY = minX
-      ? primaryData.nodes.find((item) => item.coordinates.x === minX)
-          .coordinates.y
-      : 0;
-  }
+  useEffect(() => {
+    setWidth(ref.current.clientWidth);
+    setHeight(ref.current.clientHeight);
+  }, [height, width]);
 
   const renderPrimaryNodes = () =>
     primaryData.nodes.map((item) => (
@@ -74,6 +70,7 @@ const CoordinatePlane = ({
         </Spring>
       );
     });
+
   const renderSecondaryNodes = () =>
     secondaryData &&
     secondaryData.nodes.map((item, index) => {
@@ -131,12 +128,12 @@ const CoordinatePlane = ({
     ));
 
   return (
-    <div className="coordinatePlane">
+    <div id="coordinatePlane" ref={ref}>
       <TransformWrapper
         defaultScale={1}
-        defaultPositionX={minX - planeSize.width / 2 + offset}
-        defaultPositionY={minY - offset * 2}
         options={{ limitToBounds: false }}
+        defaultPositionX={-(planeSize.width / 4 + width)}
+        defaultPositionY={-(planeSize.height / 4 - height)}
         doubleClick={{ mode: "zoomOut" }}>
         <TransformComponent>
           <svg width={planeSize.width} height={planeSize.height}>
