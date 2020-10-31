@@ -80,8 +80,7 @@ const TrussSolver = (props) => {
     http
       .post("api/calculate", body)
       .then((res) => {
-        const results = data.mapResults(res.data);
-        props.history.push({ pathname: "/solver/results", state: { results } });
+        props.history.push({ pathname: "/solver/results", state: res.data });
       })
       .catch((error) => {
         alert(error);
