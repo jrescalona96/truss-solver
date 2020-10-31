@@ -84,7 +84,6 @@ const TrussSolver = (props) => {
         props.history.push({ pathname: "/solver/results", state: { results } });
       })
       .catch((error) => {
-        console.log(error);
         alert(error);
       });
   };
