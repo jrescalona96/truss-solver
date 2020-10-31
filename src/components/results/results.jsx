@@ -9,15 +9,15 @@ import ActionButton from "../common/actionButton";
 const Results = (props) => {
   const existingNodes = nodeController.getAllNodes();
   const existingBars = barController.getAllBars();
-  const { nodeResults, barResults } = nodeController.getResultants();
+  const { nodeResults, barResults } = props.history.location.state.results;
   const memberStyles = {
     nodeSize: [12, 12],
     nodeFill: "lightblue",
     barSize: [8, 6],
     barFill: ["#959595", "#0000ffbf"],
   };
-  const { planeSize, viewBox } = calculatePlaneSize(existingNodes);
 
+  const { planeSize, viewBox } = calculatePlaneSize(existingNodes);
   return (
     <div
       id="results"

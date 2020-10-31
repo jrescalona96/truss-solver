@@ -127,7 +127,3 @@ export const createNode = (data) => {
   );
   return node;
 };
-
-export const getResultants = () => {
-  return fetchAll("results");
-};
