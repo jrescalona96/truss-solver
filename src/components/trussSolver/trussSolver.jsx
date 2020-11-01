@@ -19,6 +19,7 @@ const TrussSolver = (props) => {
   const [selectedBar, setSelectedBar] = useState({ id: "" });
 
   const handleAddNode = (data) => {
+    console.log(data);
     const nodes = nodeController.addNode(data);
     setDisplayNodes(nodes);
     setSelectedNode({ id: "" });
@@ -80,6 +81,11 @@ const TrussSolver = (props) => {
     http
       .post("api/calculate", body)
       .then((res) => {
+        const nodes = nodeController.updateDisplacement(
+          res.data["displacement"],
+          displayNodes
+        );
+        data.updateAll("nodes", nodes);
         props.history.push({ pathname: "/solver/results", state: res.data });
       })
       .catch((error) => {
@@ -89,7 +95,7 @@ const TrussSolver = (props) => {
 
   const memberStyles = {
     nodeNameColor: "#0000ff",
-    nodeSize: [12, 12],
+    nodeSize: [6, 6],
     nodeFill: "skyblue",
     barSize: [6, 6],
     barFill: ["#959595", "#0000ff2f"],

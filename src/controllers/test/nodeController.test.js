@@ -30,7 +30,8 @@ test("createNode() should return a node", () => {
   const node = controller.createNode(data);
   expect(node).toBeDefined();
 });
-test("createNode() should return null xCoord is String", () => {
+
+test("createNode() should return null, xCoord is String", () => {
   const data = {
     _id: controller._generateId(),
     name: controller._generateName(),
@@ -92,26 +93,138 @@ test("createNode() should return null", () => {
   expect(node).toBeNull();
 });
 
-test("_isValid() should return true ", () => {
-  const node = new Node(
-    "_qwert12345",
-    "A",
-    new Coordinates(),
-    new Force(),
-    new Support("Pin"),
-    new Displacement()
+test("updateForce on existing nodes should succeed", () => {
+  const newForces = {
+    node1: { x: 5, y: 10 },
+    node2: { x: 20, y: 30 },
+    node3: { x: -5, y: -10 },
+  };
+
+  const existingNodes = [
+    new Node(
+      "node1",
+      "A",
+      new Coordinates(),
+      new Force(),
+      new Support("Pin"),
+      new Displacement()
+    ),
+    new Node(
+      "node2",
+      "B",
+      new Coordinates(),
+      new Force(),
+      new Support(),
+      new Displacement()
+    ),
+    new Node(
+      "node3",
+      "C",
+      new Coordinates(),
+      new Force(),
+      new Support("Pin"),
+      new Displacement()
+    ),
+  ];
+
+  const updatedNodes = controller.updateForce(newForces, existingNodes);
+  expect(updatedNodes).toContainEqual(
+    new Node(
+      "node1",
+      "A",
+      new Coordinates(),
+      new Force(5, 10),
+      new Support("Pin"),
+      new Displacement()
+    )
   );
-  expect(controller._isValid(node)).toBe(true);
+  expect(updatedNodes).toContainEqual(
+    new Node(
+      "node2",
+      "B",
+      new Coordinates(),
+      new Force(20, 30),
+      new Support(),
+      new Displacement()
+    )
+  );
+  expect(updatedNodes).toContainEqual(
+    new Node(
+      "node3",
+      "C",
+      new Coordinates(),
+      new Force(-5, -10),
+      new Support("Pin"),
+      new Displacement()
+    )
+  );
 });
 
-test("_isValid() should return false ", () => {
-  const node = new Node(
-    "_qwert12345",
-    "A",
-    new Coordinates(),
-    new Force(),
-    new Support("Testing"),
-    new Displacement()
+test("updateDisplacement on existing nodes should succeed", () => {
+  const newDisplacement = {
+    node1: { x: 5, y: 10 },
+    node2: { x: 20, y: 30 },
+    node3: { x: -5, y: -10 },
+  };
+
+  const existingNodes = [
+    new Node(
+      "node1",
+      "A",
+      new Coordinates(),
+      new Force(),
+      new Support("Pin"),
+      new Displacement()
+    ),
+    new Node(
+      "node2",
+      "B",
+      new Coordinates(),
+      new Force(),
+      new Support(),
+      new Displacement()
+    ),
+    new Node(
+      "node3",
+      "C",
+      new Coordinates(),
+      new Force(),
+      new Support("Pin"),
+      new Displacement()
+    ),
+  ];
+  const updatedNodes = controller.updateDisplacement(
+    newDisplacement,
+    existingNodes
   );
-  expect(controller._isValid(node)).toBe(true);
+  expect(updatedNodes).toContainEqual(
+    new Node(
+      "node1",
+      "A",
+      new Coordinates(),
+      new Force(),
+      new Support("Pin"),
+      new Displacement(5, 10)
+    )
+  );
+  expect(updatedNodes).toContainEqual(
+    new Node(
+      "node2",
+      "B",
+      new Coordinates(),
+      new Force(),
+      new Support(),
+      new Displacement(20, 30)
+    )
+  );
+  expect(updatedNodes).toContainEqual(
+    new Node(
+      "node3",
+      "C",
+      new Coordinates(),
+      new Force(),
+      new Support("Pin"),
+      new Displacement(-5, -10)
+    )
+  );
 });

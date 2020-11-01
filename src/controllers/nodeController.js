@@ -92,38 +92,61 @@ export const getSupportType = ({ xSupport, ySupport }) => {
   return support;
 };
 
-export const _isValid = (node) => {
-  if (!node) return false;
-  const hasValidCoordinates =
-    !isNaN(node.coordinates.x) && !isNaN(node.coordinates.y);
-  const hasValidForces = !isNaN(node.force.x) && !isNaN(node.force.y);
-  const hasValidSupport =
-    node.support !== null || node.support.x !== null || node.support.y !== null;
-
-  return hasValidCoordinates && hasValidForces && hasValidSupport;
+const _isValidData = (data) => {
+  if (!data) return false;
+  const { xCoord, yCoord, xForce, yForce } = data;
+  if (
+    isNaN(Number(xCoord)) ||
+    isNaN(Number(yCoord)) ||
+    isNaN(Number(xForce)) ||
+    isNaN(Number(yForce)) ||
+    isNaN(Number(xCoord))
+  ) {
+    return false;
+  }
+  return true;
 };
 
 export const createNode = (data) => {
-  if (!data) return null;
-  const {
-    _id,
-    name,
-    xCoord,
-    yCoord,
-    xForce,
-    yForce,
-    support,
-    xDisplacement,
-    yDisplacement,
-  } = data;
-  const allNodes = getAllNodes();
-  const node = new Node(
-    _id ? _id : _generateId(),
-    name ? name : _generateName(allNodes),
-    new Coordinates(xCoord, yCoord),
-    new Force(xForce, yForce),
-    new Support(support.type || support), // support.type for updating node, support for new node
-    new Displacement(xDisplacement, yDisplacement)
-  );
-  return node;
+  if (_isValidData(data)) {
+    const {
+      _id,
+      name,
+      xCoord,
+      yCoord,
+      xForce,
+      yForce,
+      support,
+      xDisplacement,
+      yDisplacement,
+    } = data;
+
+    const allNodes = getAllNodes();
+    const node = new Node(
+      _id ? _id : _generateId(),
+      name ? name : _generateName(allNodes),
+      new Coordinates(xCoord, yCoord),
+      new Force(xForce, yForce),
+      new Support(support.type || support), // support.type for updating node, support for new node
+      new Displacement(xDisplacement, yDisplacement)
+    );
+    return node;
+  }
+  return null;
+};
+
+export const updateForce = (data, source) => {
+  return source.map((item) => {
+    const { x, y } = data[item._id];
+    item.force = new Force(x, y);
+    return item;
+  });
+};
+
+export const updateDisplacement = (data, source) => {
+  return source.map((item) => {
+    const { x, y } = data[item._id];
+    item.displacement = new Displacement(x, y);
+    return item;
+  });
 };

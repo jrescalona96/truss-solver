@@ -15,9 +15,9 @@ const Results = (props) => {
   const { displacement, forces, internal, stress } = results;
   const { nodeResults, barResults } = data.mapResults(results);
   const { planeSize, viewBox } = calculatePlaneSize(existingNodes);
-  console.log(nodeResults);
+
   const memberStyles = {
-    nodeSize: [12, 12],
+    nodeSize: [6, 6],
     nodeFill: "lightblue",
     barSize: [8, 6],
     barFill: ["#959595", "#0000ffbf"],

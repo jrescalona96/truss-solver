@@ -12,7 +12,7 @@ export const calculatePlaneSize = (nodes) => {
   return { planeSize, viewBox };
 };
 
-export const calcLabelPosition = (data, radius, xRel, yRel) => {
+export const calcLabelPosition = (radius, xRel, yRel) => {
   const x = xRel - radius * 2;
   const y = yRel - radius * 1.5;
   return { x, y };

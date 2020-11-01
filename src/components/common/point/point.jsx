@@ -2,15 +2,7 @@ import React from "react";
 import { Transition } from "react-spring/renderprops";
 import "./point.scss";
 
-const Point = ({
-  placement,
-  label,
-  radius,
-  fill,
-  isSelected,
-  nameOn,
-  labelColor,
-}) => {
+const Point = ({ placement, radius, fill, isSelected }) => {
   const circle = (
     <circle
       cx={placement.xRel}
@@ -33,18 +25,6 @@ const Point = ({
         </Transition>
       ) : (
         circle
-      )}
-      {nameOn && (
-        <text
-          x={placement.xRel}
-          y={placement.yRel}
-          stroke={labelColor}
-          fill={labelColor}
-          dy="0.35em"
-          dx="-0.3em"
-          fontSize="1.2rem">
-          {label}
-        </text>
       )}
     </g>
   );
