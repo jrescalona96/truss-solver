@@ -70,6 +70,7 @@ const CoordinatePlane = ({
       );
     });
 
+  // TODO: Remove support rendering
   const renderSecondaryNodes = () =>
     secondaryData &&
     secondaryData.nodes.map((item, index) => {

@@ -32,25 +32,6 @@ const Results = (props) => {
       id="results"
       className="d-flex justify-self-center justify-space-between m-2">
       <div className="col-2">
-        <h3>Displacement</h3>
-        {/* <Table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>X</th>
-              <th>Y</th>
-            </tr>
-          </thead>
-          <tbody>
-            {existingNodes.map((item) => (
-              <tr key={item._id}>
-                <th scope="row">{item.name}</th>
-                <td>{displacement[item._id].x.toFixed(2)}</td>
-                <td>{displacement[item._id].y.toFixed(2)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </Table> */}
         <ActionButton
           onClick={() => {
             props.history.push("/solver");

@@ -1,5 +1,6 @@
 import Displacement from "../models/Displacement";
 import Coordinates from "../models/Coordinates";
+import Support from "../models/Support";
 
 export const fetchAll = (key) => {
   return JSON.parse(localStorage.getItem(key));
@@ -28,6 +29,7 @@ export const exaggerate = (source, magnitude) => {
       xCoord + node.displacement.x,
       yCoord + node.displacement.y
     );
+    node.support = new Support();
     return node;
   });
 };

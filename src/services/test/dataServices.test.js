@@ -8,7 +8,7 @@ import Force from "../../models/Force";
 import Support from "../../models/Support";
 import Displacement from "../../models/Displacement";
 
-test("exaggerateDisplacement by 60%", () => {
+test("exaggerate by 60%", () => {
   const nodes = [
     new Node(
       "node1",
@@ -27,6 +27,7 @@ test("exaggerateDisplacement by 60%", () => {
       new Displacement(2, 2)
     ),
   ];
+
   const result = data.exaggerate(nodes, 60);
 
   expect(result).toContainEqual(
@@ -35,7 +36,7 @@ test("exaggerateDisplacement by 60%", () => {
       "A",
       new Coordinates(60, 60),
       new Force(),
-      new Support("Pin"),
+      new Support(),
       new Displacement(60, 60)
     )
   );
@@ -45,7 +46,7 @@ test("exaggerateDisplacement by 60%", () => {
       "B",
       new Coordinates(120, 120),
       new Force(),
-      new Support("Pin"),
+      new Support(),
       new Displacement(120, 120)
     )
   );
