@@ -93,7 +93,7 @@ test("createNode() should return null", () => {
   expect(node).toBeNull();
 });
 
-test("updateForce on existing nodes should succeed", () => {
+test("setForce on existing nodes should succeed", () => {
   const newForces = {
     node1: { x: 5, y: 10 },
     node2: { x: 20, y: 30 },
@@ -127,7 +127,7 @@ test("updateForce on existing nodes should succeed", () => {
     ),
   ];
 
-  const updatedNodes = controller.updateForce(newForces, existingNodes);
+  const updatedNodes = controller.setForce(newForces, existingNodes);
   expect(updatedNodes).toContainEqual(
     new Node(
       "node1",
@@ -160,7 +160,7 @@ test("updateForce on existing nodes should succeed", () => {
   );
 });
 
-test("updateDisplacement on existing nodes should succeed", () => {
+test("setDisplacement on existing nodes should succeed", () => {
   const newDisplacement = {
     node1: { x: 5, y: 10 },
     node2: { x: 20, y: 30 },
@@ -193,7 +193,7 @@ test("updateDisplacement on existing nodes should succeed", () => {
       new Displacement()
     ),
   ];
-  const updatedNodes = controller.updateDisplacement(
+  const updatedNodes = controller.setDisplacement(
     newDisplacement,
     existingNodes
   );
@@ -223,6 +223,84 @@ test("updateDisplacement on existing nodes should succeed", () => {
       "C",
       new Coordinates(),
       new Force(),
+      new Support("Pin"),
+      new Displacement(-5, -10)
+    )
+  );
+});
+
+test("setNodeResults to return updated node forces and displacements", () => {
+  const newForces = {
+    node1: { x: 15, y: 110 },
+    node2: { x: 120, y: 130 },
+    node3: { x: -15, y: -110 },
+  };
+
+  const newDisplacement = {
+    node1: { x: 5, y: 10 },
+    node2: { x: 20, y: 30 },
+    node3: { x: -5, y: -10 },
+  };
+
+  const existingNodes = [
+    new Node(
+      "node1",
+      "A",
+      new Coordinates(),
+      new Force(),
+      new Support("Pin"),
+      new Displacement()
+    ),
+    new Node(
+      "node2",
+      "B",
+      new Coordinates(),
+      new Force(),
+      new Support("Pin"),
+      new Displacement()
+    ),
+    new Node(
+      "node3",
+      "C",
+      new Coordinates(),
+      new Force(),
+      new Support("Pin"),
+      new Displacement()
+    ),
+  ];
+
+  const updatedNodes = controller.setNodeResults(
+    existingNodes,
+    newForces,
+    newDisplacement
+  );
+
+  expect(updatedNodes).toContainEqual(
+    new Node(
+      "node1",
+      "A",
+      new Coordinates(),
+      new Force(15, 110),
+      new Support("Pin"),
+      new Displacement(5, 10)
+    )
+  );
+  expect(updatedNodes).toContainEqual(
+    new Node(
+      "node2",
+      "B",
+      new Coordinates(),
+      new Force(120, 130),
+      new Support("Pin"),
+      new Displacement(20, 30)
+    )
+  );
+  expect(updatedNodes).toContainEqual(
+    new Node(
+      "node3",
+      "C",
+      new Coordinates(),
+      new Force(-15, -110),
       new Support("Pin"),
       new Displacement(-5, -10)
     )

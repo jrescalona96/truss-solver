@@ -49,17 +49,27 @@ export const getNodeByName = (n) => {
 // TODO: TEST
 export const addNode = (data) => {
   const newNode = createNode(data);
-  let nodes = getAllNodes().filter((item) => item._id !== data._id);
-  nodes.push(newNode);
-  return updateAll("nodes", nodes);
+  if (newNode) {
+    let nodes = getAllNodes().filter((item) => item._id !== data._id);
+    nodes.push(newNode);
+    return updateAll("nodes", nodes);
+  } else {
+    return fetchAll("nodes");
+  }
 };
 
 // TODO: TEST
 export const updateNode = (data) => {
-  let tempNodes = getAllNodes().filter((item) => item._id !== data._id);
-  const newNode = createNode(data);
-  tempNodes.push(newNode);
-  return { newNode, nodes: tempNodes };
+  if (data) {
+    let tempNodes = getAllNodes().filter((item) => item._id !== data._id);
+    const newNode = createNode(data);
+    if (newNode) {
+      tempNodes.push(newNode);
+      return { newNode, nodes: tempNodes };
+    } else {
+      return tempNodes;
+    }
+  }
 };
 
 // TODO: TEST
@@ -135,7 +145,7 @@ export const createNode = (data) => {
   return null;
 };
 
-export const updateForce = (data, source) => {
+export const setForce = (data, source) => {
   return source.map((item) => {
     const { x, y } = data[item._id];
     item.force = new Force(x, y);
@@ -143,10 +153,16 @@ export const updateForce = (data, source) => {
   });
 };
 
-export const updateDisplacement = (data, source) => {
+export const setDisplacement = (data, source) => {
   return source.map((item) => {
     const { x, y } = data[item._id];
     item.displacement = new Displacement(x, y);
     return item;
   });
+};
+
+export const setNodeResults = (source, forces, displacements) => {
+  let nodes = setForce(forces, source);
+  nodes = setDisplacement(displacements, source);
+  return nodes;
 };

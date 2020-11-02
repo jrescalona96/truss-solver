@@ -74,22 +74,28 @@ const TrussSolver = (props) => {
   };
 
   const handleCalculate = () => {
-    const body = {
-      nodes: displayNodes,
-      bars: displayBars,
-    };
     http
-      .post("api/calculate", body)
+      .post("api/calculate", {
+        nodes: displayNodes,
+        bars: displayBars,
+      })
       .then((res) => {
-        const nodes = nodeController.updateDisplacement(
-          res.data["displacement"],
-          displayNodes
+        const nodeResults = nodeController.setNodeResults(
+          displayNodes,
+          res.data.forces,
+          res.data.displacement
         );
-        data.updateAll("nodes", nodes);
-        props.history.push({ pathname: "/solver/results", state: res.data });
+
+        const barResults = [];
+
+        props.history.push({
+          pathname: "/solver/results",
+          state: { nodeResults, barResults },
+        });
       })
       .catch((error) => {
-        alert(error);
+        console.log(error);
+        alert("Please double check input members.");
       });
   };
 
@@ -97,8 +103,8 @@ const TrussSolver = (props) => {
     nodeNameColor: "#0000ff",
     nodeSize: [6, 6],
     nodeFill: "skyblue",
-    barSize: [6, 6],
-    barFill: ["#959595", "#0000ff2f"],
+    barSize: [4, 4],
+    barFill: ["orange", "#0000ff2f"],
   };
 
   const { planeSize, viewBox } = calculatePlaneSize(displayNodes);

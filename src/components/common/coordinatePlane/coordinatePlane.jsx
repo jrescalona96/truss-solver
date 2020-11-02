@@ -78,12 +78,11 @@ const CoordinatePlane = ({
         <Spring
           key={item._id}
           from={{
-            transform: `translate3d(${-item.displacement.x}px,${
-              item.displacement.y
-            }px,0)`,
+            transform: `translate3d(0px,0px,0)`,
           }}
           to={{
-            transform: `translate3d(0px,0px,0)`,
+            transform: `translate3d(${item.displacement.x}px,${-item
+              .displacement.y}px,0)`,
           }}
           config={config.wobbly}
           delay={500}>

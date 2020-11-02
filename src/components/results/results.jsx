@@ -11,16 +11,17 @@ import "./results.scss";
 const Results = (props) => {
   const existingNodes = nodeController.getAllNodes();
   const existingBars = barController.getAllBars();
-  const results = props.history.location.state;
-  const { displacement, forces, internal, stress } = results;
-  const { nodeResults, barResults } = data.mapResults(results);
+  const { nodeResults, barResults } = props.history.location.state;
   const { planeSize, viewBox } = calculatePlaneSize(existingNodes);
+
+  // exaggerate displacements
+  const exagNodeResults = data.exaggerateDisplacement(nodeResults, 60);
 
   const memberStyles = {
     nodeSize: [6, 6],
     nodeFill: "lightblue",
-    barSize: [8, 6],
-    barFill: ["#959595", "#0000ffbf"],
+    barSize: [4, 4],
+    barFill: ["orange", "#0000ffbf"],
   };
 
   return (
@@ -29,7 +30,7 @@ const Results = (props) => {
       className="d-flex justify-self-center justify-space-between m-2">
       <div className="col-2">
         <h3>Displacement</h3>
-        <Table>
+        {/* <Table>
           <thead>
             <tr>
               <th>Name</th>
@@ -46,7 +47,7 @@ const Results = (props) => {
               </tr>
             ))}
           </tbody>
-        </Table>
+        </Table> */}
         <ActionButton
           onClick={() => {
             props.history.push("/solver");
@@ -61,7 +62,7 @@ const Results = (props) => {
           viewBox={viewBox}
           planeSize={planeSize}
           primaryData={{ nodes: existingNodes, bars: existingBars }}
-          secondaryData={{ nodes: nodeResults, bars: barResults }}
+          secondaryData={{ nodes: exagNodeResults, bars: barResults }}
           selectedNode={{ id: "" }}
           onSetSelectedNode={() => {}}
           onSetSelectedBar={() => {}}
