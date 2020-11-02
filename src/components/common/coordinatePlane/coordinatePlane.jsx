@@ -39,7 +39,6 @@ const CoordinatePlane = ({
         {(props) => (
           <Node
             animation={props}
-            key={item._id}
             data={item}
             onClick={onSetSelectedNode}
             isSelected={item._id === selectedNode._id}
@@ -55,7 +54,7 @@ const CoordinatePlane = ({
     ));
 
   const renderPrimaryBars = () =>
-    primaryData.bars.map((item, index) => {
+    primaryData.bars.map((item) => {
       return (
         <Spring key={item._id} from={{ opacity: 0.1 }} to={{ opacity: 1 }}>
           {(props) => (
@@ -74,22 +73,21 @@ const CoordinatePlane = ({
   const renderSecondaryNodes = () =>
     secondaryData &&
     secondaryData.nodes.map((item, index) => {
+      const { x, y } = item.displacement;
       return (
         <Spring
-          key={item._id}
+          key={index}
           from={{
-            transform: `translate3d(0px,0px,0)`,
+            transform: `translate3d(${-x}px,${y}px,0)`,
           }}
           to={{
-            transform: `translate3d(${item.displacement.x}px,${-item
-              .displacement.y}px,0)`,
+            transform: `translate3d(0px,0px,0)`,
           }}
           config={config.wobbly}
           delay={500}>
           {(props) => (
             <Node
               animation={props}
-              key={item._id}
               data={item}
               onClick={() => {}}
               isSelected={item._id === selectedNode._id}
@@ -108,7 +106,7 @@ const CoordinatePlane = ({
     secondaryData &&
     secondaryData.bars.map((item, index) => (
       <Spring
-        key={item._id}
+        key={index}
         from={{ opacity: 0 }}
         to={{ opacity: 1 }}
         delay={750}
@@ -116,7 +114,6 @@ const CoordinatePlane = ({
         {(props) => (
           <Bar
             animation={props}
-            key={item._id}
             data={item}
             onClick={() => {}}
             fill={barFill[1]}

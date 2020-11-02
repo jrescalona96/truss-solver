@@ -86,11 +86,9 @@ const TrussSolver = (props) => {
           res.data.displacement
         );
 
-        const barResults = [];
-
         props.history.push({
           pathname: "/solver/results",
-          state: { nodeResults, barResults },
+          state: { nodeResults },
         });
       })
       .catch((error) => {

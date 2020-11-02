@@ -147,22 +147,24 @@ export const createNode = (data) => {
 
 export const setForce = (data, source) => {
   return source.map((item) => {
+    const node = { ...item };
     const { x, y } = data[item._id];
-    item.force = new Force(x, y);
-    return item;
+    node.force = new Force(x, y);
+    return node;
   });
 };
 
 export const setDisplacement = (data, source) => {
   return source.map((item) => {
+    const node = { ...item };
     const { x, y } = data[item._id];
-    item.displacement = new Displacement(x, y);
-    return item;
+    node.displacement = new Displacement(x, y);
+    return node;
   });
 };
 
 export const setNodeResults = (source, forces, displacements) => {
   let nodes = setForce(forces, source);
-  nodes = setDisplacement(displacements, source);
+  nodes = setDisplacement(displacements, nodes);
   return nodes;
 };

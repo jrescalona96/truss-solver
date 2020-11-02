@@ -285,6 +285,7 @@ test("setNodeResults to return updated node forces and displacements", () => {
       new Displacement(5, 10)
     )
   );
+
   expect(updatedNodes).toContainEqual(
     new Node(
       "node2",
@@ -295,6 +296,7 @@ test("setNodeResults to return updated node forces and displacements", () => {
       new Displacement(20, 30)
     )
   );
+
   expect(updatedNodes).toContainEqual(
     new Node(
       "node3",

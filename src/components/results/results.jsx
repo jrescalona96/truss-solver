@@ -11,11 +11,14 @@ import "./results.scss";
 const Results = (props) => {
   const existingNodes = nodeController.getAllNodes();
   const existingBars = barController.getAllBars();
-  const { nodeResults, barResults } = props.history.location.state;
+  const { nodeResults } = props.history.location.state;
   const { planeSize, viewBox } = calculatePlaneSize(existingNodes);
 
   // exaggerate displacements
-  const exagNodeResults = data.exaggerateDisplacement(nodeResults, 60);
+  const exagNodeResults = data.exaggerate(nodeResults, 60);
+
+  // update bar results
+  const exagBarResults = data.createBarResults(existingBars, exagNodeResults);
 
   const memberStyles = {
     nodeSize: [6, 6],
@@ -62,7 +65,7 @@ const Results = (props) => {
           viewBox={viewBox}
           planeSize={planeSize}
           primaryData={{ nodes: existingNodes, bars: existingBars }}
-          secondaryData={{ nodes: exagNodeResults, bars: barResults }}
+          secondaryData={{ nodes: exagNodeResults, bars: exagBarResults }}
           selectedNode={{ id: "" }}
           onSetSelectedNode={() => {}}
           onSetSelectedBar={() => {}}
