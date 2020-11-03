@@ -1,7 +1,7 @@
 import React from "react";
 
 const Force = ({ xRel, yRel, direction, magnitude, style }) => {
-  const lineWidth = 10;
+  const lineWidth = 6;
   const lineLength = 20;
 
   const calcAxis = () => {

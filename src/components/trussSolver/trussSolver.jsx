@@ -109,10 +109,10 @@ const TrussSolver = (props) => {
 
   const memberStyles = {
     nodeNameColor: "#0000ff",
-    nodeSize: [6, 6],
-    nodeFill: "skyblue",
+    nodeSize: [4, 4],
+    nodeFill: "white",
     barSize: [4, 4],
-    barFill: ["orange", "#0000ff2f"],
+    barFill: ["gray", "#0000ff2f"],
   };
 
   const { planeSize, viewBox } = calculatePlaneSize(displayNodes);

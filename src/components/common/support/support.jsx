@@ -2,7 +2,7 @@ import React from "react";
 import "./support.scss";
 const Support = ({ contactCoords, type, offset }) => {
   const { xRel, yRel } = contactCoords;
-  const height = offset;
+  const height = 15;
   const width = 20;
   const strokeWidth = 1.5;
   const stroke = "#000000";
@@ -12,20 +12,11 @@ const Support = ({ contactCoords, type, offset }) => {
     <>
       <line
         x1={`${xRel - width}`}
-        y1={`${yRel + height * 2}`}
+        y1={`${yRel + height + offset}`}
         x2={`${xRel + width}`}
-        y2={`${yRel + height * 2}`}
+        y2={`${yRel + height + offset}`}
         stroke="black"
         strokeWidth={`${strokeWidth * 1.5}`}
-      />
-      <line
-        x1={`${xRel - width + 1}`}
-        y1={`${yRel + height * 2.2}`}
-        x2={`${xRel + width}`}
-        y2={`${yRel + height * 2.2}`}
-        stroke="black"
-        strokeWidth={`${strokeWidth * 3}`}
-        strokeDasharray={[2, 2]}
       />
     </>
   );
@@ -33,9 +24,9 @@ const Support = ({ contactCoords, type, offset }) => {
   const pin = (
     <>
       <polygon
-        points={`${xRel},${yRel + offset} 
-                 ${xRel - width / 2}, ${yRel + height * 2}
-                 ${xRel + width / 2},${yRel + height * 2}`}
+        points={`${xRel}            ,${yRel + offset} 
+                 ${xRel - width / 2}, ${yRel + height + offset}
+                 ${xRel + width / 2},${yRel + height + offset}`}
         fill={fill}
         stroke={stroke}
         strokeWidth={`${strokeWidth}`}
@@ -48,7 +39,7 @@ const Support = ({ contactCoords, type, offset }) => {
     <>
       <circle
         cx={xRel}
-        cy={yRel + height * 1.5}
+        cy={yRel + height / 2 + offset}
         r={height / 2}
         fill={fill}
         stroke={stroke}

@@ -60,6 +60,11 @@ const Node = ({
           )}
         </Spring>
       )}
+      <Support
+        contactCoords={{ xRel, yRel }}
+        type={{ xSupport: support.x, ySupport: support.y }}
+        offset={radius}
+      />
       <Point
         placement={{ xRel, yRel }}
         label={name}
@@ -68,11 +73,6 @@ const Node = ({
         fill={fill}
         isSelected={isSelected}
         nameOn={nameOn}
-      />
-      <Support
-        contactCoords={{ xRel, yRel }}
-        type={{ xSupport: support.x, ySupport: support.y }}
-        offset={radius}
       />
     </g>
   );
