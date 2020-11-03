@@ -7,6 +7,7 @@ import ActionButton from "../common/actionButton";
 import DisplacementTable from "../displacementTable";
 import * as data from "../../services/dataServices";
 import "./results.scss";
+import ForcesTable from "../forcesTable/forcesTable";
 
 const Results = (props) => {
   const existingNodes = nodeController.getAllNodes();
@@ -33,6 +34,7 @@ const Results = (props) => {
       className="d-flex justify-self-center justify-space-between m-2">
       <div className="col-2">
         <DisplacementTable data={nodeResults} />
+        <ForcesTable data={nodeResults} />
         <ActionButton
           onClick={() => {
             props.history.push("/solver");
