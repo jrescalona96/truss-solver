@@ -4,8 +4,8 @@ import * as nodeController from "../../controllers/nodeController";
 import * as barController from "../../controllers/barController";
 import { calculatePlaneSize } from "../../controllers/coordinatePlaneController";
 import ActionButton from "../common/actionButton";
+import DisplacementTable from "../displacementTable";
 import * as data from "../../services/dataServices";
-import { Table } from "reactstrap";
 import "./results.scss";
 
 const Results = (props) => {
@@ -32,23 +32,7 @@ const Results = (props) => {
       id="results"
       className="d-flex justify-self-center justify-space-between m-2">
       <div className="col-2">
-        <h3>Displacements</h3>
-        <Table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>X</th>
-              <th>Y</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-            </tr>
-          </tbody>
-        </Table>
+        <DisplacementTable data={nodeResults} />
         <ActionButton
           onClick={() => {
             props.history.push("/solver");
