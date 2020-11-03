@@ -12,14 +12,13 @@ import "./trussSolver.scss";
 
 const TrussSolver = (props) => {
   const [displayNodes, setDisplayNodes] = useState(
-    nodeController.getAllNodes()
+    data.convertToNodeModel(nodeController.getAllNodes())
   );
   const [displayBars, setDisplayBars] = useState(barController.getAllBars());
   const [selectedNode, setSelectedNode] = useState({ id: "" });
   const [selectedBar, setSelectedBar] = useState({ id: "" });
 
   const handleAddNode = (data) => {
-    console.log(data);
     const nodes = nodeController.addNode(data);
     setDisplayNodes(nodes);
     setSelectedNode({ id: "" });
@@ -80,15 +79,14 @@ const TrussSolver = (props) => {
         bars: displayBars,
       })
       .then((res) => {
-        const nodeResults = nodeController.setNodeResults(
+        const resultantNodes = nodeController.setNodeResults(
           displayNodes,
           res.data.forces,
           res.data.displacement
         );
-
         props.history.push({
           pathname: "/solver/results",
-          state: { nodeResults },
+          state: { resultantNodes },
         });
       })
       .catch((error) => {

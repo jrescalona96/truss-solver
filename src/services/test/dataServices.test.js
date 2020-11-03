@@ -1,4 +1,9 @@
-import * as data from "../dataServices";
+import {
+  exaggerate,
+  createBarResults,
+  convertToBarModel,
+  convertToNodeModel,
+} from "../dataServices";
 import Node from "../../models/Node";
 import Bar from "../../models/Bar";
 import Material from "../../models/Material";
@@ -28,7 +33,7 @@ test("exaggerate by 60%", () => {
     ),
   ];
 
-  const result = data.exaggerate(nodes, 60);
+  const result = exaggerate(nodes, 60);
 
   expect(result).toContainEqual(
     new Node(
@@ -109,7 +114,7 @@ test("createBarResults should succeed", () => {
   calcNodes[2].displacement = new Displacement(10, 10);
 
   const bars = [bar0, bar1, bar2];
-  const result = data.createBarResults(bars, calcNodes);
+  const result = createBarResults(bars, calcNodes);
 
   node0.displacement = new Displacement(10, 10);
   node1.displacement = new Displacement(10, 10);
@@ -123,4 +128,123 @@ test("createBarResults should succeed", () => {
 
   expect(result[2].nodeI).toEqual(node0);
   expect(result[2].nodeJ).toEqual(node2);
+});
+
+test("convertToNodeModel should return Node objects", () => {
+  const data = [
+    {
+      _id: "_e64a4ewgl",
+      name: "A",
+      coordinates: { x: 0, y: 120 },
+      force: { x: 0, y: 0 },
+      support: { type: "Pin", x: 1, y: 1 },
+      displacement: { x: 0, y: 0 },
+    },
+    {
+      _id: "_66quanmr9",
+      name: "B",
+      coordinates: { x: 500, y: 120 },
+      force: { x: 0, y: 0 },
+      support: { type: "Roller", x: 0, y: 1 },
+      displacement: { x: 0, y: 0 },
+    },
+    {
+      _id: "_mwf72odwe",
+      name: "C",
+      coordinates: { x: 250, y: 250 },
+      force: { x: -100, y: -100 },
+      support: { type: "None", x: 0, y: 0 },
+      displacement: { x: 0, y: 0 },
+    },
+  ];
+
+  const res = convertToNodeModel(data);
+
+  res.map((item) => {
+    expect(item).toBeInstanceOf(Node);
+  });
+});
+
+test("convertToNodeModel should fail", () => {
+  expect(convertToNodeModel(null)).toBeNull();
+  expect(convertToNodeModel(undefined)).toBeNull();
+});
+
+test("convertToBarModel should return Node objects", () => {
+  const data = [
+    {
+      _id: "_c7az54cmn",
+      nodeI: {
+        _id: "_e64a4ewgl",
+        name: "A",
+        coordinates: { x: 0, y: 120 },
+        force: { x: 0, y: 0 },
+        support: { type: "Pin", x: 1, y: 1 },
+        displacement: { x: 0, y: 0 },
+      },
+      nodeJ: {
+        _id: "_66quanmr9",
+        name: "B",
+        coordinates: { x: 500, y: 120 },
+        force: { x: 0, y: 0 },
+        support: { type: "Roller", x: 0, y: 1 },
+        displacement: { x: 0, y: 0 },
+      },
+      material: { _type: "Steel", _index: 1, _rating: 29000 },
+      section: { type: "Circular", _radius: 1, area: 3.141592653589793 },
+    },
+    {
+      _id: "_eygxu24zd",
+      nodeI: {
+        _id: "_e64a4ewgl",
+        name: "A",
+        coordinates: { x: 0, y: 120 },
+        force: { x: 0, y: 0 },
+        support: { type: "Pin", x: 1, y: 1 },
+        displacement: { x: 0, y: 0 },
+      },
+      nodeJ: {
+        _id: "_mwf72odwe",
+        name: "C",
+        coordinates: { x: 250, y: 250 },
+        force: { x: -100, y: -100 },
+        support: { type: "None", x: 0, y: 0 },
+        displacement: { x: 0, y: 0 },
+      },
+      material: { _type: "Steel", _index: 1, _rating: 29000 },
+      section: { type: "Circular", _radius: 1, area: 3.141592653589793 },
+    },
+    {
+      _id: "_9iphsxa29",
+      nodeI: {
+        _id: "_mwf72odwe",
+        name: "C",
+        coordinates: { x: 250, y: 250 },
+        force: { x: -100, y: -100 },
+        support: { type: "None", x: 0, y: 0 },
+        displacement: { x: 0, y: 0 },
+      },
+      nodeJ: {
+        _id: "_66quanmr9",
+        name: "B",
+        coordinates: { x: 500, y: 120 },
+        force: { x: 0, y: 0 },
+        support: { type: "Roller", x: 0, y: 1 },
+        displacement: { x: 0, y: 0 },
+      },
+      material: { _type: "Steel", _index: 1, _rating: 29000 },
+      section: { type: "Circular", _radius: 1, area: 3.141592653589793 },
+    },
+  ];
+
+  const res = convertToBarModel(data);
+
+  res.map((item) => {
+    expect(item).toBeInstanceOf(Bar);
+  });
+});
+
+test("convertToBarModel should fail", () => {
+  expect(convertToBarModel(null)).toBeNull();
+  expect(convertToBarModel(undefined)).toBeNull();
 });

@@ -3,16 +3,27 @@ import Coordinates from "../models/Coordinates";
 import Displacement from "../models/Displacement";
 import Support from "../models/Support";
 import Force from "../models/Force";
-import { fetchAll, updateAll } from "../services/dataServices";
+import {
+  fetchAll,
+  updateAll,
+  convertToNodeModel,
+} from "../services/dataServices";
 
 /**
  * Get data from local storage
  * @return {Array} nodes from localStorage
  */
 export const getAllNodes = () => {
-  let nodes = fetchAll("nodes");
-  if (!nodes) nodes = updateAll("nodes", []);
-  return nodes;
+  const data = fetchAll("nodes");
+  if (!data) return updateAll("nodes", []);
+  try {
+    const nodes = convertToNodeModel(data);
+    return nodes;
+  } catch (error) {
+    // Should never happen
+    // Nodes are always initialized to [] if there are no saved nodes
+    console.error(error);
+  }
 };
 
 /**
@@ -36,13 +47,15 @@ export const _generateName = (nodes) => {
 
 // TODO: TEST
 export const getNodeById = (id) => {
-  const node = getAllNodes().find((item) => item._id === id);
+  const allNodes = fetchAll("nodes");
+  const node = allNodes.find((item) => item._id === id);
   return node;
 };
 
 // TODO: TEST
 export const getNodeByName = (n) => {
-  const node = getAllNodes().find((item) => item.name === n);
+  const allNodes = fetchAll("nodes");
+  const node = allNodes.find((item) => item.name === n);
   return node;
 };
 
@@ -131,7 +144,7 @@ export const createNode = (data) => {
       yDisplacement,
     } = data;
 
-    const allNodes = getAllNodes();
+    const allNodes = getAllNodes(); // TODO: Refactor to contain Node objects
     const node = new Node(
       _id ? _id : _generateId(),
       name ? name : _generateName(allNodes),
@@ -147,7 +160,7 @@ export const createNode = (data) => {
 
 export const setForce = (data, source) => {
   return source.map((item) => {
-    const node = { ...item };
+    const node = item;
     const { x, y } = data[item._id];
     node.force = new Force(x, y);
     return node;
@@ -156,7 +169,7 @@ export const setForce = (data, source) => {
 
 export const setDisplacement = (data, source) => {
   return source.map((item) => {
-    const node = { ...item };
+    const node = item;
     const { x, y } = data[item._id];
     node.displacement = new Displacement(x, y);
     return node;

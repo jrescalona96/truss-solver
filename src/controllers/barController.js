@@ -1,24 +1,18 @@
 import * as nodeController from "./nodeController";
-import { fetchAll, updateAll } from "../services/dataServices";
+import {
+  fetchAll,
+  updateAll,
+  convertToBarModel,
+} from "../services/dataServices";
 import Bar from "../models/Bar";
 import Material from "../models/Material";
 import Rectangular from "../models/Rectangular";
 import Circular from "../models/Circular";
 
 export const getAllBars = () => {
-  let bars = fetchAll("bars");
-  if (!bars) bars = updateAll("bars", []);
-  bars.map((item) => {
-    const { _id, nodeI, nodeJ, material, section } = item;
-    return new Bar(
-      _id,
-      nodeController.createNode(nodeI),
-      nodeController.createNode(nodeJ),
-      material,
-      section
-    );
-  });
-
+  const data = fetchAll("bars");
+  if (!data) return updateAll("bars", []);
+  const bars = convertToBarModel(data);
   return bars;
 };
 
@@ -73,6 +67,7 @@ export const deleteConnectedBars = (id) => {
 // TODO: TEST
 export const createBar = (data) => {
   const { _id, material, section } = data;
+  // TODO: relocate creation of section
   const newSection =
     section === "Circular" ? new Circular(1) : new Rectangular(1, 1);
   const nodes = getBarNodes(data);
@@ -82,7 +77,7 @@ export const createBar = (data) => {
       _id ? _id : _generateId(),
       nodeI,
       nodeJ,
-      new Material(material),
+      material,
       newSection
     );
     return bar;

@@ -1,10 +1,24 @@
+import Material from "./Material";
+import Section from "./Section";
+import Circular from "./Circular";
+
 export default class Bar {
-  constructor(id, nodeI, nodeJ, material, section) {
+  constructor(
+    id,
+    nodeI,
+    nodeJ,
+    material,
+    section,
+    internalForce = 0,
+    stress = 0
+  ) {
     this._id = id;
     this.nodeI = nodeI;
     this.nodeJ = nodeJ;
-    this.material = material;
-    this.section = section;
+    this.material = new Material(material);
+    this.section = section; // TODO: relocate creation of section
+    this.internalForce = internalForce;
+    this.stress = stress;
   }
 
   get length() {

@@ -9,11 +9,7 @@ const TableBody = ({ data, columns }) => {
         <tr key={item._id}>
           {columns.map((col) => {
             const val = _.get(item, col.path);
-            return (
-              <td key={col.path} scope="row">
-                {isNaN(val) ? val : val.toFixed(2)}
-              </td>
-            );
+            return <td key={col.path}>{isNaN(val) ? val : val.toFixed(2)}</td>;
           })}
         </tr>
       ))}
