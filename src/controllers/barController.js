@@ -5,9 +5,6 @@ import {
   convertToBarModel,
 } from "../services/dataServices";
 import Bar from "../models/Bar";
-import Material from "../models/Material";
-import Rectangular from "../models/Rectangular";
-import Circular from "../models/Circular";
 
 export const getAllBars = () => {
   const data = fetchAll("bars");
@@ -23,17 +20,7 @@ const _generateId = () => {
 export const getBarById = (id) => {
   const bars = getAllBars();
   const bar = bars.find((item) => item._id === id);
-
-  if (bar) {
-    const { _id, nodeI, nodeJ } = bar;
-    const section =
-      bar.section === "Circular" ? new Circular(1) : new Rectangular(1, 1);
-    // TODO: update after fixing Material Model Class
-    const material = new Material(bar.material._type);
-    const newBar = new Bar(_id, nodeI, nodeJ, material, section);
-    return newBar;
-  }
-  return null;
+  return bar ? bar : null;
 };
 
 //TODO: TEST
@@ -121,5 +108,14 @@ export const addBar = (data) => {
 export const deleteBar = (id) => {
   const bars = getAllBars().filter((item) => item._id !== id);
   updateAll("bars", bars);
+  return bars;
+};
+
+export const setBarResults = (source, internalForces, stress) => {
+  const bars = source.map((item) => {
+    item.internalForce = internalForces[item._id];
+    item.stress = stress[item._id];
+    return item;
+  });
   return bars;
 };

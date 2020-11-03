@@ -19,6 +19,7 @@ export default class Bar {
       section === "Circular" ? new Circular(1) : new Rectangular(1, 1);
     this.internalForce = internalForce;
     this.stress = stress;
+    this.name = `${this.nodeI.name}${this.nodeJ.name}`;
   }
 
   get length() {

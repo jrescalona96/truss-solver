@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import * as nodeController from "../../controllers/nodeController";
 import * as barController from "../../controllers/barController";
+import * as data from "../../services/dataServices";
 import { calculatePlaneSize } from "../../controllers/coordinatePlaneController";
 import http from "../../services/httpServices";
-import * as data from "../../services/dataServices";
 import CoordinatePlane from "../common/coordinatePlane/index";
 import ActionButton from "../common/actionButton/index";
 import NodeForm from "../nodeForm/index";
@@ -14,7 +14,9 @@ const TrussSolver = (props) => {
   const [displayNodes, setDisplayNodes] = useState(
     data.convertToNodeModel(nodeController.getAllNodes())
   );
-  const [displayBars, setDisplayBars] = useState(barController.getAllBars());
+  const [displayBars, setDisplayBars] = useState(
+    data.convertToBarModel(barController.getAllBars())
+  );
   const [selectedNode, setSelectedNode] = useState({ id: "" });
   const [selectedBar, setSelectedBar] = useState({ id: "" });
 
@@ -78,15 +80,25 @@ const TrussSolver = (props) => {
         nodes: displayNodes,
         bars: displayBars,
       })
+
       .then((res) => {
         const resultantNodes = nodeController.setNodeResults(
           displayNodes,
           res.data.forces,
           res.data.displacement
         );
+
+        const resultantBars = barController.setBarResults(
+          displayBars,
+          res.data.internal,
+          res.data.stress
+        );
+
+        console.log(res.data);
+
         props.history.push({
           pathname: "/solver/results",
-          state: { resultantNodes },
+          state: { resultantNodes, resultantBars },
         });
       })
       .catch((error) => {

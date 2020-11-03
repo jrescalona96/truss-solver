@@ -7,14 +7,14 @@ import CoordinatePlane from "../common/coordinatePlane/index";
 import ActionButton from "../common/actionButton";
 import DisplacementTable from "../displacementTable";
 import ForcesTable from "../forcesTable/forcesTable";
-import _ from "lodash";
 import "./results.scss";
+import StressTable from "../stressTable/index";
+import InternalForcesTable from "../internalForcesTable/internalForcesTable";
 
 const Results = (props) => {
   const existingNodes = nodeController.getAllNodes();
   const existingBars = barController.getAllBars();
-  const { resultantNodes } = props.history.location.state;
-  const resultantBars = _.cloneDeep(existingBars);
+  const { resultantNodes, resultantBars } = props.history.location.state;
   const { planeSize, viewBox } = planeController.calculatePlaneSize(
     existingNodes
   );
@@ -39,10 +39,10 @@ const Results = (props) => {
       <div className="col-2">
         <DisplacementTable data={resultantNodes} />
         <ForcesTable data={resultantNodes} />
+        <StressTable data={resultantBars} />
+        <InternalForcesTable data={resultantBars} />
         <ActionButton
-          onClick={() => {
-            props.history.push("/solver");
-          }}
+          onClick={() => props.history.push("/solver")}
           label="Edit Members"
           color="info"
         />
