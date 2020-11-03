@@ -15,7 +15,7 @@ const Results = (props) => {
   const { planeSize, viewBox } = calculatePlaneSize(existingNodes);
 
   // exaggerate displacements
-  const exagNodeResults = data.exaggerate(nodeResults, 60);
+  const exagNodeResults = data.exaggerate(nodeResults, 40);
 
   // update bar results
   const exagBarResults = data.createBarResults(existingBars, exagNodeResults);
@@ -32,6 +32,23 @@ const Results = (props) => {
       id="results"
       className="d-flex justify-self-center justify-space-between m-2">
       <div className="col-2">
+        <h3>Displacements</h3>
+        <Table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>X</th>
+              <th>Y</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+            </tr>
+          </tbody>
+        </Table>
         <ActionButton
           onClick={() => {
             props.history.push("/solver");
