@@ -67,9 +67,7 @@ export const deleteConnectedBars = (id) => {
 // TODO: TEST
 export const createBar = (data) => {
   const { _id, material, section } = data;
-  // TODO: relocate creation of section
-  const newSection =
-    section === "Circular" ? new Circular(1) : new Rectangular(1, 1);
+  // TODO: Add dynamic dimensions for bar
   const nodes = getBarNodes(data);
   if (nodes) {
     const { nodeI, nodeJ } = nodes;
@@ -78,7 +76,7 @@ export const createBar = (data) => {
       nodeI,
       nodeJ,
       material,
-      newSection
+      section
     );
     return bar;
   } else {

@@ -3,6 +3,7 @@ import "./barForm.scss";
 import { Label } from "reactstrap";
 import Form from "../common/form/index";
 
+// TODO: Add dynamic dimensions for bar
 class BarForm extends Form {
   state = {
     data: {

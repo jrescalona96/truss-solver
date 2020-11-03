@@ -1,7 +1,6 @@
 import Material from "./Material";
-import Section from "./Section";
 import Circular from "./Circular";
-
+import Rectangular from "./Rectangular";
 export default class Bar {
   constructor(
     id,
@@ -16,7 +15,8 @@ export default class Bar {
     this.nodeI = nodeI;
     this.nodeJ = nodeJ;
     this.material = new Material(material);
-    this.section = section; // TODO: relocate creation of section
+    this.section =
+      section === "Circular" ? new Circular(1) : new Rectangular(1, 1);
     this.internalForce = internalForce;
     this.stress = stress;
   }
