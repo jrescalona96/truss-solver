@@ -9,7 +9,6 @@ const DisplacementTable = ({ data }) => {
     { path: "displacement.y", label: "Y" },
   ];
   const header = "Displacements";
-
   return <Table columns={columns} data={data} header={header} />;
 };
 export default DisplacementTable;
