@@ -94,8 +94,6 @@ const TrussSolver = (props) => {
           res.data.stress
         );
 
-        console.log(res.data);
-
         props.history.push({
           pathname: "/solver/results",
           state: { resultantNodes, resultantBars },
