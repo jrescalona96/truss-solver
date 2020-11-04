@@ -6,20 +6,20 @@ import "./styles/_global.scss";
 import "./App.css";
 
 const App = () => {
-  const baseRoute = "";
+  const baseRoute = "/";
   return (
     <div className="App">
       <Switch>
         <Route
           exact
-          path={`${baseRoute}/`}
+          path={`${baseRoute}`}
           component={(props) => <TrussSolver {...props} />}
         />
         <Route
-          path={`${baseRoute}/results`}
+          path={`${baseRoute}results`}
           render={(props) => <Results {...props} />}
         />
-        <Redirect from={`${baseRoute}*`} to={`${baseRoute}/`} />
+        <Redirect from={`${baseRoute}*`} to={`${baseRoute}`} />
       </Switch>
     </div>
   );

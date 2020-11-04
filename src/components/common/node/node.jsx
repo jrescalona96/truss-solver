@@ -26,14 +26,14 @@ const Node = ({
   const radius = size;
   const { xRel, yRel } = calcRelativeCoord(coordinates.x, coordinates.y);
   const labelPlacement = calcLabelPosition(radius, xRel, yRel);
-  const label = `${name} [${coordinates.x},${coordinates.y}]`;
+  const coords = `[${coordinates.x},${coordinates.y}]`;
+  const label = `${name}`;
 
   return (
     <g
       style={animation}
       className="clickable node"
       onClick={() => onClick(_id)}>
-      {labelOn && <CoordinatesLabel text={label} placement={labelPlacement} />}
       {force.x && forcesOn && (
         <Spring from={{ opacity: 0 }} to={{ opacity: 1 }} delay={500}>
           {(props) => (
@@ -74,6 +74,7 @@ const Node = ({
         isSelected={isSelected}
         nameOn={nameOn}
       />
+      {labelOn && <CoordinatesLabel text={label} placement={labelPlacement} />}
     </g>
   );
 };

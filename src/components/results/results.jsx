@@ -26,10 +26,10 @@ const Results = (props) => {
   const exagBarResults = data.createBarResults(resultantBars, exagNodeResults);
 
   const memberStyles = {
-    nodeSize: [6, 6],
-    nodeFill: "lightblue",
-    barSize: [4, 4],
-    barFill: ["orange", "#0000ffbf"],
+    nodeSize: [4, 4],
+    nodeFill: "white",
+    barSize: [6, 6],
+    barFill: ["gray", "#0000ff5f"],
   };
 
   return (
@@ -42,9 +42,9 @@ const Results = (props) => {
         <StressTable data={resultantBars} />
         <InternalForcesTable data={resultantBars} />
         <ActionButton
-          onClick={() => props.history.push("/solver")}
+          onClick={() => props.history.push("/")}
           label="Edit Members"
-          color="info"
+          color="warning"
         />
       </div>
 
@@ -57,11 +57,11 @@ const Results = (props) => {
           selectedNode={{ id: "" }}
           onSetSelectedNode={() => {}}
           onSetSelectedBar={() => {}}
-          primaryLabelsOn={true}
+          primaryLabelsOn={false}
           primaryNamesOn={false}
           primaryForcesOn={false}
+          secondaryLabelsOn={true}
           secondaryForcesOn={true}
-          secondaryLabelsOn={false}
           secondaryNamesOn={false}
           {...memberStyles}
         />
