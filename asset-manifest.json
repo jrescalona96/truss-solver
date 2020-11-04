@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/truss-solver/solver/static/css/main.66ba8ebf.chunk.css",
-    "main.js": "/truss-solver/solver/static/js/main.b9e41120.chunk.js",
-    "main.js.map": "/truss-solver/solver/static/js/main.b9e41120.chunk.js.map",
+    "main.css": "/truss-solver/solver/static/css/main.6f7b2056.chunk.css",
+    "main.js": "/truss-solver/solver/static/js/main.d4d27a81.chunk.js",
+    "main.js.map": "/truss-solver/solver/static/js/main.d4d27a81.chunk.js.map",
     "runtime-main.js": "/truss-solver/solver/static/js/runtime-main.701c12f6.js",
     "runtime-main.js.map": "/truss-solver/solver/static/js/runtime-main.701c12f6.js.map",
     "static/js/2.35043cc4.chunk.js": "/truss-solver/solver/static/js/2.35043cc4.chunk.js",
     "static/js/2.35043cc4.chunk.js.map": "/truss-solver/solver/static/js/2.35043cc4.chunk.js.map",
     "index.html": "/truss-solver/solver/index.html",
-    "precache-manifest.72c14ae4a0ace7a774b95c69afcd5925.js": "/truss-solver/solver/precache-manifest.72c14ae4a0ace7a774b95c69afcd5925.js",
+    "precache-manifest.33630b2aaed77522dceeab2b23633f30.js": "/truss-solver/solver/precache-manifest.33630b2aaed77522dceeab2b23633f30.js",
     "service-worker.js": "/truss-solver/solver/service-worker.js",
-    "static/css/main.66ba8ebf.chunk.css.map": "/truss-solver/solver/static/css/main.66ba8ebf.chunk.css.map",
+    "static/css/main.6f7b2056.chunk.css.map": "/truss-solver/solver/static/css/main.6f7b2056.chunk.css.map",
     "static/js/2.35043cc4.chunk.js.LICENSE.txt": "/truss-solver/solver/static/js/2.35043cc4.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.701c12f6.js",
     "static/js/2.35043cc4.chunk.js",
-    "static/css/main.66ba8ebf.chunk.css",
-    "static/js/main.b9e41120.chunk.js"
+    "static/css/main.6f7b2056.chunk.css",
+    "static/js/main.d4d27a81.chunk.js"
   ]
 }
