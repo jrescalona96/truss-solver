@@ -1,6 +1,6 @@
 {
   "name": "truss-solver",
-  "homepage": "https://jrescalona96.github.io/truss-solver/solver",
+  "homepage": "https://jrescalona96.github.io/truss-solver/solver/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
