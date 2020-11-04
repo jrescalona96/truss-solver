@@ -1,6 +1,5 @@
 {
   "name": "truss-solver",
-  "homepage": "https://jrescalona96.github.io/truss-solver/solver/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -25,6 +24,7 @@
     "react-zoom-pan-pinch": "^1.6.1",
     "reactstrap": "^8.5.1"
   },
+  "homepage": "https://jrescalona96.github.io/truss-solver/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
