@@ -12,14 +12,14 @@ const App = () => {
       <Switch>
         <Route
           exact
-          path={`${baseRoute}/solver/`}
+          path={`${baseRoute}/`}
           component={(props) => <TrussSolver {...props} />}
         />
         <Route
-          path={`${baseRoute}/solver/results`}
+          path={`${baseRoute}/results`}
           render={(props) => <Results {...props} />}
         />
-        <Redirect from={`${baseRoute}*`} to={`${baseRoute}/solver/`} />
+        <Redirect from={`${baseRoute}*`} to={`${baseRoute}/`} />
       </Switch>
     </div>
   );
