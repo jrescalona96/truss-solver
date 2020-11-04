@@ -19,7 +19,7 @@ const App = () => {
           path={`${baseRoute}results`}
           render={(props) => <Results {...props} />}
         />
-        <Redirect from={`*`} to={`${baseRoute}`} />
+        <Redirect from={`/*`} to={`${baseRoute}`} />
       </Switch>
     </div>
   );
