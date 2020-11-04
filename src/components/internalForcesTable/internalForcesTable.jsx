@@ -7,7 +7,7 @@ const InternalForcesTable = ({ data }) => {
     { path: "name", label: "Name" },
     { path: "stress", label: "Mag." },
   ];
-  const header = "Interal Forces";
+  const header = "Internal Forces";
 
   return <Table columns={columns} data={data} header={header} />;
 };
