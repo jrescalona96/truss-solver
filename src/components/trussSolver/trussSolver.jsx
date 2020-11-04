@@ -95,7 +95,7 @@ const TrussSolver = (props) => {
         );
 
         props.history.push({
-          pathname: "/results",
+          pathname: "/truss-solver/results",
           state: { resultantNodes, resultantBars },
         });
       })

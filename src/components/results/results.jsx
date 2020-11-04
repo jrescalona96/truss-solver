@@ -42,7 +42,7 @@ const Results = (props) => {
         <StressTable data={resultantBars} />
         <InternalForcesTable data={resultantBars} />
         <ActionButton
-          onClick={() => props.history.push("/")}
+          onClick={() => props.history.push("/truss-solver")}
           label="Edit Members"
           color="warning"
         />

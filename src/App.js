@@ -6,7 +6,7 @@ import "./styles/_global.scss";
 import "./App.css";
 
 const App = () => {
-  const baseRoute = "/";
+  const baseRoute = "/truss-solver/";
   return (
     <div className="App">
       <Switch>
@@ -19,7 +19,7 @@ const App = () => {
           path={`${baseRoute}results`}
           render={(props) => <Results {...props} />}
         />
-        <Redirect from={`${baseRoute}*`} to={`${baseRoute}`} />
+        <Redirect from={`*`} to={`${baseRoute}`} />
       </Switch>
     </div>
   );
