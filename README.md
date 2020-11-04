@@ -6,8 +6,6 @@ This application calculates resultant Node Forces and Displacements, Bar connect
 
 ## Truss Builder
 
-![Truss Builder Page](https://github.com/jrescalona96/truss-solver/blob/master/public/demopic1.png)
-
 ## Results
 
 ![Results Page](https://github.com/jrescalona96/truss-solver/blob/master/public/demopic2.png)
