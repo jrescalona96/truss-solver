@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/truss-solver/static/css/main.66ba8ebf.chunk.css",
-    "main.js": "/truss-solver/static/js/main.d606c0a4.chunk.js",
-    "main.js.map": "/truss-solver/static/js/main.d606c0a4.chunk.js.map",
-    "runtime-main.js": "/truss-solver/static/js/runtime-main.14b7e4c5.js",
-    "runtime-main.js.map": "/truss-solver/static/js/runtime-main.14b7e4c5.js.map",
-    "static/js/2.35043cc4.chunk.js": "/truss-solver/static/js/2.35043cc4.chunk.js",
-    "static/js/2.35043cc4.chunk.js.map": "/truss-solver/static/js/2.35043cc4.chunk.js.map",
-    "index.html": "/truss-solver/index.html",
-    "precache-manifest.29c45669624a807b54fe013442903b93.js": "/truss-solver/precache-manifest.29c45669624a807b54fe013442903b93.js",
-    "service-worker.js": "/truss-solver/service-worker.js",
-    "static/css/main.66ba8ebf.chunk.css.map": "/truss-solver/static/css/main.66ba8ebf.chunk.css.map",
-    "static/js/2.35043cc4.chunk.js.LICENSE.txt": "/truss-solver/static/js/2.35043cc4.chunk.js.LICENSE.txt"
+    "main.css": "/truss-solver/solver/static/css/main.66ba8ebf.chunk.css",
+    "main.js": "/truss-solver/solver/static/js/main.d606c0a4.chunk.js",
+    "main.js.map": "/truss-solver/solver/static/js/main.d606c0a4.chunk.js.map",
+    "runtime-main.js": "/truss-solver/solver/static/js/runtime-main.701c12f6.js",
+    "runtime-main.js.map": "/truss-solver/solver/static/js/runtime-main.701c12f6.js.map",
+    "static/js/2.35043cc4.chunk.js": "/truss-solver/solver/static/js/2.35043cc4.chunk.js",
+    "static/js/2.35043cc4.chunk.js.map": "/truss-solver/solver/static/js/2.35043cc4.chunk.js.map",
+    "index.html": "/truss-solver/solver/index.html",
+    "precache-manifest.8954798f3ea4aaf2e2391e275d44d34a.js": "/truss-solver/solver/precache-manifest.8954798f3ea4aaf2e2391e275d44d34a.js",
+    "service-worker.js": "/truss-solver/solver/service-worker.js",
+    "static/css/main.66ba8ebf.chunk.css.map": "/truss-solver/solver/static/css/main.66ba8ebf.chunk.css.map",
+    "static/js/2.35043cc4.chunk.js.LICENSE.txt": "/truss-solver/solver/static/js/2.35043cc4.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.14b7e4c5.js",
+    "static/js/runtime-main.701c12f6.js",
     "static/js/2.35043cc4.chunk.js",
     "static/css/main.66ba8ebf.chunk.css",
     "static/js/main.d606c0a4.chunk.js"
