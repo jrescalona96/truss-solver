@@ -6,8 +6,8 @@ import axios from "axios";
 axios.defaults.baseURL = "https://truss-solver-server.herokuapp.com/";
 
 export default {
-  get: axios.get,
-  post: axios.post,
-  put: axios.put,
-  delete: axios.delete,
+	get: axios.get,
+	post: axios.post,
+	put: axios.put,
+	delete: axios.delete,
 };
